@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Emergency</string>
+    <string name="emergeny_call_sent">Emergeny Call sent</string>
 </resources>
