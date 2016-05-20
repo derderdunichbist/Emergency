@@ -13,4 +13,10 @@ public class BloodType {
     public static final String B_POS = "B+";
     public static final String AB_NEG = "AB-";
     public static final String AB_POS = "AB+";
+
+    private String bloodType;
+
+    public BloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
 }
