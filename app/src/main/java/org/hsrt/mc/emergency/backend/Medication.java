@@ -17,4 +17,16 @@ public class Medication {
      * TODO Irregularity must be covered (such as Insulin: only when high on blood sugar)
      */
     private int amountPerDay;
+
+
+    public Medication(){
+
+    }
+
+
+    public String getMedicationText(){
+        String medicationText = "";
+        medicationText += "Ich benoetige das Medikament" + this.name + ", davon " + this.dosis + " und das " + this.amountPerDay + "taeglich";
+        return medicationText;
+    }
 }

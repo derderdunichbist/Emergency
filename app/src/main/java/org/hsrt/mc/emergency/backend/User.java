@@ -16,4 +16,26 @@ public class User {
     private List<String> diseases;
     private List<String> specialNeeds;
     private List<Contact> contacts;
+
+
+    public User(){
+
+    }
+
+    public String getBloodType(){
+        return this.bloodType;
+    }
+
+    public String getMedication(){
+        String allMedicationText = "";
+        for( Medication m: medication )
+        {
+            allMedicationText += m.getMedicationText();
+        }
+        return allMedicationText;
+    }
+
+
+
+
 }
