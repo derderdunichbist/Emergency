@@ -12,6 +12,8 @@ public class Medication {
      */
     private String dosis;
 
+    private String manufacturer;
+
     /**
      * Descibes if medication needs to be taken once, twice or trice a day
      * TODO Irregularity must be covered (such as Insulin: only when high on blood sugar)
