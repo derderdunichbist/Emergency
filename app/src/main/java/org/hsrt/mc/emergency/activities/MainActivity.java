@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,14 +34,15 @@ public class MainActivity extends AppCompatActivity
 
     final private int PERMISSION = 23;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_SHORT).show();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         gpslocationbtn = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -85,6 +88,13 @@ public class MainActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 PERMISSION);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
