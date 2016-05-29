@@ -14,6 +14,7 @@ public class UserMessage {
 
     public UserMessage(User u){
         this.u = u;
+
         //this.position =
         emergencyMessage += "Hallo, ich bin ein armer Kosta helft mir, Ich befinde mich: ";
         emergencyMessage += position;
