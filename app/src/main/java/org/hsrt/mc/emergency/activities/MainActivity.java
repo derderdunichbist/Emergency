@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity
 
     final private int PERMISSION = 23;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
