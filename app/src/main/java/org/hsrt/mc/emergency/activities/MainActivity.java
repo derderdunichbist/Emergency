@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity
 {
 
-    Button gpslocationbtn;
+    FloatingActionButton gpslocationbtn;
     GPS gps;
     UserMessage msg;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         //Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_SHORT).show();
 
-        gpslocationbtn = (Button) findViewById(R.id.button);
+        gpslocationbtn = (FloatingActionButton) findViewById(R.id.fab);
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
 
