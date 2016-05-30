@@ -17,8 +17,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -161,8 +159,32 @@ public class GPS extends Service implements LocationListener
 
         return longitude;
     }
-    // TODO
-    // GPS Daten in Geo Koordinaten konvertieren
+
+
+    public String getGeoLocation(double latitude, double longitude)
+    {
+        String address = "";
+
+        Geocoder geo = new Geocoder(this, Locale.getDefault());
+
+        try {
+
+            List<Address> addressList = geo.getFromLocation(latitude, longitude, 1);
+            if (addressList != null) {
+                Address addresses = addressList.get(0);
+                StringBuilder addressStr = new StringBuilder("");
+
+                for (int i = 0; i < addresses.getMaxAddressLineIndex(); i++) {
+                    addressStr.append(addresses.getAddressLine(i)).append("\n");
+                }
+                address = addressStr.toString();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return address;
+    }
 
     public boolean canGetLocation()
     {
