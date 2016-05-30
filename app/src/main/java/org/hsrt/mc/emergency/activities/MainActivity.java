@@ -26,7 +26,7 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity
 {
 
-    FloatingActionButton gpslocationbtn;
+    FloatingActionButton sosBtn;
     GPS gps;
     UserMessage msg;
 
@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        gpslocationbtn = (FloatingActionButton) findViewById(R.id.fab);
+        sosBtn = (FloatingActionButton) findViewById(R.id.fab);
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
 
 
-        gpslocationbtn.setOnClickListener(new View.OnClickListener() {
+        sosBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v)
