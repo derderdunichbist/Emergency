@@ -169,7 +169,7 @@ public class GPS extends Service implements LocationListener
         return this.canGetLocation;
     }
 
-    public void showSettingsAlert()
+    public void showSettings()
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
@@ -204,7 +204,12 @@ public class GPS extends Service implements LocationListener
     @Override
     public void onLocationChanged(Location arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO
+        // Update KOO
+
+    }{
+        // TODO
+        // Update KOO
 
     }
 

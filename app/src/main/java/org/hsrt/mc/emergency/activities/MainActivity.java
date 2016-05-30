@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import org.hsrt.mc.emergency.backend.UserMessage;
 import java.util.Iterator;
 import java.util.Set;
 
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -30,8 +33,39 @@ public class MainActivity extends AppCompatActivity
 
     SharedPreferences detectFirstRun = null;
 
-    final private int PERMISSION = 23;
+    Runnable run = new Runnable() {
 
+
+
+        @Override
+        public void run()
+        {
+            gps = new GPS(MainActivity.this);
+
+            if(gps.canGetLocation()) {
+                double latitude = gps.getLatitude();
+                double longitude = gps.getLongitude();
+                if(latitude == 0.0 && longitude == 0.0){
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
+                }else{
+
+                    // Vorerst Standort als Längen-und Breitengrad
+                    String location = "Latitude: " + latitude + "Longitude: " +  longitude;
+                    Toast.makeText(
+                            getApplicationContext(), location
+                            , Toast.LENGTH_LONG).show();
+
+                    // msg = new UserMessage(?USER?, location);
+
+                }
+            } else {
+                gps.showSettings();
+            }
+
+        }
+    };
 
 
     @Override
@@ -39,52 +73,74 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_SHORT).show();
 
         gpslocationbtn = (FloatingActionButton) findViewById(R.id.fab);
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
 
 
-        gpslocationbtn.setOnClickListener(new View.OnClickListener() {
+        final Handler handel = new Handler();
+        gpslocationbtn.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
-            public void onClick(View v)
+            public boolean onTouch(View arg0, MotionEvent arg1)
             {
-                gps = new GPS(MainActivity.this);
+                switch (arg1.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
 
-                if(gps.canGetLocation()) {
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-                    if(latitude == 0.0 && longitude == 0.0){
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
-                    }else{
+                        handel.postDelayed(run, 5000);
+                        break;
 
-                        // Vorerst Standort als Längen-und Breitengrad
-                        String location = "Latitude: " + latitude + "Longitude: " +  longitude;
-                        Toast.makeText(
-                                getApplicationContext(), location
-                                , Toast.LENGTH_LONG).show();
+                    default:
+                        handel.removeCallbacks(run);
+                        break;
 
-                    // msg = new UserMessage(?USER?, location);
-
-                    }
-
-                } else {
-                    gps.showSettingsAlert();
                 }
+                return true;
             }
         });
+
+
+
+
+//        gpslocationbtn.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v)
+//            {
+//                gps = new GPS(MainActivity.this);
+//
+//                if(gps.canGetLocation()) {
+//                    double latitude = gps.getLatitude();
+//                    double longitude = gps.getLongitude();
+//                    if(latitude == 0.0 && longitude == 0.0){
+//                        Toast.makeText(
+//                                getApplicationContext(),
+//                                "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
+//                    }else{
+//
+//                        // Vorerst Standort als Längen-und Breitengrad
+//                        String location = "Latitude: " + latitude + "Longitude: " +  longitude;
+//                        Toast.makeText(
+//                                getApplicationContext(), location
+//                                , Toast.LENGTH_LONG).show();
+//
+//                    // msg = new UserMessage(?USER?, location);
+//
+//                    }
+//                } else {
+//                    gps.showSettings();
+//                }
+//            }
+//        });
 
     }
 
     private void grantPermissionOnFirstRun()
     {
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                PERMISSION);
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+                23);
     }
 
     @Override
