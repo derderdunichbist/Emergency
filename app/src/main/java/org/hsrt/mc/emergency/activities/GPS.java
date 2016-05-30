@@ -75,7 +75,7 @@ public class GPS extends Service implements LocationListener
                     {
 
                         ActivityCompat.requestPermissions((Activity) context,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
                                 PERMISSION);
 
 

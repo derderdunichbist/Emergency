@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        android:text="In case of emergency, push SOS button"
+        android:id="@+id/textView5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,73 +28,70 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:src="@android:drawable/ic_dialog_alert"
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="72dp"
+
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:longClickable="true"
+
+
+        android:baselineAlignBottom="false"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.50"
+        android:elegantTextHeight="false"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        app:elevation="@dimen/abc_action_bar_overflow_padding_end_material"
+        android:clickable="true"
+        android:background="#000000" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:weightSum="1">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:src="@android:drawable/ic_dialog_alert"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
-            android:longClickable="false"
-
-
-            android:baselineAlignBottom="false"
-            android:layout_above="@+id/textView"
-            android:layout_alignEnd="@+id/textView6"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentEnd="false"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.50"
-            android:layout_marginTop="50dp"
-            android:elegantTextHeight="false" />
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:longClickable="false">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/emergeny_call_sent"
-            android:id="@+id/textView"
-            android:layout_marginTop="46dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textView6"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.04" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main" />
-
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />-->
+            android:text="Receipient 1"
+            android:id="@+id/textView2"
+            android:layout_above="@+id/fab"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="350dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Receipient 2"
-            android:id="@+id/textView3" />
+            android:id="@+id/textView3"
+            android:layout_above="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Receipient 3"
-            android:id="@+id/textView4" />
+            android:id="@+id/textView4"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentStart="true" />
+
     </LinearLayout>
 
 </RelativeLayout>
