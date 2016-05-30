@@ -1,4 +1,4 @@
-package org.hsrt.mc.emergency.activities;
+package org.hsrt.mc.emergency.backend;
 
 import android.Manifest;
 import android.app.Activity;
