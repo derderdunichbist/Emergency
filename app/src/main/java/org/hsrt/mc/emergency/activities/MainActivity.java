@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         gpslocationbtn = (FloatingActionButton) findViewById(R.id.fab);
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
@@ -59,10 +64,15 @@ public class MainActivity extends AppCompatActivity
                                 getApplicationContext(),
                                 "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
                     }else{
-                        String location = gps.getGeoLocation(latitude,longitude);
-                        Toast.makeText(
-                                getApplicationContext(), location
-                                , Toast.LENGTH_LONG).show();
+                        try{
+                            String location = gps.getGeoLocation(latitude,longitude);
+                            Toast.makeText(
+                                    getApplicationContext(), location
+                                    , Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(MainActivity.this, "Unable to detect location", Toast.LENGTH_SHORT).show();
+                        }
+
 
                     // msg = new UserMessage(?USER?, location);
 
@@ -81,6 +91,13 @@ public class MainActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
                 23);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
