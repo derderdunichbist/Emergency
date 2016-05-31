@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
 {
 
     FloatingActionButton sosBtn;
-    GPS gps;
+    GPS gps; // GPS Modul
     UserMessage msg;
 
     SharedPreferences detectFirstRun = null;
