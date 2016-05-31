@@ -16,6 +16,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.backend.GPS;
 import org.hsrt.mc.emergency.backend.UserMessage;
@@ -23,12 +31,13 @@ import org.hsrt.mc.emergency.backend.UserMessage;
 import java.util.Iterator;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
 
     FloatingActionButton sosBtn;
     GPS gps; // GPS Modul
     UserMessage msg;
+    private GoogleMap mMap;
 
     SharedPreferences detectFirstRun = null;
 
@@ -40,6 +49,11 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
         sosBtn = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -106,6 +120,18 @@ public class MainActivity extends AppCompatActivity
             grantPermissionOnFirstRun();
            detectFirstRun.edit().putBoolean("firstrun", false).commit();
         }
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+        // Add a marker in your OwnPosition and move the camera
+        LatLng hochschule = new LatLng(48.482494, 9.1879501);
+        mMap.addMarker(new MarkerOptions().position(hochschule).title("Mein Standort"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(hochschule));
+        mMap.animateCamera(zoom);
     }
 
 
