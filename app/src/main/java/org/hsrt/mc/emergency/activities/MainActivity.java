@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity
 
     SharedPreferences detectFirstRun = null;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity
         sosBtn = (FloatingActionButton) findViewById(R.id.fab);
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
-
 
         sosBtn.setOnClickListener(new View.OnClickListener() {
 
