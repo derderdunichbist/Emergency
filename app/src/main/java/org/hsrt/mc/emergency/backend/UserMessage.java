@@ -31,6 +31,7 @@ public class UserMessage {
 
                 } catch (Exception e) {
                     Toast.makeText(con, "Unable to detect location", Toast.LENGTH_SHORT).show();
+                    successful = false;
                 }
                 // msg = new UserMessage(?USER?, location);
             }
@@ -40,18 +41,18 @@ public class UserMessage {
         }
 
 
-        User u = new User();
-        emergencyMessage += "Hallo, ich bin ein armer Kosta helft mir, Ich befinde mich: ";
+        //User u = new User();
+        //emergencyMessage += "Hallo, ich bin ein armer Kosta helft mir, Ich befinde mich: ";
 
-        emergencyMessage += location;
-        if (u.getMedication() != null){
-            emergencyMessage += "Medikamente die ich einnehme";
+        emergencyMessage = location;
+       // if (u.getMedication() != null){
+        //    emergencyMessage += "Medikamente die ich einnehme";
             //emergencyMessage += u.getMedication();
-        }
-        if (u.getBloodType() != null){
-            emergencyMessage += "Meine Blutgruppe: ";
+       // }
+        //if (u.getBloodType() != null){
+        //   emergencyMessage += "Meine Blutgruppe: ";
             //emergencyMessage += u.getBloodType();
-        }
+       // }
 
     }
 

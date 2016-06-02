@@ -21,14 +21,15 @@ public class SendingService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent) { //Sending Service Handle with invoke of an intent
 
+        UserMessage userMessage = new UserMessage(this.getApplicationContext());
         // build notification (icon,title,text)
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.emerg_button)
                         .setContentTitle("Emergency-Call")
-                        .setContentText("Your Emergency Call is send");
+                        .setContentText(userMessage.getEmergencyMessage());
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

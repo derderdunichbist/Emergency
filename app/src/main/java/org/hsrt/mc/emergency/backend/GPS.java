@@ -165,7 +165,7 @@ public class GPS extends Service implements LocationListener
     {
         String address = "";
 
-        Geocoder geo = new Geocoder(this, Locale.getDefault());
+        Geocoder geo = new Geocoder(this.context, Locale.getDefault());
 
         try {
 
