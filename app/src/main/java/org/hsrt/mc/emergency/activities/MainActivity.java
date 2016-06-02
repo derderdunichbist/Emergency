@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.backend.GPS;
+import org.hsrt.mc.emergency.backend.SendingService;
 import org.hsrt.mc.emergency.backend.UserMessage;
 
 import java.util.Iterator;
@@ -64,33 +65,39 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v)
             {
-                gps = new GPS(MainActivity.this);
+                //  gps = new GPS(MainActivity.this);
 
-                if(gps.canGetLocation()) {
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-                    if(latitude == 0.0 && longitude == 0.0){
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
-                    }else{
-                        try{
-                            String location = gps.getGeoLocation(latitude,longitude);
-                            Toast.makeText(
-                                    getApplicationContext(), location
-                                    , Toast.LENGTH_LONG).show();
-                        } catch (Exception e) {
-                            Toast.makeText(MainActivity.this, "Unable to detect location", Toast.LENGTH_SHORT).show();
-                        }
+                //  if(gps.canGetLocation()) {
+                    //    double latitude = gps.getLatitude();
+                    //   double longitude = gps.getLongitude();
+                    //   if(latitude == 0.0 && longitude == 0.0){
+                        //      Toast.makeText(
+                        //          getApplicationContext(),
+                                //               "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
+                                //   }else{
+                        // try{
+                            //  String location = gps.getGeoLocation(latitude,longitude);
+                            // Toast.makeText(
+                                    //      getApplicationContext(), location
+                                    //            , Toast.LENGTH_LONG).show();
+                            //  } catch (Exception e) {
+                            //     Toast.makeText(MainActivity.this, "Unable to detect location", Toast.LENGTH_SHORT).show();
+                            //  }
 
 
                     // msg = new UserMessage(?USER?, location);
 
-                    }
+                //    }
 
-                } else {
-                    gps.showSettings();
-                }
+            //  } else {
+                //       gps.showSettings();
+                //  }
+
+                Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
+                startService(serviceIntent);
+
+                Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+
             }
         });
 
