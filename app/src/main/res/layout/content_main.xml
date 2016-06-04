@@ -44,7 +44,7 @@
         android:id="@+id/fab"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:src="@android:drawable/ic_dialog_alert"
+        android:src="@drawable/ic_launcher"
         android:layout_marginLeft="72dp"
         android:layout_marginRight="72dp"
 
@@ -60,9 +60,8 @@
         android:layout_alignTop="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        app:elevation="@dimen/abc_action_bar_overflow_padding_end_material"
         android:clickable="true"
-        android:background="#000000" />
+ />
 
     <LinearLayout
         android:orientation="vertical"
