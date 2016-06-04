@@ -29,7 +29,7 @@ public class SendingService extends IntentService {
         // build notification (icon,title,text)
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.emerg_button)
+                        .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("Emergency-Call")
                         .setContentText(userMessage.getEmergencyMessage());
 

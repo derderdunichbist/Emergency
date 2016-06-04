@@ -1,11 +1,18 @@
 package org.hsrt.mc.emergency.activities;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +20,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,16 +44,21 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
 
-    FloatingActionButton sosBtn;
+    ImageButton sosBtn;
     GPS gps; // GPS Modul
     UserMessage msg;
     private GoogleMap mMap;
+    private static boolean  sosCallsend;
+    private float timer;
+
+    private Vibrator vib;
+    CountDownTimer countDown;
 
     SharedPreferences detectFirstRun = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
-    {
+        {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -55,8 +69,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        vib = (Vibrator) MainActivity.this.getSystemService(MainActivity.this.VIBRATOR_SERVICE);
 
-        sosBtn = (FloatingActionButton) findViewById(R.id.fab);
+
+        sosBtn = (ImageButton) findViewById(R.id.fab);
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
 
@@ -65,42 +81,104 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v)
             {
-                //  gps = new GPS(MainActivity.this);
 
-                //  if(gps.canGetLocation()) {
-                    //    double latitude = gps.getLatitude();
-                    //   double longitude = gps.getLongitude();
-                    //   if(latitude == 0.0 && longitude == 0.0){
-                        //      Toast.makeText(
-                        //          getApplicationContext(),
-                                //               "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
-                                //   }else{
-                        // try{
-                            //  String location = gps.getGeoLocation(latitude,longitude);
-                            // Toast.makeText(
-                                    //      getApplicationContext(), location
-                                    //            , Toast.LENGTH_LONG).show();
-                            //  } catch (Exception e) {
-                            //     Toast.makeText(MainActivity.this, "Unable to detect location", Toast.LENGTH_SHORT).show();
-                            //  }
+                // Request Permission for sdk 23
+
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions((Activity) MainActivity.this,
+                            new String[]{Manifest.permission.SEND_SMS},
+                            24);
+                }else{
 
 
-                    // msg = new UserMessage(?USER?, location);
+                 countDown =  new CountDownTimer(10000, 100)
+                    {
 
-                //    }
+                        public void onTick(long millisUntilFinished)
+                        {
+                            timer = millisUntilFinished / 100;
 
-            //  } else {
-                //       gps.showSettings();
-                //  }
 
-                Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
-                startService(serviceIntent);
+                        }
 
-                Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+                        public void onFinish()
+                        {
+                            if(sosCallsend){
+
+
+                            Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
+                            startService(serviceIntent);
+
+                            Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+                            sosCallsend = false;
+                            }
+                        }
+                    }.start();
+
+
+
+                }
+            if(sosCallsend){
+                showCancelDialog();
+            }else{
+                setVibrationTime(10000);
+
+            }
+                sosCallsend = true;
+
 
             }
         });
 
+    }
+
+    private void showCancelDialog()
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+
+        alertDialog.setTitle("Notruf");
+
+        alertDialog.setMessage("Wollen Sie den Notruf wirklich abbrechen?");
+
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener()
+        {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                if(timer > 0){
+                    countDown.cancel();
+                    sosCallsend = false;
+                    vib.cancel();
+
+                }
+
+                Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener()
+        {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    private void setVibrationTime(int time)
+    {
+        if(time >= 0){
+
+            vib.vibrate(time);
+
+        }
     }
 
     private void grantPermissionOnFirstRun()
@@ -111,7 +189,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;

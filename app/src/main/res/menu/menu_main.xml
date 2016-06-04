@@ -7,9 +7,5 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/andys_mama"
-        android:orderInCategory="100"
-        android:title="Andys Mama bumsen"
-        app:showAsAction="never" />
+    // Nochmal so ein Ding und ich verpass dir n Roundhousekick 360
 </menu>
