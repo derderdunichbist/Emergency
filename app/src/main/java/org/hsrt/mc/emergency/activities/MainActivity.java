@@ -151,10 +151,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     countDown.cancel();
                     sosCallsend = false;
                     vib.cancel();
+                    Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
 
                 }
 
-                Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
 
             }
         });
