@@ -1,7 +1,6 @@
 package org.hsrt.mc.emergency.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,15 +11,12 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
-import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     GPS gps; // GPS Modul
     UserMessage msg;
     private GoogleMap mMap;
-    private static boolean  sosCallsend;
-    private float timer;
+    private static boolean sosButtonPressed;
+    private static float timer;
 
     private Vibrator vib;
     CountDownTimer countDown;
@@ -83,15 +79,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             {
 
                 // Request Permission for sdk 23
-
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions((Activity) MainActivity.this,
-                            new String[]{Manifest.permission.SEND_SMS},
-                            24);
-                }else{
-
-
+                grantPermissionOnFirstRun();
                  countDown =  new CountDownTimer(10000, 100)
                     {
 
@@ -104,28 +92,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         public void onFinish()
                         {
-                            if(sosCallsend){
+                            if(sosButtonPressed){
 
 
                             Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
                             startService(serviceIntent);
 
                             Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
-                            sosCallsend = false;
+                            sosButtonPressed = false;
                             }
                         }
                     }.start();
 
-
-
-                }
-            if(sosCallsend){
+            if(sosButtonPressed){
                 showCancelDialog();
             }else{
                 setVibrationTime(10000);
 
             }
-                sosCallsend = true;
+                sosButtonPressed = true;
 
 
             }
@@ -149,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             {
                 if(timer > 0){
                     countDown.cancel();
-                    sosCallsend = false;
+                    sosButtonPressed = false;
                     vib.cancel();
                     Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
 
@@ -183,9 +168,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void grantPermissionOnFirstRun()
     {
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
-                23);
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.SEND_SMS},
+                    23);
+        }
     }
 
     @Override
