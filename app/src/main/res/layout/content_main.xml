@@ -26,7 +26,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="586dp"
-        tools:context="org.hsrt.mc.emergency.MapsOwnPosition"
+        tools:context=".activities.MapsOwnPosition"
         android:layout_above="@+id/linearLayout" />
 
 
