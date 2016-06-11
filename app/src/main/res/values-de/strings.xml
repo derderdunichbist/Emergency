@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Emergency</string>
     <string name="emergeny_call_sent">Notruf abgesetzt</string>
+    <string name="specifiedContacts">Festgelegte Kontakte:</string>
 </resources>
