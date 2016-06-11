@@ -1,4 +1,4 @@
-package org.hsrt.mc.emergency.backend;
+package org.hsrt.mc.emergency.user;
 
 /**
  * Created by KA on 14.05.2016.

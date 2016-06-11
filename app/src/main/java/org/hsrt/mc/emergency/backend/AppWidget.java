@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.backend.SendingService;
 
 /**
  * Created by Fabian on 31.05.2016.

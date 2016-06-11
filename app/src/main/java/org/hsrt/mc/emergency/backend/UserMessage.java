@@ -1,8 +1,9 @@
 package org.hsrt.mc.emergency.backend;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
+
+import org.hsrt.mc.emergency.user.User;
 
 /**
  * Created by David on 28.05.2016.

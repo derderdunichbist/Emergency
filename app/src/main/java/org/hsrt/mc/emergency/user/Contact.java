@@ -1,4 +1,4 @@
-package org.hsrt.mc.emergency.backend;
+package org.hsrt.mc.emergency.user;
 
 /**
  * Created by KA on 14.05.2016.
@@ -10,6 +10,10 @@ public class Contact {
     private String email;
     private String phoneNumber;
     private ePriority priority;
+
+    public Contact() {
+
+    }
 
 
     public Contact (String firstName, String lastName, String email, String phoneNubmer, ePriority priority){
@@ -58,5 +62,19 @@ public class Contact {
 
     public void setPriority(ePriority priority) {
         this.priority = priority;
+    }
+
+    public String getCompleteName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    public void setNameFromCompleteName(String name) {
+
+            String[] names = name.split(" ");
+            this.firstName = names[0];
+
+            if(names.length > 1) {
+                this.lastName = names[1];
+            }
     }
 }
