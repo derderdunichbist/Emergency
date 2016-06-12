@@ -62,7 +62,7 @@ public class GPS extends Service implements LocationListener
 
             if (!isGPSEnabled && !isNetworkEnabled)
             {
-
+                showSettings();
             } else {
                 this.canGetLocation = true;
 
