@@ -1,8 +1,9 @@
-package org.hsrt.mc.emergency.backend;
+package org.hsrt.mc.emergency.utils;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.user.User;
 
 /**

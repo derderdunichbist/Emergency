@@ -1,4 +1,4 @@
-package org.hsrt.mc.emergency.backend;
+package org.hsrt.mc.emergency.services;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -6,9 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
-import android.widget.Toast;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.utils.UserMessage;
 
 /**
  * Created by Fabian on 31.05.2016.

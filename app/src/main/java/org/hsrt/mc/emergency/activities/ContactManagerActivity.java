@@ -1,22 +1,24 @@
 package org.hsrt.mc.emergency.activities;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.user.Contact;
 
 import java.util.Iterator;
 import java.util.Set;
 
-public class ContactManagerActivity extends AppCompatActivity {
+public class ContactManagerActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +39,12 @@ public class ContactManagerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ListView listView = (ListView)findViewById(R.id.contactsListViewTest);
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        //ListView listView = (ListView)findViewById(R.id.contactsListViewTest);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 1001:
-                    Bundle extras = data.getExtras();
+                    Bundle extras = intent.getExtras();
                     if (extras != null) {
                         Set keys = extras.keySet();
                         Iterator iterate = keys.iterator();
@@ -51,7 +53,7 @@ public class ContactManagerActivity extends AppCompatActivity {
                             // Log.v(DEBUG_TAG, key + "[" + extras.get(key) + "]");
                         }
                     }
-                    Uri result = data.getData();
+                    Uri result = intent.getData();
 
                     Cursor c = managedQuery(result, null, null, null, null);
                     if (c.moveToFirst()) {
@@ -70,14 +72,17 @@ public class ContactManagerActivity extends AppCompatActivity {
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             for(String s: phones.getColumnNames()){
                                 System.out.println(s + ": " + phones.getString(phones.getColumnIndex(s)));
+                                phones.close();
                             }
                            // System.out.println("number is:" + cNumber);
                         }
                         String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
+                        this.displayAndPersist(name);
+
                         //listView.addT
-                        TextView textView = (TextView) findViewById(R.id.textView);
-                        textView.setText(name);
+                        //TextView textView = (TextView) findViewById(R.id.textView);
+                        //textView.setText(name);
                         break;
                     }
 
@@ -87,4 +92,12 @@ public class ContactManagerActivity extends AppCompatActivity {
             throw new RuntimeException("Bad result");
         }
     }
+
+    private void displayAndPersist(String name) {
+
+        ArrayAdapter<Contact> adapter = (ArrayAdapter<Contact>) getListAdapter();
+        Contact contact = new Contact();
+        contact.setNameFromCompleteName(name);
+    }
+
 }

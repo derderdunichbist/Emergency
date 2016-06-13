@@ -16,6 +16,8 @@ public class BloodType {
 
     private String bloodType;
 
+    public static String[] bloodtypes = new String[]{ZERO_NEG, ZERO_POS, A_NEG, A_POS, B_NEG, B_POS, AB_NEG, AB_POS};
+
     public BloodType(String bloodType) {
         this.bloodType = bloodType;
     }

@@ -7,19 +7,18 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.hsrt.mc.emergency.user.Contact;
-import org.hsrt.mc.emergency.user.User;
 
 /**
  * Created by KA on 11.06.2016.
  */
-public class UserManager {
+public class UserDAO {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper sqlLiteHelper;
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
             MySQLiteHelper.COLUMN_CONTACT };
 
-    public UserManager(Context context) {
+    public UserDAO(Context context) {
         sqlLiteHelper = new MySQLiteHelper(context);
     }
 
@@ -40,12 +39,12 @@ public class UserManager {
                 allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        Contact newContact = curstoToContact(cursor);
+        Contact newContact = cursorToContact(cursor);
         cursor.close();
         return newContact;
     }
 
-    private Contact curstoToContact(Cursor cursor) {
+    private Contact cursorToContact(Cursor cursor) {
         Contact contact = new Contact();
         contact.setNameFromCompleteName(cursor.getString(0));
         return contact;

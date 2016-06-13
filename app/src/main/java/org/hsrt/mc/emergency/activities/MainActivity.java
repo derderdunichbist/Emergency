@@ -6,11 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -31,12 +27,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hsrt.mc.emergency.R;
-import org.hsrt.mc.emergency.backend.GPS;
-import org.hsrt.mc.emergency.backend.SendingService;
-import org.hsrt.mc.emergency.backend.UserMessage;
-
-import java.util.Iterator;
-import java.util.Set;
+import org.hsrt.mc.emergency.gps.GPS;
+import org.hsrt.mc.emergency.services.SendingService;
+import org.hsrt.mc.emergency.utils.UserMessage;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
@@ -172,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.SEND_SMS},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS},
                     23);
         }
     }

@@ -1,4 +1,4 @@
-package org.hsrt.mc.emergency.backend;
+package org.hsrt.mc.emergency.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import org.hsrt.mc.emergency.R;
-import org.hsrt.mc.emergency.backend.SendingService;
+import org.hsrt.mc.emergency.services.SendingService;
 
 /**
  * Created by Fabian on 31.05.2016.
