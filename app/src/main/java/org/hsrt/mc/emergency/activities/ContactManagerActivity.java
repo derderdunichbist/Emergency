@@ -72,8 +72,9 @@ public class ContactManagerActivity extends ListActivity {
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             for(String s: phones.getColumnNames()){
                                 System.out.println(s + ": " + phones.getString(phones.getColumnIndex(s)));
-                                phones.close();
+
                             }
+                            phones.close();
                            // System.out.println("number is:" + cNumber);
                         }
                         String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
@@ -85,7 +86,6 @@ public class ContactManagerActivity extends ListActivity {
                         //textView.setText(name);
                         break;
                     }
-
 
             }
         } else {
