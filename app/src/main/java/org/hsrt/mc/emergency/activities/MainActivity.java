@@ -196,7 +196,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
         // Add a marker in your OwnPosition and move the camera
-        LatLng hochschule = new LatLng(48.482494, 9.1879501);
+        GPS gps = new GPS(MainActivity.this);
+        LatLng hochschule = new LatLng(gps.getLatitude(), gps.getLongitude());
+        //LatLng hochschule = new LatLng(48.482494, 9.1879501);
         mMap.addMarker(new MarkerOptions().position(hochschule).title("Mein Standort"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(hochschule));
         mMap.animateCamera(zoom);
