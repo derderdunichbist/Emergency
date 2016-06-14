@@ -34,17 +34,19 @@ import org.hsrt.mc.emergency.utils.UserMessage;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
 
-    ImageButton sosBtn;
+    ImageButton sosBtn; // SOS-Button
     GPS gps; // GPS Modul
     UserMessage msg;
     private GoogleMap mMap;
     private static boolean sosButtonPressed;
     private static float timer;
+    private  final int timeToCancel = 10000;
+
 
     private Vibrator vib;
     CountDownTimer countDown;
 
-    SharedPreferences detectFirstRun = null;
+    SharedPreferences detectFirstRun = null; // Preferences to detect the first run
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,12 +61,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+            // Systemservice for the smartphone-vibrator
+
         vib = (Vibrator) MainActivity.this.getSystemService(MainActivity.this.VIBRATOR_SERVICE);
 
+            // SOS-Button
 
-        sosBtn = (ImageButton) findViewById(R.id.fab);
+        sosBtn = (ImageButton) findViewById(R.id.sosbutton);
+
+
+            // Detection for the first run
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
+
+            // Actionlistener for the SOS-Button
 
         sosBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -74,8 +84,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Request Permission for sdk 23
                 grantPermissionOnFirstRun();
-                 countDown =  new CountDownTimer(10000, 100)
+                sosBtn.setImageResource(R.drawable.ic_launcher2);
+                // Countdown-timer, the user has 10 seconds until the emergency messages will be sent
+
+                 countDown =  new CountDownTimer(timeToCancel, 100)
                     {
+
 
                         public void onTick(long millisUntilFinished)
                         {
@@ -84,7 +98,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         }
 
-                        public void onFinish()
+
+
+
+                        public void onFinish()  // Starts the sending service when the timer is finished, change back to the default sos button and show a Toast
                         {
                             if(sosButtonPressed){
 
@@ -93,10 +110,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             startService(serviceIntent);
 
                             Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+
+                                sosBtn.setImageResource(R.drawable.ic_launcher);
+
                             sosButtonPressed = false;
                             }
                         }
                     }.start();
+
+                // Shows a dialog to cancel the emergency call if it is not pressed vibrate 10 seconds
 
             if(sosButtonPressed){
                 showCancelDialog();
@@ -112,8 +134,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void showCancelDialog()
+
+    private void showCancelDialog() // Function which will view a dialog to cancel the emergency call
+
     {
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
         alertDialog.setTitle("Notruf");
@@ -130,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     countDown.cancel();
                     sosButtonPressed = false;
                     vib.cancel();
+                    sosBtn.setImageResource(R.drawable.ic_launcher);
+
                     Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
 
                 }
@@ -151,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         alertDialog.show();
     }
 
+    // Setter for the vibrator
+
     private void setVibrationTime(int time)
     {
         if(time >= 0){
@@ -159,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
     }
+
+
+    // If the permissions are not granted, ask for permission  (sdk >= 23)
 
     private void grantPermissionOnFirstRun()
     {
@@ -178,6 +210,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
+
+    // Detects the first app run and executes the permission function
+
     @Override
     protected void onResume()
     {
@@ -196,6 +231,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
         // Add a marker in your OwnPosition and move the camera
+
+        // GPS instance
         GPS gps = new GPS(MainActivity.this);
         double latitude = gps.getLatitude();
         double longitude = gps.getLongitude();
