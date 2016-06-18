@@ -23,7 +23,9 @@ import java.util.Locale;
 /**
  * Created by Andreas Mueller on 28.05.2016.
  */
-
+/// <summary>
+/// GPS Service Class which implements a Location Listener to get longitude and latitude coordinates
+/// </summary>
 public class GPS extends Service implements LocationListener
 {
 
@@ -46,14 +48,20 @@ public class GPS extends Service implements LocationListener
     final private int PERMISSION = 23;
 
 
-
+    /// <summary>
+    /// Constructor, saves the context in a var and launches the getLocation class when instantiated
+    /// </summary>
     public GPS(Context context)
     {
         this.context = context;
         getLocation();
     }
 
-
+    /// <summary>
+    /// Asks for gps and internet accessability, then checks for the required permissions and will finally
+    /// gets the last known location from the location manager.
+    /// The longitude and latitude will be saved for later access.
+    /// </summary>
     public Location getLocation()
     {
         try {
@@ -163,7 +171,12 @@ public class GPS extends Service implements LocationListener
         return longitude;
     }
 
-
+    /// <summary>
+    /// This function provides a Geocoder which will convert the latitudes in a
+    /// Address. The format is as follows: STREET NUMBER ZIP CODE CITY
+    /// The Address will be saved in a list and concardinated.
+    /// The Method returns a String with Address.
+    /// </summary>
     public String getGeoLocation(double latitude, double longitude)
     {
         String address = "";
@@ -189,11 +202,17 @@ public class GPS extends Service implements LocationListener
         return address;
     }
 
+
     public boolean canGetLocation()
     {
         return this.canGetLocation;
     }
 
+
+
+    /// <summary>
+    /// If the GPS Service is not enabled a dialog will pop up and asks the user to accept the access
+    /// </summary>
     public void showSettings()
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -229,36 +248,26 @@ public class GPS extends Service implements LocationListener
     @Override
     public void onLocationChanged(Location arg0)
     {
-        // TODO
-        // Update KOO
-
-    }{
-        // TODO
-        // Update KOO
-
     }
 
     @Override
-    public void onProviderDisabled(String arg0) {
-        // TODO Auto-generated method stub
-
+    public void onProviderDisabled(String arg0)
+    {
     }
 
     @Override
-    public void onProviderEnabled(String arg0) {
-        // TODO Auto-generated method stub
-
+    public void onProviderEnabled(String arg0)
+    {
     }
 
     @Override
-    public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-        // TODO Auto-generated method stub
-
+    public void onStatusChanged(String arg0, int arg1, Bundle arg2)
+    {
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
-        // TODO Auto-generated method stub
+    public IBinder onBind(Intent intent)
+    {
         return null;
     }
 
