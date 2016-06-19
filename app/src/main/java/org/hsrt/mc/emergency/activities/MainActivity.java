@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Request Permission for sdk 23
                 grantPermissionOnFirstRun();
-                sosBtn.setImageResource(R.drawable.ic_launcher2);
+                sosBtn.setImageResource(R.mipmap.SosButtonGreen);
                 // Countdown-timer, the user has 10 seconds until the emergency messages will be sent
 
                  countDown =  new CountDownTimer(timeToCancel, 100)
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
 
-                                sosBtn.setImageResource(R.drawable.ic_launcher);
+                                sosBtn.setImageResource(R.mipmap.SosButtonRed);
 
                             sosButtonPressed = false;
                             }
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     countDown.cancel();
                     sosButtonPressed = false;
                     vib.cancel();
-                    sosBtn.setImageResource(R.drawable.ic_launcher);
+                    sosBtn.setImageResource(R.mipmap.SosButtonRed);
 
                     Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
 
