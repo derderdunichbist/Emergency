@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@mipmap/SosButtonRed"
+        android:src="@mipmap/sos_button_red"
         android:clickable="true" />
 
 </RelativeLayout>

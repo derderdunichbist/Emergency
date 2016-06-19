@@ -1,11 +1,16 @@
 package org.hsrt.mc.emergency.services;
 
+import android.Manifest;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
+import android.widget.Toast;
 
 import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.utils.UserMessage;
@@ -29,18 +34,31 @@ public class SendingService extends IntentService {
         // build notification (icon,title,text)
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Emergency-Call")
                         .setContentText(userMessage.getEmergencyMessage());
 
-        NotificationManager mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         //show notification
         mNotificationManager.notify(123, mBuilder.build()); // Show an build notification with id=123
 
+        // // send SMS-Message
+        //SmsManager smsManager = SmsManager.getDefault();
+        //smsManager.sendTextMessage("015787405462", null, "EMERGENCY-SMS: " + userMessage.getEmergencyMessage(), null, null); // send Message, put your test number here
+
+        // // Make Phone-Call Intent
+       // Intent callIntent = new Intent(Intent.ACTION_CALL);
+       // callIntent.setData(Uri.parse("tel:017638207041"));
+       // callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("015787405462",null,"EMERGENCY-SMS: " +userMessage.getEmergencyMessage(),null,null); // send Message, put your test number here
+       try{
+       //    startActivity(callIntent);
+       }
+       catch(Exception e){
+           System.out.print(e.getMessage());
+       }
+
     }
 }

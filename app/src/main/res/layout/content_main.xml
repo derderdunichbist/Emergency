@@ -19,7 +19,7 @@
         android:id="@+id/sosbutton"
         android:layout_height="225dp"
         android:layout_width="191dp"
-        android:src="@mipmap/SosButtonRed"
+        android:src="@mipmap/sos_button_red"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:clickable="true"
