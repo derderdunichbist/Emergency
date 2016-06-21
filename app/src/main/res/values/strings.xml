@@ -64,4 +64,6 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="specifiedContacts">Specified Contacts:</string>
+    <string name="title_activity_user_data">User Data</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

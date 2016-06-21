@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.UserData;
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.services.SendingService;
 import org.hsrt.mc.emergency.utils.UserMessage;
@@ -252,7 +253,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
+            //Intent i = new Intent(this, SettingsActivity.class);
+            Intent i = new Intent (this, UserData.class);
             startActivity(i);
             return true;
         }
