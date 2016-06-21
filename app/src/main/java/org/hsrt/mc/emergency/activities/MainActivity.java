@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static boolean sosButtonPressed;
     private static float timer;
     private  final int timeToCancel = 10000;
+
+    private TextView timerView;
 
     private UserDAO userDAO;
     private Vibrator vib;
@@ -74,8 +78,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         sosBtn = (ImageButton) findViewById(R.id.sosbutton);
 
+            timerView = (TextView) findViewById(R.id.countDownTimerText);
 
-            // Detection for the first run
+
+                    // Detection for the first run
 
         detectFirstRun = getSharedPreferences("org.hsrt.mc.emergency.activities", MODE_PRIVATE);
 
@@ -84,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         sosBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 if (!sosButtonPressed) { // Shows a dialog to cancel the emergency call if it is not pressed vibrate 10 seconds
 
@@ -103,8 +109,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             public void onTick(long millisUntilFinished) {
                                 timer = millisUntilFinished / 100;
 
-
+                                timerView.setText((int)timer/10+"");
                             }
+
 
                             public void onFinish()  // Starts the sending service when the timer is finished, change back to the default sos button and show a Toast
                             {
@@ -115,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     startService(serviceIntent);
 
                                     Toast.makeText(getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+
+                                    timerView.setText("");
 
                                     sosBtn.setImageResource(R.mipmap.sos_button_red);
 
@@ -141,11 +150,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
-        alertDialog.setTitle("Notruf");
+        alertDialog.setTitle("Emergency call");
 
-        alertDialog.setMessage("Wollen Sie den Notruf wirklich abbrechen?");
+        alertDialog.setMessage("Cancel the emergency call?");
 
-        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener()
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
         {
 
             @Override
@@ -153,11 +162,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             {
                 if(timer > 0){
                     countDown.cancel();
+                    timerView.setText("");
                     sosButtonPressed = false;
                     vib.cancel();
                     sosBtn.setImageResource(R.mipmap.sos_button_red);
 
-                    Toast.makeText( getApplicationContext(), "Notruf abgebrochen", Toast.LENGTH_LONG).show();
+                    Toast.makeText( getApplicationContext(), "Emergency call canceled", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -165,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener()
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener()
         {
 
             @Override

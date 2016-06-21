@@ -15,10 +15,17 @@
         tools:context=".activities.MapsOwnPosition"
         android:layout_above="@+id/linearLayout" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/countDownTimerText"
+        android:layout_gravity="center_horizontal" />
+
     <ImageButton
         android:id="@+id/sosbutton"
         android:layout_height="225dp"
-        android:layout_width="191dp"
+        android:layout_width="225dp"
         android:src="@mipmap/sos_button_red"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
