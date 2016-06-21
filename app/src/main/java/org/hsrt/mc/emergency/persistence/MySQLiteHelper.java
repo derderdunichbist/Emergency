@@ -67,10 +67,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
      */
     private static final String CREATE_TABLE_MEDICATION = CREATE_TABLE
             + TABLE_MEDICATION + CREATE_ID_STRING
-            + COLUMN_NAME + TEXT + NOT_NULL + ", "
-            + COLUMN_DOSIS + TEXT + NOT_NULL + ", "
-            + COLUMN_MANUFACTURER + TEXT + NOT_NULL + ", "
-            + COLUMN_AMOUNT_PER_DAY + INTEGER + NOT_NULL + ");";
+            + COLUMN_NAME + TEXT + ", "
+            + COLUMN_DOSIS + TEXT + ", "
+            + COLUMN_MANUFACTURER + TEXT + ", "
+            + COLUMN_AMOUNT_PER_DAY + INTEGER + ");";
 
     /**
      * SQL-Statement to create DISEASES-Table
@@ -87,39 +87,25 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_SPECIAL_NEEDS + TEXT + NOT_NULL + ");";
 
     /**
-     * SQL-Statement to create BLOOD_TYPE-Table
-     */
-    private static final String CREATE_TABLE_BLOOD_TYPE = CREATE_TABLE
-            + TABLE_BLOOD_TYPE + CREATE_ID_STRING
-            + COLUMN_BLOOD_TYPE + TEXT + NOT_NULL + ");";
-
-    /**
-     * SQL-Statement to create PRIORITY-Table
-     */
-    private static final String CREATE_TABLE_PRIORITY = CREATE_TABLE
-            + TABLE_PRIORITY + CREATE_ID_STRING
-            + COLUMN_PRIORITY+ TEXT + NOT_NULL + ");";
-
-    /**
      * SQL-Statement to create CONTACT-Table
      */
     private static final String CREATE_TABLE_CONTACT = CREATE_TABLE
             + TABLE_CONTACTS + CREATE_ID_STRING
-            + COLUMN_FIRST_NAME+ TEXT + NOT_NULL + ", "
-            + COLUMN_LAST_NAME+ TEXT + NOT_NULL + ", "
-            + COLUMN_EMAIL+ TEXT + NOT_NULL + ", "
-            + COLUMN_PHONE_NUMBER + TEXT + NOT_NULL + ", "
-            + COLUMN_PRIORITY + INTEGER + REFERENCES + TABLE_PRIORITY + "(" + COLUMN_ID + ")" + ");";
+            + COLUMN_FIRST_NAME+ TEXT + ", "
+            + COLUMN_LAST_NAME+ TEXT +  ", "
+            + COLUMN_EMAIL+ TEXT +  ", "
+            + COLUMN_PHONE_NUMBER + TEXT + ", "
+            + COLUMN_PRIORITY + TEXT + ");";
 
     /**
      * SQL-Statement to create USER-Table
      */
     private static final String CREATE_TABLE_USER = CREATE_TABLE
             + TABLE_USER + CREATE_ID_STRING
-            + COLUMN_FIRST_NAME + TEXT + NOT_NULL + ", "
-            + COLUMN_LAST_NAME + TEXT + NOT_NULL + ", "
-            + COLUMN_DATE_OF_BIRTH + TEXT + NOT_NULL + ", "
-            + COLUMN_BLOOD_TYPE + INTEGER + REFERENCES + TABLE_BLOOD_TYPE + "(" + COLUMN_ID + ")" + ", "
+            + COLUMN_FIRST_NAME + TEXT + ", "
+            + COLUMN_LAST_NAME + TEXT +  ", "
+            + COLUMN_DATE_OF_BIRTH + TEXT +  ", "
+            + COLUMN_BLOOD_TYPE + TEXT +  ", "
             + COLUMN_MEDICATION + INTEGER + REFERENCES + TABLE_MEDICATION + "(" + COLUMN_ID + ")" + ", "
             + COLUMN_DISEASES + INTEGER + REFERENCES + TABLE_DISEASES + "(" + COLUMN_ID + ")" + ", "
             + COLUMN_SPECIAL_NEEDS + INTEGER + REFERENCES + TABLE_SPECIAL_NEEDS + "(" + COLUMN_ID + ")"
@@ -133,49 +119,25 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         this.createDatabaseTable(db);
-        this.initStaticAttributes(db);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPECIAL_NEEDS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISEASES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEDICATION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        onCreate(db);
     }
 
     private void createDatabaseTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SPECIAL_NEEDS);
         db.execSQL(CREATE_TABLE_DISEASES);
         db.execSQL(CREATE_TABLE_MEDICATION);
-        db.execSQL(CREATE_TABLE_BLOOD_TYPE);
-        db.execSQL(CREATE_TABLE_PRIORITY);
         db.execSQL(CREATE_TABLE_CONTACT);
         db.execSQL(CREATE_TABLE_USER);
     }
-
-    private void initStaticAttributes(SQLiteDatabase db){
-        initPriorities(db);
-        intiBloodTypes(db);
-    }
-
-    private void intiBloodTypes(SQLiteDatabase db) {
-        ContentValues values = new ContentValues();
-        for(String bloodtype : BloodType.bloodtypes) {
-            values.put(MySQLiteHelper.COLUMN_BLOOD_TYPE, bloodtype);
-            long insertId = db.insert(MySQLiteHelper.TABLE_BLOOD_TYPE, null,
-                    values);
-        }
-    }
-
-    private void initPriorities(SQLiteDatabase db) {
-        ContentValues values = new ContentValues();
-
-        for(ePriority priority : ePriority.values()) {
-            String prio = priority.toString();
-            values.put(MySQLiteHelper.COLUMN_PRIORITY, prio);
-            long insertId = db.insert(MySQLiteHelper.TABLE_PRIORITY, null,
-                    values);
-        }
-    }
-
 
 }

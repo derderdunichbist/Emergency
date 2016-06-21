@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.persistence.UserDAO;
 import org.hsrt.mc.emergency.user.Contact;
 
 import java.util.Iterator;
@@ -20,10 +21,15 @@ import java.util.Set;
 
 public class ContactManagerActivity extends ListActivity {
 
+    UserDAO userDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_manager);
+
+        this.userDAO = new UserDAO(this);
+        this.userDAO.open();
 
         Button button = (Button)findViewById(R.id.buttonAddContact);
 
@@ -69,6 +75,7 @@ public class ContactManagerActivity extends ListActivity {
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
                                     null, null);
                             phones.moveToFirst();
+                            /*
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             for(String s: phones.getColumnNames()){
                                 System.out.println(s + ": " + phones.getString(phones.getColumnIndex(s)));
@@ -76,14 +83,18 @@ public class ContactManagerActivity extends ListActivity {
                             }
                             phones.close();
                            // System.out.println("number is:" + cNumber);
+                            */
                         }
-                        String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
-                        this.displayAndPersist(name);
 
-                        //listView.addT
-                        //TextView textView = (TextView) findViewById(R.id.textView);
-                        //textView.setText(name);
+                        String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE));
+                        String [] fields = name.split(",");
+                       // String email = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                        //String phoneNumber = c.getString(c.getColumnIndex(ContactsContract.Data.DATA1));
+                        putIntoDatabase(fields, "test@test.de", "+4971156471321");
+
+                        //this.displayAndPersist(name);
+
                         break;
                     }
 
@@ -93,6 +104,26 @@ public class ContactManagerActivity extends ListActivity {
         }
     }
 
+    private void putIntoDatabase(String[] fields, String email, String phoneNumber) {
+
+
+        this.userDAO.insertContact(fields, email, phoneNumber);
+    }
+
+  /*  @Override
+    protected void onResume()
+    {
+        this.userDAO.open();
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        this.userDAO.close();
+        super.onPause();
+    }
+    */
     private void displayAndPersist(String name) {
 
         ArrayAdapter<Contact> adapter = (ArrayAdapter<Contact>) getListAdapter();
