@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.gps.GPS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class FirstRunActivity extends AppCompatActivity
 {
 
     private Button continueBt;
-
+    private GPS gps;
 
     public static final int PERMISSIONS = 1;
 
@@ -47,7 +48,7 @@ public class FirstRunActivity extends AppCompatActivity
             {
 
 
-                if(grantPermissions())
+                if(grantPermissions() && isGPSenabled())
                 {
                     Intent main = new Intent(FirstRunActivity.this, MainActivity.class);
                     startActivity(main);
@@ -64,6 +65,20 @@ public class FirstRunActivity extends AppCompatActivity
     /// Checks for required permissions and will be so long false until the list ist not empty.
     /// Asks for the permissions which are also in the Manifest.xml declareted
     /// </summary>
+
+
+    private boolean isGPSenabled()
+    {
+        gps = new GPS(this);
+
+        if(!(gps.canGetLocation())){
+            gps.showSettings();
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     private  boolean grantPermissions()
     {
 

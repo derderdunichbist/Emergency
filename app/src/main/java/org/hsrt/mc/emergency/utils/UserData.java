@@ -1,4 +1,4 @@
-package org.hsrt.mc.emergency;
+package org.hsrt.mc.emergency.utils;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.utils.DatePickerFrag;
 
 public class UserData extends AppCompatActivity {
 
@@ -107,6 +111,8 @@ public class UserData extends AppCompatActivity {
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
+
+
     }
 
     /**
@@ -145,4 +151,11 @@ public class UserData extends AppCompatActivity {
             return null;
         }
     }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFrag();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+
 }

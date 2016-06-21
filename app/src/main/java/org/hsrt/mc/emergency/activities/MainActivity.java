@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hsrt.mc.emergency.R;
-import org.hsrt.mc.emergency.UserData;
+import org.hsrt.mc.emergency.utils.UserData;
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.persistence.UserDAO;
 import org.hsrt.mc.emergency.services.SendingService;
@@ -84,59 +84,54 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         sosBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                // Request Permission for sdk 23
-                grantPermissionOnFirstRun();
-                sosBtn.setImageResource(R.mipmap.sos_button_green);
-                // Countdown-timer, the user has 10 seconds until the emergency messages will be sent
+                if (!sosButtonPressed) { // Shows a dialog to cancel the emergency call if it is not pressed vibrate 10 seconds
 
-                 countDown =  new CountDownTimer(timeToCancel, 100)
-                    {
+                    if (isGPSenabled() && grantPermissionOnFirstRun()) {     // Request Permission for sdk 23 and ask for gps
 
 
-                        public void onTick(long millisUntilFinished)
-                        {
-                            timer = millisUntilFinished / 100;
+                        sosBtn.setImageResource(R.mipmap.sos_button_green);
+                        // Countdown-timer, the user has 10 seconds until the emergency messages will be sent
+
+                        sosButtonPressed = true;
+                        setVibrationTime(timeToCancel);
+
+                        countDown = new CountDownTimer(timeToCancel, 100) {
 
 
-                        }
+                            public void onTick(long millisUntilFinished) {
+                                timer = millisUntilFinished / 100;
 
 
-
-
-                        public void onFinish()  // Starts the sending service when the timer is finished, change back to the default sos button and show a Toast
-                        {
-                            if(sosButtonPressed){
-
-
-                            Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
-                            startService(serviceIntent);
-
-                            Toast.makeText( getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
-
-                                sosBtn.setImageResource(R.mipmap.sos_button_red);
-
-                            sosButtonPressed = false;
                             }
-                        }
-                    }.start();
 
-                // Shows a dialog to cancel the emergency call if it is not pressed vibrate 10 seconds
+                            public void onFinish()  // Starts the sending service when the timer is finished, change back to the default sos button and show a Toast
+                            {
+                                if (sosButtonPressed) {
 
-            if(sosButtonPressed){
-                showCancelDialog();
-            }else{
-                setVibrationTime(10000);
 
-            }
-                sosButtonPressed = true;
+                                    Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
+                                    startService(serviceIntent);
+
+                                    Toast.makeText(getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+
+                                    sosBtn.setImageResource(R.mipmap.sos_button_red);
+
+                                    sosButtonPressed = false;
+                                }
+                            }
+                        }.start();
+                    }
+
+                } else {
+
+                    showCancelDialog();
+                }
 
 
             }
         });
-
     }
 
 
@@ -197,13 +192,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // If the permissions are not granted, ask for permission  (sdk >= 23)
 
-    private void grantPermissionOnFirstRun()
+    private boolean grantPermissionOnFirstRun()
     {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS},
                     23);
+            return false;
+        }else{
+            return true;
         }
     }
 
@@ -231,6 +229,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    private boolean isGPSenabled()
+    {
+        gps = new GPS(this);
+
+        if(!(gps.canGetLocation())){
+            gps.showSettings();
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -239,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Add a marker in your OwnPosition and move the camera
 
         // GPS instance
-        GPS gps = new GPS(MainActivity.this);
+       gps = new GPS(MainActivity.this);
         double latitude = gps.getLatitude();
         double longitude = gps.getLongitude();
         LatLng hochschule = new LatLng(latitude,longitude);

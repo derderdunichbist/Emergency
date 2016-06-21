@@ -174,8 +174,8 @@ public class GPS extends Service implements LocationListener
     /// <summary>
     /// This function provides a Geocoder which will convert the latitudes in a
     /// Address. The format is as follows: STREET NUMBER ZIP CODE CITY
-    /// The Address will be saved in a list and concardinated.
-    /// The Method returns a String with Address.
+    /// The Address will be saved in a list and concardinated to a string.
+    /// Finally the method returns the string with the address.
     /// </summary>
     public String getGeoLocation(double latitude, double longitude)
     {
@@ -217,11 +217,11 @@ public class GPS extends Service implements LocationListener
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        alertDialog.setTitle("GPS wird benötigt um die App zu verwenden.");
+        alertDialog.setTitle("GPS is required to use this application");
 
-        alertDialog.setMessage("Bitte schalten Sie GPS in den Einstellungen ein.");
+        alertDialog.setMessage("Please enable gps in the settings menu");
 
-        alertDialog.setPositiveButton("GPS-Einschalten", new DialogInterface.OnClickListener()
+        alertDialog.setPositiveButton("Enable GPS", new DialogInterface.OnClickListener()
         {
 
             @Override
@@ -232,7 +232,7 @@ public class GPS extends Service implements LocationListener
             }
         });
 
-        alertDialog.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener()
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
         {
 
             @Override
