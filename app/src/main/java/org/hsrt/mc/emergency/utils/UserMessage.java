@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.user.User;
+import org.hsrt.mc.emergency.user.UserImplementation;
 
 /**
  * Created by David on 28.05.2016.
@@ -12,12 +13,12 @@ import org.hsrt.mc.emergency.user.User;
 public class UserMessage {
     private String emergencyMessage;
     private String location;
-    private User u;
+    private UserImplementation u;
     private Boolean successful = true;
 
 
     public UserMessage(Context con){
-        u = new User();
+        u = new UserImplementation();
         u.initTestData();
 
         GPS gps = new GPS(con);

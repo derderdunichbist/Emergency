@@ -4,6 +4,7 @@ package org.hsrt.mc.emergency.user;
  * Created by KA on 14.05.2016.
  */
 public class Contact {
+    private int id;
     private String name;
     private String email;
     private String phoneNumber;
@@ -51,5 +52,13 @@ public class Contact {
 
     public void setFavourite(boolean favourite) {
         isFavourite = favourite;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

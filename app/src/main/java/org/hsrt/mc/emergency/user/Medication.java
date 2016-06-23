@@ -5,6 +5,8 @@ package org.hsrt.mc.emergency.user;
  */
 public class Medication {
 
+    private int id;
+
     private String name;
 
     /**
@@ -62,5 +64,12 @@ public class Medication {
 
     public void setAmountPerDay(int amountPerDay) {
         this.amountPerDay = amountPerDay;
+    }
+
+    public void setId(int id) {
+     this.id = id;
+    }
+    public int getId() {
+        return id;
     }
 }

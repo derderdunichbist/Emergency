@@ -30,7 +30,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.user.BloodType;
+import org.hsrt.mc.emergency.user.Contact;
 import org.hsrt.mc.emergency.user.User;
+import org.hsrt.mc.emergency.user.UserImplementation;
 import org.hsrt.mc.emergency.utils.UserData;
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.persistence.UserDAO;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static float timer;
     private  final int timeToCancel = 10000;
     private UserDAO userDAO;
+    private User user;
     private TextView timerView;
     private Vibrator vib;
     CountDownTimer countDown;
@@ -66,9 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.userDAO.open();
 
         //Init Singleton
-        new User(userDAO);
-
-        User user = User.getUserObject();
+        user = new UserImplementation(userDAO);
 
         /*
         TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
@@ -77,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         user.setLastName("Peter");
         user.setDateOfBirth(new Date(1955,5,5));
         user.setBloodType(BloodType.ZERO_NEG);
+
+        Contact contact = new Contact("Günther Der Krasse", "ich-steh-auf-Analsex@gmail.de", "+490213421323", true);
+
+        user.addContact(contact);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

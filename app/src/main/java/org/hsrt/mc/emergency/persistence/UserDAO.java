@@ -105,6 +105,24 @@ public class UserDAO {
     }
 
     public void addContact(Contact contact) {
+        ContentValues values = new ContentValues();
+
+        if(!Verifier.isStringEmptyOrNull(contact.getName())) {
+            values.put(MySQLiteHelper.COLUMN_NAME, contact.getName());
+        }
+
+        if(!Verifier.isStringEmptyOrNull(contact.getEmail())) {
+            values.put(MySQLiteHelper.COLUMN_EMAIL, contact.getEmail());
+        }
+
+        if(!Verifier.isStringEmptyOrNull(contact.getPhoneNumber())) {
+            values.put(MySQLiteHelper.COLUMN_PHONE_NUMBER, contact.getPhoneNumber());
+        }
+        values.put(MySQLiteHelper.COLUMN_IS_FAVOURITE, String.valueOf(contact.isFavourite()));
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_CONTACTS, null, values);
+
+        contact.setId((int)insertId);
 
     }
 
