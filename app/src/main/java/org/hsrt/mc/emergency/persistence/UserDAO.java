@@ -20,9 +20,8 @@ public class UserDAO {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper sqlLiteHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_CONTACT };
     private Context context;
+    private String userId;
 
     public UserDAO(Context context) {
         sqlLiteHelper = new MySQLiteHelper(context);
@@ -31,113 +30,97 @@ public class UserDAO {
 
     public void open() throws SQLException {
         database = sqlLiteHelper.getWritableDatabase();
+        this.setUpUser();
     }
 
     public void close() {
         sqlLiteHelper.close();
     }
 
-
-    private Contact cursorToContact(Cursor cursor) {
-        Contact contact = new Contact();
-        contact.setNameFromCompleteName(cursor.getString(0));
-        return contact;
+    public void initUser() {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_FIRST_NAME, "Test");
+        long insertId = database.insert(MySQLiteHelper.TABLE_USER, null,
+                values);
+        this.setUserId(String.valueOf(insertId));
     }
 
-    public void insertContact(String [] fields, String email, String phoneNumber){
+    public void updateUser(String firstName) {
 
-        String lastName = fields[0].trim();
-        String firstNames = fields[1].trim();
+    }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUpUser() {
+        int count = 0;
+
+        String[]columndsId = new String[] {MySQLiteHelper.COLUMN_ID};
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER,
+                columndsId, MySQLiteHelper.COLUMN_ID, null,
+                null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            count ++;
+            cursor.moveToNext();
+        }
+
+        if(count == 0) {
+            this.initUser();
+        } else if (count == 1) {
+            cursor.moveToFirst();
+            this.setUserId(cursor.getString(0));
+        }
+        cursor.close();
+    }
+
+    public void updateUserFirstName(String firstName) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_FIRST_NAME, firstNames);
+        values.put(MySQLiteHelper.COLUMN_FIRST_NAME, firstName);
+        database.update(MySQLiteHelper.TABLE_USER, values, null, null);
+    }
+
+    public void updateUserLastName(String lastName) {
+        ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_LAST_NAME, lastName);
-        values.put(MySQLiteHelper.COLUMN_EMAIL, email);
-        values.put(MySQLiteHelper.COLUMN_PHONE_NUMBER, phoneNumber);
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_CONTACTS, null,
-                values);
-
-//        String [] columns = new String[] {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_FIRST_NAME, MySQLiteHelper.COLUMN_LAST_NAME};
-//        Cursor cursor = database.query(MySQLiteHelper.TABLE_CONTACTS,
-//        columns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-//                null, null, null);
-//       cursor.moveToFirst();
-//        Toast.makeText(context, "Inserted contact: " + cursor.getString(1), Toast.LENGTH_SHORT).show();
-//        cursor.close();
+        database.update(MySQLiteHelper.TABLE_USER, values, null, null);
     }
 
-    public void insertUser(String firstName, String lastName, String bloodType, Date dateOfBirth, List<Medication> medication, List<String> diseases, List<String> specialNeeds, List<Contact> contacts){
-
+    public void updateUserBloodType(String bloodType) {
         ContentValues values = new ContentValues();
-        if(!Verifier.isStringEmptyOrNull(firstName)) {
-            values.put(MySQLiteHelper.COLUMN_FIRST_NAME, firstName);
-        }
-
-        if(!Verifier.isStringEmptyOrNull(lastName)) {
-            values.put(MySQLiteHelper.COLUMN_LAST_NAME, lastName);
-        }
-
-        if(!Verifier.isStringEmptyOrNull(bloodType)) {
-            values.put(MySQLiteHelper.COLUMN_BLOOD_TYPE, bloodType);
-        }
-
-        if(!Verifier.isStringEmptyOrNull(bloodType)) {
-            values.put(MySQLiteHelper.COLUMN_BLOOD_TYPE, bloodType);
-        }
-
-        this.insertMedication(medication);
-
-
-
-        //values.put(MySQLiteHelper.COLUMN_PHONE_NUMBER, phoneNumber);
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_CONTACTS, null,
-                values);
+        values.put(MySQLiteHelper.COLUMN_BLOOD_TYPE, bloodType);
+        database.update(MySQLiteHelper.TABLE_USER, values, null, null);
     }
 
-    public void insertMedication(List<Medication> medications) {
-
-        for(Medication medication : medications) {
-            ContentValues values = new ContentValues();
-            if(!Verifier.isStringEmptyOrNull(medication.getName())){
-                values.put(MySQLiteHelper.COLUMN_NAME, medication.getName());
-            }
-
-            if(!Verifier.isStringEmptyOrNull(medication.getDosis())){
-                values.put(MySQLiteHelper.COLUMN_DOSIS, medication.getDosis());
-            }
-
-            if(!Verifier.isStringEmptyOrNull(medication.getManufacturer())){
-                values.put(MySQLiteHelper.COLUMN_MANUFACTURER, medication.getManufacturer());
-            }
-
-            if(!Verifier.isIntZero(medication.getAmountPerDay())){
-                //TODO Display something adequate
-                values.put(MySQLiteHelper.COLUMN_AMOUNT_PER_DAY, medication.getAmountPerDay());
-            }
-
-
-            long insertId = database.insert(MySQLiteHelper.TABLE_MEDICATION, null,
-                    values);
-        }
-
-    }
-
-    public void insertDisease(String disease) {
+    public void updateUserDob(Date dateOfBirth) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_DISEASES, disease);
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_DISEASES, null,
-                values);
+        values.put(MySQLiteHelper.COLUMN_DATE_OF_BIRTH, String.valueOf(dateOfBirth));
+        database.update(MySQLiteHelper.TABLE_USER, values, null, null);
     }
 
-    public void insertSpecialNeeds(String specialNeed) {
+    public void addContact(Contact contact) {
+
+    }
+
+    public void addMedication(Medication med) {
+
+    }
+
+    public void addSpecialNeed(String specialNeed) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_SPECIAL_NEEDS, specialNeed);
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_SPECIAL_NEEDS, null,
-                values);
+        long insertId = database.insert(MySQLiteHelper.TABLE_SPECIAL_NEEDS, null, values);
     }
 
+    public void addDiseases(String disease) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_DISEASES, disease);
+        long insertId = database.insert(MySQLiteHelper.TABLE_DISEASES, null, values);
+    }
 }

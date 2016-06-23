@@ -1,5 +1,8 @@
 package org.hsrt.mc.emergency.user;
 
+import org.hsrt.mc.emergency.activities.MainActivity;
+import org.hsrt.mc.emergency.persistence.UserDAO;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,27 +19,24 @@ public class User {
     private List<Medication> medication;
     private List<String> diseases;
     private List<String> specialNeeds;
+    private UserDAO userDAO;
     private List<Contact> contacts;
+
+    /**
+     * Singleton constant
+     */
+    private static User userObject;
 
 
     public User(){
 
     }
 
-    public String getFirstName(){
-        return this.firstName;
+    public User(UserDAO userDAO) {
+        this.userDAO = userDAO;
+        User.userObject = this;
     }
 
-    public String getLastName(){
-        return this.lastName;
-    }
-
-    //return the bloodType of the user
-    public String getBloodType(){
-        return this.bloodType;
-    }
-
-    //return all medication of the user
     public String getMedication(){
         String allMedicationText = "";
         for( Medication m: medication )
@@ -47,7 +47,6 @@ public class User {
         return allMedicationText;
     }
 
-    //return all allDiseases of the user
     public String getDiseases(){
         String allDiseases = "";
         for ( String d: diseases){
@@ -57,7 +56,6 @@ public class User {
         return allDiseases;
     }
 
-    //return all allSpecialNeeds of the user
     public String getSpecialNeeds(){
         String allSpecialNeeds = "";
         for (String s: specialNeeds){
@@ -100,19 +98,71 @@ public class User {
         this.specialNeeds.add("Viel Schokoladenesser");
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+        userDAO.updateUserFirstName(firstName);
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+        userDAO.updateUserLastName(lastName);
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+        userDAO.updateUserBloodType(bloodType);
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        userDAO.updateUserDob(dateOfBirth);
+    }
+
     public void addContact(Contact contact) {
         if(!contacts.contains(contact)) {
-            this.addContact(contact);
+            this.contacts.add(contact);
+            userDAO.addContact(contact);
         }
     }
 
-    public void setNameFromCompleteName(String name) {
-        String[] names = name.split(" ");
-        this.firstName = names[0];
-
-        if(names.length > 1) {
-            this.lastName = names[1];
+    public void addMedication(Medication med) {
+        if(!medication.contains(med)) {
+            this.medication.add(med);
+            userDAO.addMedication(med);
         }
-     }
+    }
 
+    public void addSpecialNeed(String specialNeed) {
+        if(!specialNeeds.contains(specialNeed)) {
+            this.specialNeeds.add(specialNeed);
+            userDAO.addSpecialNeed(specialNeed);
+        }
+    }
+
+    public void addDisease(String disease) {
+        if(!diseases.contains(disease)) {
+            this.diseases.add(disease);
+            userDAO.addDiseases(disease);
+        }
+    }
+
+    public static User getUserObject() {
+        return User.userObject;
+    }
 }

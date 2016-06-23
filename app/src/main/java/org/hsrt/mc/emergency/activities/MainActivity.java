@@ -29,11 +29,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.user.BloodType;
+import org.hsrt.mc.emergency.user.User;
 import org.hsrt.mc.emergency.utils.UserData;
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.persistence.UserDAO;
 import org.hsrt.mc.emergency.services.SendingService;
 import org.hsrt.mc.emergency.utils.UserMessage;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
@@ -45,23 +49,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static boolean sosButtonPressed;
     private static float timer;
     private  final int timeToCancel = 10000;
-
-    private TextView timerView;
-
     private UserDAO userDAO;
+    private TextView timerView;
     private Vibrator vib;
     CountDownTimer countDown;
 
     SharedPreferences detectFirstRun = null; // Preferences to detect the first run
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-        {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         this.userDAO = new UserDAO(this);
         this.userDAO.open();
+
+        //Init Singleton
+        new User(userDAO);
+
+        User user = User.getUserObject();
+
+        /*
+        TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
+         */
+        user.setFirstName("Hans");
+        user.setLastName("Peter");
+        user.setDateOfBirth(new Date(1955,5,5));
+        user.setBloodType(BloodType.ZERO_NEG);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -278,8 +294,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            //Intent i = new Intent(this, SettingsActivity.class);
-            Intent i = new Intent (this, UserData.class);
+            Intent i = new Intent(this, SettingsActivity.class);
+            //Intent i = new Intent (this, UserData.class);
             startActivity(i);
             return true;
         }if (id == R.id.test_output) {

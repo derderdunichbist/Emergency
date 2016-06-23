@@ -4,40 +4,21 @@ package org.hsrt.mc.emergency.user;
  * Created by KA on 14.05.2016.
  */
 public class Contact {
-
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
     private String phoneNumber;
-    private ePriority priority;
+    private boolean isFavourite;
 
     public Contact() {
 
     }
 
 
-    public Contact (String firstName, String lastName, String email, String phoneNubmer, ePriority priority){
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
+    public Contact (String name, String email, String phoneNubmer, boolean isFavourite){
+        this.setName(name);
         this.setEmail(email);
         this.setPhoneNumber(phoneNubmer);
-        this.setPriority(priority);
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.setFavourite(isFavourite);
     }
 
     public String getEmail() {
@@ -56,25 +37,19 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public ePriority getPriority() {
-        return priority;
+    public String getName() {
+        return name;
     }
 
-    public void setPriority(ePriority priority) {
-        this.priority = priority;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCompleteName() {
-        return this.firstName + " " + this.lastName;
+    public boolean isFavourite() {
+        return isFavourite;
     }
 
-    public void setNameFromCompleteName(String name) {
-
-            String[] names = name.split(" ");
-            this.firstName = names[0];
-
-            if(names.length > 1) {
-                this.lastName = names[1];
-            }
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 }

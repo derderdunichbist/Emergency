@@ -8,9 +8,9 @@ public class Verifier {
     public static boolean isStringEmptyOrNull(String string) {
         boolean isEmptyOrNull;
         if(string == null || string.isEmpty()) {
-            isEmptyOrNull =  false;
+            isEmptyOrNull =  true;
         } else {
-            isEmptyOrNull = true;
+            isEmptyOrNull = false;
         }
 
         return isEmptyOrNull;

@@ -88,10 +88,9 @@ public class ContactManagerActivity extends ListActivity {
 
 
                         String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE));
-                        String [] fields = name.split(",");
                        // String email = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
                         //String phoneNumber = c.getString(c.getColumnIndex(ContactsContract.Data.DATA1));
-                        putIntoDatabase(fields, "test@test.de", "+4971156471321");
+                        putIntoDatabase(name, "test@test.de", "+4971156471321");
 
                         //this.displayAndPersist(name);
 
@@ -104,10 +103,10 @@ public class ContactManagerActivity extends ListActivity {
         }
     }
 
-    private void putIntoDatabase(String[] fields, String email, String phoneNumber) {
+    private void putIntoDatabase(String name, String email, String phoneNumber) {
 
-
-        this.userDAO.insertContact(fields, email, phoneNumber);
+        Contact contact = new Contact(name, email, phoneNumber, true);
+        //this.userDAO.insertContact(contact);
     }
 
   /*  @Override
@@ -128,7 +127,7 @@ public class ContactManagerActivity extends ListActivity {
 
         ArrayAdapter<Contact> adapter = (ArrayAdapter<Contact>) getListAdapter();
         Contact contact = new Contact();
-        contact.setNameFromCompleteName(name);
+        contact.setName(name);
     }
 
 }

@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import org.hsrt.mc.emergency.user.BloodType;
-import org.hsrt.mc.emergency.user.ePriority;
 
 /**
  * Created by KA on 11.06.2016.
@@ -18,9 +17,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
 
     //Tables
-    public static final String TABLE_BLOOD_TYPE="bloodtypes";
     public static final String TABLE_CONTACTS = "contacts";
-    public static final String TABLE_PRIORITY = "priorities";
     public static final String TABLE_MEDICATION = "medication";
     public static final String TABLE_USER = "users";
     public static final String TABLE_DISEASES = "diseases";
@@ -30,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_BLOOD_TYPE = "bloodtype";
     public static final String COLUMN_CONTACT = "contact";
     public static final String COLUMN_MEDICATION = "medication";
-    private static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
+    public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
 
     //Columns for MEDIACTION-Table
     public static final String COLUMN_DOSIS = "dosis";
@@ -42,7 +39,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_LAST_NAME = "last_name";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PHONE_NUMBER = "phone_number";
-    public static final String COLUMN_PRIORITY = "priority";
+    public static final String COLUMN_IS_FAVOURITE = "is_favourite";
 
     //Columns for DISEASES-Table
     public static final String COLUMN_DISEASES = "diseases";
@@ -86,16 +83,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + TABLE_SPECIAL_NEEDS + CREATE_ID_STRING
             + COLUMN_SPECIAL_NEEDS + TEXT + NOT_NULL + ");";
 
+
     /**
      * SQL-Statement to create CONTACT-Table
      */
     private static final String CREATE_TABLE_CONTACT = CREATE_TABLE
             + TABLE_CONTACTS + CREATE_ID_STRING
-            + COLUMN_FIRST_NAME+ TEXT + ", "
-            + COLUMN_LAST_NAME+ TEXT +  ", "
+            + COLUMN_NAME+ TEXT + ", "
             + COLUMN_EMAIL+ TEXT +  ", "
             + COLUMN_PHONE_NUMBER + TEXT + ", "
-            + COLUMN_PRIORITY + TEXT + ");";
+            + COLUMN_IS_FAVOURITE + TEXT + ");";
 
     /**
      * SQL-Statement to create USER-Table
@@ -105,11 +102,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_FIRST_NAME + TEXT + ", "
             + COLUMN_LAST_NAME + TEXT +  ", "
             + COLUMN_DATE_OF_BIRTH + TEXT +  ", "
-            + COLUMN_BLOOD_TYPE + TEXT +  ", "
-            + COLUMN_MEDICATION + INTEGER + REFERENCES + TABLE_MEDICATION + "(" + COLUMN_ID + ")" + ", "
-            + COLUMN_DISEASES + INTEGER + REFERENCES + TABLE_DISEASES + "(" + COLUMN_ID + ")" + ", "
-            + COLUMN_SPECIAL_NEEDS + INTEGER + REFERENCES + TABLE_SPECIAL_NEEDS + "(" + COLUMN_ID + ")"
-            + ");";
+            + COLUMN_BLOOD_TYPE + TEXT  + ");";
 
 
     public MySQLiteHelper(Context context) {
@@ -119,7 +112,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         this.createDatabaseTable(db);
-
     }
 
     @Override
