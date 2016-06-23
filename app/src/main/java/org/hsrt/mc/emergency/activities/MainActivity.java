@@ -294,8 +294,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            //Intent i = new Intent (this, UserData.class);
+            //Intent i = new Intent(this, SettingsActivity.class);
+            Intent i = new Intent (this, UserData.class);
             startActivity(i);
             return true;
         }if (id == R.id.test_output) {
