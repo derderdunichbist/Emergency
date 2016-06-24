@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,7 +32,6 @@ import org.hsrt.mc.emergency.user.BloodType;
 import org.hsrt.mc.emergency.user.Contact;
 import org.hsrt.mc.emergency.user.User;
 import org.hsrt.mc.emergency.user.UserImplementation;
-import org.hsrt.mc.emergency.utils.UserData;
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.persistence.UserDAO;
 import org.hsrt.mc.emergency.services.SendingService;
@@ -300,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             //Intent i = new Intent(this, SettingsActivity.class);
-            Intent i = new Intent (this, UserData.class);
+            Intent i = new Intent (this, ViewPagerActivity.class);
             startActivity(i);
             return true;
         }if (id == R.id.test_output) {

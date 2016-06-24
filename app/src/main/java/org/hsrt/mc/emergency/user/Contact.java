@@ -1,5 +1,7 @@
 package org.hsrt.mc.emergency.user;
 
+import android.widget.EditText;
+
 /**
  * Created by KA on 14.05.2016.
  */
@@ -10,9 +12,12 @@ public class Contact {
     private String phoneNumber;
     private boolean isFavourite;
 
+
     public Contact() {
 
     }
+
+
 
 
     public Contact (String name, String email, String phoneNubmer, boolean isFavourite){

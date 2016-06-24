@@ -1,26 +1,29 @@
-package org.hsrt.mc.emergency.utils;
+package org.hsrt.mc.emergency.activities;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.TextView;
+import android.widget.EditText;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.user.Contact;
+import org.hsrt.mc.emergency.user.Medication;
+import org.hsrt.mc.emergency.user.User;
 import org.hsrt.mc.emergency.utils.DatePickerFrag;
 
-public class UserData extends AppCompatActivity {
+import java.util.Date;
+
+public class ViewPagerActivity extends AppCompatActivity implements User {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,11 +39,27 @@ public class UserData extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private EditText phoneNumber1, phoneNumber2, phoneNumber3, firstName, lastName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
+
+
+
+
+        phoneNumber1 = (EditText) findViewById(R.id.phoneNumer1);
+        phoneNumber2 = (EditText) findViewById(R.id.phoneNumber2);
+        phoneNumber3 = (EditText) findViewById(R.id.phoneNumber3);
+
+
+        firstName = (EditText) findViewById(R.id.firstNameTf);
+        lastName = (EditText) findViewById(R.id.lastNameTf);
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,39 +97,53 @@ public class UserData extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class UserDataFragment1 extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
+        public UserDataFragment1() {
         }
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static UserDataFragment1 newInstance(int sectionNumber) {
+            UserDataFragment1 fragment = new UserDataFragment1();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_user_data, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState) {
+
+                if(container == null){
+                    return null;
+                }
+                View rootView = null;
+                switch (getArguments().getInt(ARG_SECTION_NUMBER)){
+                    case 1:  rootView = inflater.inflate(R.layout.fragment_user_data, container, false); break;
+
+                    case 2:  rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false); break;
+
+                    case 3:  rootView = inflater.inflate(R.layout.fragment3_user_contacts, container, false); break;
+                }
+
+                //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+                //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+                return rootView;
+            }
 
 
     }
@@ -129,7 +162,7 @@ public class UserData extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return UserDataFragment1.newInstance(position + 1);
         }
 
         @Override
@@ -151,6 +184,107 @@ public class UserData extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    public void setFirstName(String name) {
+
+    }
+
+    @Override
+    public void setLastName(String name) {
+
+    }
+
+    @Override
+    public void setDateOfBirth(Date dateOfBirth) {
+
+    }
+
+    @Override
+    public void setBloodType(String bloodType) {
+
+    }
+
+    @Override
+    public void addContact(Contact contact) {
+
+    }
+
+    @Override
+    public void addMedication(Medication medication) {
+
+    }
+
+    @Override
+    public void addDisease(String disease) {
+
+    }
+
+    @Override
+    public void addSpecialNeed(String specialNeed) {
+
+    }
+
+    @Override
+    public void removeContact(Contact contact) {
+
+    }
+
+    @Override
+    public void removeMedication(Medication medication) {
+
+    }
+
+    @Override
+    public void removeDisease(String disease) {
+
+    }
+
+    @Override
+    public void removeSpecialNeed(String specialNeed) {
+
+    }
+
+    @Override
+    public String getFirstName() {
+        return null;
+    }
+
+    @Override
+    public String getLastName() {
+        return null;
+    }
+
+    @Override
+    public Date getDateOfBirth() {
+        return null;
+    }
+
+    @Override
+    public String getBloodType() {
+        return null;
+    }
+
+    @Override
+    public String getContacts() {
+        return null;
+    }
+
+    @Override
+    public String getMedication() {
+        return null;
+    }
+
+    @Override
+    public String getDiseases() {
+        return null;
+    }
+
+    @Override
+    public String getSpecialNeeds() {
+        return null;
+    }
+
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFrag();

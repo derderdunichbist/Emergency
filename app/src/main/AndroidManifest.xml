@@ -89,7 +89,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".utils.UserData"
+            android:name=".activities.ViewPagerActivity"
             android:label="@string/title_activity_user_data"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
