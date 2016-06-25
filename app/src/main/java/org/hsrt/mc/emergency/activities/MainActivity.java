@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static boolean sosButtonPressed;
     private static float timer;
     private  final int timeToCancel = 10000;
-    private UserDAO userDAO;
-    private User user;
     private TextView timerView;
     private Vibrator vib;
     CountDownTimer countDown;
@@ -61,25 +59,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        this.userDAO = new UserDAO(this);
-        this.userDAO.open();
-
-        //Init Singleton
-        user = new UserImplementation(userDAO);
-
-        /*
-        TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
-         */
-        user.setFirstName("Hans");
-        user.setLastName("Peter");
-        user.setDateOfBirth(new Date(1955,5,5));
-        user.setBloodType(BloodType.ZERO_NEG);
-
-        Contact contact = new Contact("Günther Der Krasse", "ich-steh-auf-Analsex@gmail.de", "+490213421323", true);
-
-        user.addContact(contact);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -224,9 +203,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean grantPermissionOnFirstRun()
     {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED|| ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE},
                     23);
             return false;
         }else{
@@ -249,7 +228,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onResume()
     {
         super.onResume();
-        this.userDAO.open();
 
         if (detectFirstRun.getBoolean("firstrun", true))
         {
@@ -310,7 +288,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onPause() {
-        this.userDAO.close();
         super.onPause();
     }
 
