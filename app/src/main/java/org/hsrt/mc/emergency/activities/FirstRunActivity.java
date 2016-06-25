@@ -1,7 +1,9 @@
 package org.hsrt.mc.emergency.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,22 @@ public class FirstRunActivity extends AppCompatActivity
 
         continueBt = (Button) findViewById(R.id.continueButton);
 
+        Boolean isFirstTime;
+
+        SharedPreferences app_preferences = PreferenceManager
+                .getDefaultSharedPreferences(FirstRunActivity.this);
+
+        final SharedPreferences.Editor editor = app_preferences.edit();
+
+        isFirstTime = app_preferences.getBoolean("isFirstTime", true);
+
+        if (!isFirstTime) {
+
+//implement your first time logic
+            Intent main = new Intent(FirstRunActivity.this, MainActivity.class);
+            startActivity(main);
+            finish();
+        }
 
         /// <summary>
         /// Actionlistener, launches the main activity after the permissions are granted.
@@ -50,6 +68,8 @@ public class FirstRunActivity extends AppCompatActivity
 
                 if(grantPermissions() && isGPSenabled())
                 {
+                    editor.putBoolean("isFirstTime", false);
+                    editor.commit();
                     Intent main = new Intent(FirstRunActivity.this, MainActivity.class);
                     startActivity(main);
                 }else if(!(grantPermissions()))

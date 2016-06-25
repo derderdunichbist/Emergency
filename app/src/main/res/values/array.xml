@@ -1,0 +1,14 @@
+<resources>
+
+
+    <string-array name="bloodType">
+        <item>Zero Negative</item>
+        <item>Zero Positive</item>
+        <item>A Positive</item>
+        <item>A Negative</item>
+        <item>B Positive</item>
+        <item>B Negative</item>
+        <item>AB Positive</item>
+        <item>AB Negative</item>
+    </string-array>
+</resources>

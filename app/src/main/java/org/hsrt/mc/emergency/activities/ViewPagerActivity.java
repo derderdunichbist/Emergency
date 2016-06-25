@@ -13,17 +13,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.persistence.UserDAO;
 import org.hsrt.mc.emergency.user.Contact;
 import org.hsrt.mc.emergency.user.Medication;
 import org.hsrt.mc.emergency.user.User;
+import org.hsrt.mc.emergency.user.UserImplementation;
 import org.hsrt.mc.emergency.utils.DatePickerFrag;
 
 import java.util.Date;
 
-public class ViewPagerActivity extends AppCompatActivity implements User {
+public class ViewPagerActivity extends AppCompatActivity{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,24 +43,14 @@ public class ViewPagerActivity extends AppCompatActivity implements User {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private EditText phoneNumber1, phoneNumber2, phoneNumber3, firstName, lastName;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
-
-
-
-
-        phoneNumber1 = (EditText) findViewById(R.id.phoneNumer1);
-        phoneNumber2 = (EditText) findViewById(R.id.phoneNumber2);
-        phoneNumber3 = (EditText) findViewById(R.id.phoneNumber3);
-
-
-        firstName = (EditText) findViewById(R.id.firstNameTf);
-        lastName = (EditText) findViewById(R.id.lastNameTf);
 
 
 
@@ -108,6 +102,8 @@ public class ViewPagerActivity extends AppCompatActivity implements User {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private Button confirm;
+        private EditText phoneNumber1;
 
         public UserDataFragment1() {
         }
@@ -131,14 +127,34 @@ public class ViewPagerActivity extends AppCompatActivity implements User {
                 if(container == null){
                     return null;
                 }
+
+
+
                 View rootView = null;
                 switch (getArguments().getInt(ARG_SECTION_NUMBER)){
-                    case 1:  rootView = inflater.inflate(R.layout.fragment_user_data, container, false); break;
+                    case 1:
+
+                        rootView = inflater.inflate(R.layout.fragment_user_data, container, false);
+
+                        break;
 
                     case 2:  rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false); break;
 
-                    case 3:  rootView = inflater.inflate(R.layout.fragment3_user_contacts, container, false); break;
+                    case 3:  rootView = inflater.inflate(R.layout.fragment3_user_contacts, null, false);
+                        phoneNumber1 = (EditText) rootView.findViewById(R.id.phoneNumer1);
+                                confirm = (Button) rootView.findViewById(R.id.confirmUserData);
+                        confirm.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+
+                            }
+                        });
+                        break;
                 }
+
+
+
 
                 //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                 //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
@@ -184,107 +200,6 @@ public class ViewPagerActivity extends AppCompatActivity implements User {
             return null;
         }
     }
-
-    @Override
-    public void setFirstName(String name) {
-
-    }
-
-    @Override
-    public void setLastName(String name) {
-
-    }
-
-    @Override
-    public void setDateOfBirth(Date dateOfBirth) {
-
-    }
-
-    @Override
-    public void setBloodType(String bloodType) {
-
-    }
-
-    @Override
-    public void addContact(Contact contact) {
-
-    }
-
-    @Override
-    public void addMedication(Medication medication) {
-
-    }
-
-    @Override
-    public void addDisease(String disease) {
-
-    }
-
-    @Override
-    public void addSpecialNeed(String specialNeed) {
-
-    }
-
-    @Override
-    public void removeContact(Contact contact) {
-
-    }
-
-    @Override
-    public void removeMedication(Medication medication) {
-
-    }
-
-    @Override
-    public void removeDisease(String disease) {
-
-    }
-
-    @Override
-    public void removeSpecialNeed(String specialNeed) {
-
-    }
-
-    @Override
-    public String getFirstName() {
-        return null;
-    }
-
-    @Override
-    public String getLastName() {
-        return null;
-    }
-
-    @Override
-    public Date getDateOfBirth() {
-        return null;
-    }
-
-    @Override
-    public String getBloodType() {
-        return null;
-    }
-
-    @Override
-    public String getContacts() {
-        return null;
-    }
-
-    @Override
-    public String getMedication() {
-        return null;
-    }
-
-    @Override
-    public String getDiseases() {
-        return null;
-    }
-
-    @Override
-    public String getSpecialNeeds() {
-        return null;
-    }
-
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFrag();

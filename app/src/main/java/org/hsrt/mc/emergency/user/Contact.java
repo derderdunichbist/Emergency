@@ -20,10 +20,10 @@ public class Contact {
 
 
 
-    public Contact (String name, String email, String phoneNubmer, boolean isFavourite){
+    public Contact (String name, String email, String phoneNumber, boolean isFavourite){
         this.setName(name);
         this.setEmail(email);
-        this.setPhoneNumber(phoneNubmer);
+        this.setPhoneNumber(phoneNumber);
         this.setFavourite(isFavourite);
     }
 
