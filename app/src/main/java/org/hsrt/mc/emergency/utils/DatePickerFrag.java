@@ -11,7 +11,7 @@ import org.hsrt.mc.emergency.R;
 import java.util.Calendar;
 
 /**
- * Created by Andreas on 21.06.2016.
+ * Created by Andreas Mueller on 21.06.2016.
  */
 public class DatePickerFrag extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
