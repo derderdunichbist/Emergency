@@ -43,9 +43,10 @@ public class SendingService extends IntentService {
         //show notification
         mNotificationManager.notify(123, mBuilder.build()); // Show an build notification with id=123
 
-        // // send SMS-Message
-        //SmsManager smsManager = SmsManager.getDefault();
-        //smsManager.sendTextMessage("015787405462", null, "EMERGENCY-SMS: " + userMessage.getEmergencyMessage(), null, null); // send Message, put your test number here
+         // send SMS-Message
+        String text = userMessage.getEmergencyMessage();
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage("015787405462", null, "EMERGENCY-SMS: " + text, null, null); // send Message, put your test number here
 
         // // Make Phone-Call Intent
        // Intent callIntent = new Intent(Intent.ACTION_CALL);

@@ -1,5 +1,6 @@
 package org.hsrt.mc.emergency.activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -40,8 +41,7 @@ public class FirstRunActivity extends AppCompatActivity
 
         Boolean isFirstTime;
 
-        SharedPreferences app_preferences = PreferenceManager
-                .getDefaultSharedPreferences(FirstRunActivity.this);
+        SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(FirstRunActivity.this);
 
         final SharedPreferences.Editor editor = app_preferences.edit();
 
@@ -49,10 +49,9 @@ public class FirstRunActivity extends AppCompatActivity
 
         if (!isFirstTime) {
 
-//implement your first time logic
-            Intent main = new Intent(FirstRunActivity.this, MainActivity.class);
-            startActivity(main);
-            finish();
+        Intent main = new Intent(FirstRunActivity.this, MainActivity.class);
+        startActivity(main);
+        finish();
         }
 
         /// <summary>
@@ -70,8 +69,9 @@ public class FirstRunActivity extends AppCompatActivity
                 {
                     editor.putBoolean("isFirstTime", false);
                     editor.commit();
-                    Intent main = new Intent(FirstRunActivity.this, MainActivity.class);
-                    startActivity(main);
+                    Intent vpa = new Intent (FirstRunActivity.this, MainActivity.class);
+                    startActivity(vpa);
+
                 }else if(!(grantPermissions()))
                 {
                     Toast.makeText( getApplicationContext(), "You must allow all permissions in order to use this application!", Toast.LENGTH_LONG).show();
@@ -106,7 +106,8 @@ public class FirstRunActivity extends AppCompatActivity
         int finLocationPermission = ContextCompat.checkSelfPermission(this,  android.Manifest.permission.ACCESS_FINE_LOCATION);
         int coarseLocationPermission = ContextCompat.checkSelfPermission(this,  android.Manifest.permission.ACCESS_COARSE_LOCATION);
         int readContactsPermission = ContextCompat.checkSelfPermission(this,  android.Manifest.permission.READ_CONTACTS);
-        int vibratePermision = ContextCompat.checkSelfPermission(this,  android.Manifest.permission.VIBRATE);
+        int vibratePermission = ContextCompat.checkSelfPermission(this,  android.Manifest.permission.VIBRATE);
+        int callPermission = ContextCompat.checkSelfPermission(this,  Manifest.permission.CALL_PHONE);
 
         List<String> listPermissionsNeeded = new ArrayList<>();
 
@@ -130,9 +131,14 @@ public class FirstRunActivity extends AppCompatActivity
             listPermissionsNeeded.add(  android.Manifest.permission.READ_CONTACTS);
         }
 
-        if (vibratePermision != PackageManager.PERMISSION_GRANTED)
+        if (vibratePermission != PackageManager.PERMISSION_GRANTED)
         {
             listPermissionsNeeded.add(android.Manifest.permission.VIBRATE);
+        }
+
+        if (callPermission != PackageManager.PERMISSION_GRANTED)
+        {
+            listPermissionsNeeded.add(Manifest.permission.CALL_PHONE);
         }
 
         if (!listPermissionsNeeded.isEmpty()) {
