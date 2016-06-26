@@ -66,4 +66,16 @@ public class Contact {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        boolean isEqual = false;
+        if(o instanceof Contact) {
+            Contact contact = (Contact)o;
+            if(contact.getName().equals(this.getName()) && contact.getEmail().equals(this.getEmail()) && contact.getPhoneNumber().equals(this.getPhoneNumber())) {
+                isEqual = true;
+            }
+        }
+        return isEqual;
+    }
 }

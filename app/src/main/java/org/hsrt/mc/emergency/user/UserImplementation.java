@@ -1,6 +1,7 @@
 package org.hsrt.mc.emergency.user;
 
 import org.hsrt.mc.emergency.activities.MainActivity;
+import org.hsrt.mc.emergency.persistence.MySQLiteHelper;
 import org.hsrt.mc.emergency.persistence.UserDAO;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class UserImplementation implements User{
     }
 
     @Override
-    public String getContacts() {
+    public String getContactsAsString() {
         //TODO
         return null;
     }
@@ -135,6 +136,11 @@ public class UserImplementation implements User{
     }
 
     @Override
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    @Override
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
         userDAO.updateUserBloodType(bloodType);
@@ -153,69 +159,103 @@ public class UserImplementation implements User{
 
     @Override
     public void addContact(Contact contact) {
-        if(!contacts.contains(contact)) {
-            this.contacts.add(contact);
-            userDAO.addContact(contact);
+        if(contacts.size() == 0) {
+            if(userDAO.insertContactIntoDatabase(contact)) {
+                this.contacts.add(contact);
+            }
+        } else {
+            if(userDAO.insertContactIntoDatabase(contact)) {
+                this.contacts.add(contact);
+            }
         }
     }
 
     @Override
     public void addMedication(Medication med) {
-        if(!medication.contains(med)) {
-            this.medication.add(med);
-            userDAO.addMedication(med);
+        if(medication.size() == 0) {
+            if(userDAO.insertMedicationIntoDatabase(med)) {
+                this.medication.add(med);
+            }
+        } else {
+            if(userDAO.insertMedicationIntoDatabase(med)) {
+                this.medication.add(med);
+            }
         }
     }
 
     @Override
     public void addSpecialNeed(String specialNeed) {
-        if(!specialNeeds.contains(specialNeed)) {
-            this.specialNeeds.add(specialNeed);
-            userDAO.addSpecialNeed(specialNeed);
+       if(specialNeeds.size() == 0) {
+            if(userDAO.insertSpecialNeedIntoDatabase(specialNeed)) {
+                this.specialNeeds.add(specialNeed);
+            }
+        } else {
+            if(userDAO.insertSpecialNeedIntoDatabase(specialNeed)) {
+                this.specialNeeds.add(specialNeed);
+            }
         }
     }
 
     @Override
     public void addDisease(String disease) {
-        if(!diseases.contains(disease)) {
-            this.diseases.add(disease);
-            userDAO.addDiseases(disease);
+        if(diseases.size() == 0) {
+            if(userDAO.insertDiseaseIntoDatabase(disease)) {
+                this.diseases.add(disease);
+            }
+        } else {
+            if(userDAO.insertDiseaseIntoDatabase(disease)) {
+                this.diseases.add(disease);
+            }
         }
     }
 
     @Override
     public void removeContact(Contact contact) {
-        if(!contacts.contains(contact)) {
-            this.contacts.add(contact);
-            userDAO.addContact(contact);
+        userDAO.deleteContactFromDatabase(contact);
+        for(Contact c : this.contacts) {
+            if(contact.equals(c)) {
+                this.contacts.remove(c);
+                return;
+            }
         }
     }
 
     @Override
-    public void removeMedication(Medication med) {
-        if(!medication.contains(med)) {
-            this.medication.add(med);
-            userDAO.addMedication(med);
+    public void removeMedication(Medication medication) {
+        userDAO.deleteMedicationFromDatabase(medication);
+        for(Medication m : this.medication) {
+            if(medication.equals(m)) {
+                this.contacts.remove(m);
+                return;
+            }
         }
     }
 
     @Override
     public void removeSpecialNeed(String specialNeed) {
-        if(!specialNeeds.contains(specialNeed)) {
-            this.specialNeeds.add(specialNeed);
-            userDAO.addSpecialNeed(specialNeed);
+        userDAO.deleteSpecialNeedFromDatabase(specialNeed);
+        for(String s : this.specialNeeds) {
+            if(specialNeed.equals(s)) {
+                this.contacts.remove(s);
+                return;
+            }
         }
     }
 
     @Override
     public void removeDisease(String disease) {
-        if(!diseases.contains(disease)) {
-            this.diseases.add(disease);
-            userDAO.addDiseases(disease);
+        userDAO.deleteDiseaseFromDatabase(disease);
+        for (String s : this.diseases) {
+            if (disease.equals(s)) {
+                this.contacts.remove(s);
+                return;
+            }
         }
     }
 
     public static User getUserObject() {
+        UserDAO.getUserDAO().buildUserObjectFromDatabase(userObject);
+
         return userObject;
     }
 

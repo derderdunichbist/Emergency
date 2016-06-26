@@ -77,13 +77,6 @@ public class ViewPagerActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-        this.userDao = new UserDAO(this);
-        this.userDao.open();
-
-        //Init Singleton
-        user = new UserImplementation(userDao);
-
         /*
         TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
          */

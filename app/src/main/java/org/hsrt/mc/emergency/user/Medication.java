@@ -27,6 +27,13 @@ public class Medication {
 
     }
 
+    public Medication(String name, String dosis, String manufacturer, int amountPerDay) {
+        this.name = name;
+        this.dosis = dosis;
+        this.manufacturer = manufacturer;
+        this.amountPerDay = amountPerDay;
+    }
+
 
     public String getMedicationText(){
         String medicationText = "";
@@ -71,5 +78,17 @@ public class Medication {
     }
     public int getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        boolean isEqual = false;
+        if(o instanceof Medication) {
+            Medication medication = (Medication)o;
+            if(medication.getName().equals(this.getName()) && medication.getDosis().equals(this.getDosis()) && medication.getManufacturer().equals(this.getManufacturer())&& medication.getAmountPerDay() == this.getAmountPerDay()) {
+                isEqual = true;
+            }
+        }
+        return isEqual;
     }
 }

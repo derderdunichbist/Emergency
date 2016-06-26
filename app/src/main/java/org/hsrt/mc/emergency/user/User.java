@@ -1,6 +1,8 @@
 package org.hsrt.mc.emergency.user;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by KA on 23.06.2016.
@@ -39,7 +41,9 @@ public interface User {
 
     public String getBloodType();
 
-    public String getContacts();
+    public List<Contact> getContacts();
+
+    public String getContactsAsString();
 
     public String getMedication();
 

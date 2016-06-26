@@ -28,8 +28,7 @@ public class ContactManagerActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_manager);
 
-        this.userDAO = new UserDAO(this);
-        this.userDAO.open();
+        this.userDAO = UserDAO.getUserDAO();
 
         Button button = (Button)findViewById(R.id.buttonAddContact);
 
