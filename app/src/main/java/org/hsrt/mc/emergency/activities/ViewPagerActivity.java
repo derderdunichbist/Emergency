@@ -43,23 +43,12 @@ public class ViewPagerActivity extends AppCompatActivity{
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private static UserDAO userda;
-    private static User user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
-
-
-        userda = new UserDAO(this);
-
-        this.userda.open();
-
-        //Init Singleton
-        user = new UserImplementation(userda);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,20 +59,6 @@ public class ViewPagerActivity extends AppCompatActivity{
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
-        this.userDao = new UserDAO(this);
-        this.userDao.open();
-
-        //Init Singleton
-        user = new UserImplementation(userDao);
-
-        /*
-        TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
-         */
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -173,7 +148,9 @@ public class ViewPagerActivity extends AppCompatActivity{
                         saveData.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 Contact contact1 = new Contact(null,null,phoneNumber1.getText().toString(),true);
-                                user.addContact(contact1);
+
+                                //TODO Add contact here!
+                                //user.addContact(contact1);
                                 Log.d("PhoneNumberTest",phoneNumber1.getText().toString());
 
                                /* isFirstTime = app_preferences.getBoolean("isFirstTime", true);
