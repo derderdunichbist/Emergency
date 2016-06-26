@@ -146,6 +146,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
+    private void initDatabase() {
+        this.userDAO = new UserDAO(this);
+        this.userDAO.open();
+    }
+    private void initUser() {
+        //Init Singleton
+        user = new UserImplementation(userDAO);
+        user = UserImplementation.getUserObject();
+        //TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
+        user.setFirstName("Hans");
+        user.setLastName("Peter");
+        user.setDateOfBirth(new Date(1955,5,5));
+        user.setBloodType(BloodType.ZERO_NEG);
+        Contact contact = new Contact("Günther Der Krasse", "ich-steh-auf-Analsex@gmail.de", "+490213421323", true);
+        user.addContact(contact);
+        contact = new Contact("Peter Der Kleine", "hallo@ail.de", "+49021sdsds3", false);
+        user.addContact(contact);
+        Medication medication = new Medication("Vagisil", "20mg", "Pen Inc.", 2);
+        user.addMedication(medication);
+        medication = new Medication("Vagisil2", "20mg", "Pen Inc.", 2);
+        user.addMedication(medication);
+        user.addSpecialNeed("Schwangerschaft im 11. Monat");
+        user.addDisease("Genital-Herpes");
+    }
 
     private void showCancelDialog() // Function which will view a dialog to cancel the emergency call
 
