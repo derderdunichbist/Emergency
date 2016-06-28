@@ -17,6 +17,7 @@ import org.hsrt.mc.emergency.user.Contact;
 import org.hsrt.mc.emergency.user.UserImplementation;
 import org.hsrt.mc.emergency.utils.UserMessage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,12 +53,17 @@ public class SendingService extends IntentService {
         //show notification
         mNotificationManager.notify(123, mBuilder.build()); // Show an build notification with id=123
 
+        // part the SMS in multiple SMS-Messages
+        String text = userMessage.getEmergencyMessage();
+        List<String> textMessages =splitString(text);
+
          // send SMS-Messages
         for (int i = 0; i < contacts.size(); i++) {
 
-            String text = userMessage.getEmergencyMessage();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(contacts.get(i).getPhoneNumber(), null, text, null, null);
+            for(int j = 0; j < textMessages.size(); j++) {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(contacts.get(i).getPhoneNumber(), null, textMessages.get(j), null, null);
+            }
             if(contacts.get(i).isFavourite()){
                 favoriteNumber = contacts.get(i).getPhoneNumber();
             }
@@ -71,11 +77,27 @@ public class SendingService extends IntentService {
 
 
        try{
-           startActivity(callIntent);
+           //startActivity(callIntent);
        }
        catch(Exception e){
            System.out.print(e.getMessage());
        }
 
+    }
+
+    public List<String> splitString(String s) {
+        int arrayLength = (int) Math.ceil(((s.length() / (double)160)));
+        List<String> result = new ArrayList<>();
+
+        int j = 0;
+        int lastIndex = arrayLength - 1;
+        for (int i = 0; i < lastIndex; i++) {
+            result.add(i,s.substring(j, j + 160));
+            j += 160;
+
+        }
+        result.add(lastIndex,s.substring(j));
+
+        return result;
     }
 }
