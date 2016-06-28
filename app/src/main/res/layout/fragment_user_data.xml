@@ -44,25 +44,7 @@
         android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        android:id="@+id/maleRb"
-        android:checked="false"
-        android:layout_below="@+id/genderLabel"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"
-        android:id="@+id/femaleRb"
-        android:layout_alignTop="@+id/maleRb"
-        android:layout_toEndOf="@+id/maleRb"
-        android:layout_marginStart="24dp"
-        android:checked="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,27 +52,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Gender"
         android:id="@+id/genderLabel"
-        android:layout_below="@+id/lastNameTf"
+        android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="DOB"
-        android:id="@+id/dobLabel"
-        android:layout_below="@+id/maleRb"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Date"
-        android:id="@+id/calenderButton"
-        android:onClick="showDatePickerDialog"
-        android:layout_below="@+id/dobLabel"
-        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,5 +65,53 @@
         android:layout_toEndOf="@+id/calenderButton"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp" />
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="DOB"
+        android:id="@+id/dobLabel"
+        android:layout_below="@+id/lastNameTf"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_below="@+id/dobLabel"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:id="@+id/femaleRb"
+            android:checked="false"
+            android:layout_below="@+id/maleRb"
+            android:layout_alignParentLeft="true" />
+
+        <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:id="@+id/maleRb"
+        android:checked="false"
+            android:layout_above="@+id/radioGroup"
+            android:layout_alignParentStart="true" />
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:id="@+id/calenderButton"
+        android:onClick="showDatePickerDialog"
+        android:layout_below="@+id/genderLabel"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
