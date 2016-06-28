@@ -35,6 +35,10 @@ public class Medication {
     }
 
 
+    /**
+     * join the Medication Text with the name, dosis and the amountPerDay
+     * @return the complite Medication Text description
+     */
     public String getMedicationText(){
         String medicationText = "";
         medicationText += "Ich benoetige das Medikament" + this.name + ", davon " + this.dosis + " und das " + this.amountPerDay + " taeglich";

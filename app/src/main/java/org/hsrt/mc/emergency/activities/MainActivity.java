@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void initUser() {
         //Init Singleton
         user = new UserImplementation(userDAO);
-        user = UserImplementation.getUserObject();
+        user = UserImplementation.initUserObjectFromDatabase();
         //TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
         user.setFirstName("Hans");
         user.setLastName("Peter");
