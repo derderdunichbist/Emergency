@@ -43,12 +43,10 @@ public interface User {
 
     public List<Contact> getContacts();
 
-    public String getContactsAsString();
+    public List<Medication> getMedication();
 
-    public String getMedication();
+    public List<String> getDiseases();
 
-    public String getDiseases();
-
-    public String getSpecialNeeds();
+    public List<String> getSpecialNeeds();
 
 }

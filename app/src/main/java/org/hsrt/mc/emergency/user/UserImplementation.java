@@ -39,41 +39,14 @@ public class UserImplementation implements User{
     }
 
     @Override
-    public String getMedication(){
-        String allMedicationText = "";
-        for( Medication m: medication )
-        {
-            allMedicationText += m.getMedicationText();
-            allMedicationText += "\n";
-        }
-        return allMedicationText;
+    public List<String> getDiseases(){
+        return this.diseases;
     }
 
     @Override
-    public String getDiseases(){
-        String allDiseases = "";
-        for ( String d: diseases){
-            allDiseases += d;
-            allDiseases += "; ";
-        }
-        return allDiseases;
-    }
-
-    @Override
-    public String getSpecialNeeds(){
-        String allSpecialNeeds = "";
-        for (String s: specialNeeds){
-            allSpecialNeeds += s;
-            allSpecialNeeds += "; ";
-        }
-        return allSpecialNeeds;
-    }
-
-    @Override
-    public String getContactsAsString() {
-        //TODO
-        return null;
-    }
+    public List<String> getSpecialNeeds(){
+    return specialNeeds;
+}
 
 
     public void initTestData() {
@@ -138,6 +111,11 @@ public class UserImplementation implements User{
     @Override
     public List<Contact> getContacts() {
         return contacts;
+    }
+
+    @Override
+    public List<Medication> getMedication() {
+        return this.medication;
     }
 
     @Override
@@ -253,11 +231,14 @@ public class UserImplementation implements User{
         }
     }
 
-    public static User getUserObject() {
+    public static User initUserObjectFromDatabase() {
         UserDAO.getUserDAO().buildUserObjectFromDatabase(userObject);
 
         return userObject;
     }
 
+    public static User getUserObject() {
+        return userObject;
+    }
 
 }
