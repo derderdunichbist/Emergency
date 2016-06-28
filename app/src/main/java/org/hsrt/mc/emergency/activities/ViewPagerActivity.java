@@ -17,8 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import org.hsrt.mc.emergency.R;
@@ -103,6 +105,7 @@ public class ViewPagerActivity extends AppCompatActivity{
         diseases,specialNeeds;
         private Contact contact1, contact2, contact3;
         private Spinner bloodTypeSp;
+        private RadioGroup gender;
 
 
 /*        private Boolean isFirstTime;
@@ -133,6 +136,7 @@ public class ViewPagerActivity extends AppCompatActivity{
             public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState) {
 
+                final User user = UserImplementation.getUserObject();
                 if(container == null){
                     return null;
                 }
@@ -140,19 +144,32 @@ public class ViewPagerActivity extends AppCompatActivity{
                 switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                     case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false);
                         firstName = (EditText) rootView.findViewById(R.id.firstNameTf);
+                        lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
+                        gender = (RadioGroup) rootView.findViewById(R.id.genderRadio);
 
                         firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                             @Override
                             public void onFocusChange(View v, boolean hasFocus) {
                                 if(hasFocus == false) {
                                     if(!Verifier.isStringEmptyOrNull(firstName.getText().toString())) {
-
+                                        user.setFirstName(firstName.getText().toString());
                                     }
                                 }
                             }
                         });
 
-                        lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
+                        lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                if(hasFocus == false) {
+                                    if(!Verifier.isStringEmptyOrNull(lastName.getText().toString())) {
+                                        user.setLastName(lastName.getText().toString());
+                                    }
+                                }
+                            }
+                        });
+
+
 
                         break;
 
@@ -163,6 +180,21 @@ public class ViewPagerActivity extends AppCompatActivity{
                         dosis = (EditText) rootView.findViewById(R.id.dosis);
                         diseases = (EditText) rootView.findViewById(R.id.diseases);
                         specialNeeds = (EditText) rootView.findViewById(R.id.specialNeeds);
+
+                        bloodTypeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String bloodType = bloodTypeSp.getItemAtPosition(position).toString();
+                                if (!Verifier.isStringEmptyOrNull(bloodType)) {
+                                    user.setBloodType(bloodType);
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
 
                         break;
 
@@ -177,6 +209,8 @@ public class ViewPagerActivity extends AppCompatActivity{
                         saveData.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 Contact contact1 = new Contact(null,null,phoneNumber1.getText().toString(),true);
+
+
 
                                 //TODO Add contact here!
                                 //user.addContact(contact1);

@@ -81,7 +81,7 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroup"
+        android:id="@+id/genderRadio"
         android:layout_below="@+id/dobLabel"
         android:layout_alignParentStart="true">
 
@@ -100,7 +100,7 @@
         android:text="Male"
         android:id="@+id/maleRb"
         android:checked="false"
-            android:layout_above="@+id/radioGroup"
+            android:layout_above="@+id/genderRadio"
             android:layout_alignParentStart="true" />
 
     </RadioGroup>
