@@ -18,23 +18,26 @@ public class UserMessage {
     private String location;
     private User u;
     private Boolean successful = true;
+    private String allDiseases;
+    private String allSpecialNeeds;
+    private String allMedicationText;
 
 
     /**
-     *
+     *Implement the UserMessage Text
      * @param con
      */
     public UserMessage(Context con){
         u = UserImplementation.getUserObject();
 
         List<String> diseases = u.getDiseases();
-        String allDiseases1 = getDiseasesAsString(diseases);
+        this.allDiseases = getDiseasesAsString(diseases);
 
         List<String> specialNeeds = u.getSpecialNeeds();
-        String allSpecialNeeds1 = getSpecialNeedsAsString(specialNeeds);
+        this.allSpecialNeeds = getSpecialNeedsAsString(specialNeeds);
 
         List<Medication> medication = u.getMedication();
-        String allMedicationText = getMedicationAsString(medication);
+        this.allMedicationText = getMedicationAsString(medication);
 
         GPS gps = new GPS(con);
         if(gps.canGetLocation()) {
@@ -58,27 +61,28 @@ public class UserMessage {
             gps.showSettings();
         }
 
+        emergencyMessage = "";
         emergencyMessage += "Hallo, mein Name ist " + u.getFirstName() + " " + u.getLastName() + ". Ich benötige Hilfe. Mein aktueller Standort : ";
         emergencyMessage += location + "\n\n";
 
-        if (u.getDiseases().equals("")){
+        if (this.allDiseases.equals("")){
             emergencyMessage +="Ich habe keine Krankheiten hinterlegt\n";
         }
         else{
-            emergencyMessage += "Ich habe folgende Krankheiten: " + u.getDiseases() + "\n";
+            emergencyMessage += "Ich habe folgende Krankheiten: " + this.allDiseases + "\n";
         }
-        if (u.getSpecialNeeds().equals("")){
+        if (this.allSpecialNeeds.equals("")){
             emergencyMessage += "Meine Besonderheiten: Keine besondere Bedürfnisse hinterlegt";
         }
         else{
-            emergencyMessage += "Meine Besonderheiten: " + u.getSpecialNeeds() + "\n";
+            emergencyMessage += "Meine Besonderheiten: " + this.allSpecialNeeds + "\n";
         }
-        if (u.getMedication().equals("")){
+        if (this.allMedicationText.equals("")){
             emergencyMessage += "\nIch nehme keine Medikamente ein";
         }
         else{
             emergencyMessage += "\nMedikamente die ich einnehme:\n";
-            emergencyMessage += u.getMedication();
+            emergencyMessage += this.allMedicationText;
         }
         if (u.getBloodType() != null){
             emergencyMessage += "\nMeine Blutgruppe: ";
