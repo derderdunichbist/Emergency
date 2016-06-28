@@ -108,7 +108,7 @@ public class UserMessage {
         String allSpecialNeeds = "";
         for (String s: specialNeeds){
             allSpecialNeeds += s;
-            allSpecialNeeds += "; ";
+            allSpecialNeeds += ", ";
         }
         return allSpecialNeeds;
     }
@@ -117,7 +117,7 @@ public class UserMessage {
         String allDiseases = "";
         for ( String d: diseases){
             allDiseases += d;
-            allDiseases += "; ";
+            allDiseases += ", ";
         }
         return allDiseases;
     }
