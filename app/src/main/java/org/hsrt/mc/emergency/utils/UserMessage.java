@@ -123,14 +123,24 @@ public class UserMessage {
     }
 
 
-    //return the hole EmergencyMessage of the user
+    /**
+     *
+     * @return the hole EmergencyMessage of the use
+     */
     public String getEmergencyMessage(){
         return emergencyMessage;
     }
 
-    //return true if gps is successful
+    /**
+     *
+     * @return true if gps is successful
+     */
     public Boolean getSuccessful(){
         return successful;
+    }
+
+    public User getUser(){
+        return this.u;
     }
 
 
