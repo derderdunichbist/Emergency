@@ -62,34 +62,34 @@ public class UserMessage {
         }
 
         emergencyMessage = "";
-        emergencyMessage += "Hallo, mein Name ist " + u.getFirstName() + " " + u.getLastName() + ". Ich benötige Hilfe. Mein aktueller Standort : ";
-        emergencyMessage += location + "\n\n";
+        emergencyMessage += "Name: " + u.getFirstName() + " " + u.getLastName() + ". Standort: ";
+        emergencyMessage += location;
 
         if (this.allDiseases.equals("")){
-            emergencyMessage +="Ich habe keine Krankheiten hinterlegt\n";
+            emergencyMessage +="";
         }
         else{
-            emergencyMessage += "Ich habe folgende Krankheiten: " + this.allDiseases + "\n";
+            emergencyMessage += "/ Krankheiten: " + this.allDiseases + "\n";
         }
         if (this.allSpecialNeeds.equals("")){
-            emergencyMessage += "Meine Besonderheiten: Keine besondere Bedürfnisse hinterlegt";
+            emergencyMessage += "";
         }
         else{
-            emergencyMessage += "Meine Besonderheiten: " + this.allSpecialNeeds + "\n";
+            emergencyMessage += "/ Besonderheiten: " + this.allSpecialNeeds + "\n";
         }
         if (this.allMedicationText.equals("")){
-            emergencyMessage += "\nIch nehme keine Medikamente ein";
+            emergencyMessage += "";
         }
         else{
-            emergencyMessage += "\nMedikamente die ich einnehme:\n";
+            emergencyMessage += "/ Medikamente:\n";
             emergencyMessage += this.allMedicationText;
         }
         if (u.getBloodType() != null){
-            emergencyMessage += "\nMeine Blutgruppe: ";
+            emergencyMessage += "/ Meine Blutgruppe: ";
             emergencyMessage += u.getBloodType();
         }
         else{
-            emergencyMessage += "\nIch habe keine Blutgruppe hinterlegt\n";
+            emergencyMessage += "";
         }
         System.out.println(emergencyMessage);
     }
@@ -108,7 +108,7 @@ public class UserMessage {
         String allSpecialNeeds = "";
         for (String s: specialNeeds){
             allSpecialNeeds += s;
-            allSpecialNeeds += "; ";
+            allSpecialNeeds += ", ";
         }
         return allSpecialNeeds;
     }
@@ -117,7 +117,7 @@ public class UserMessage {
         String allDiseases = "";
         for ( String d: diseases){
             allDiseases += d;
-            allDiseases += "; ";
+            allDiseases += ", ";
         }
         return allDiseases;
     }

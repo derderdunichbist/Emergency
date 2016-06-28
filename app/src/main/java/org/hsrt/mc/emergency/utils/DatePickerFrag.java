@@ -4,9 +4,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.widget.Button;
 
 import org.hsrt.mc.emergency.R;
+import org.hsrt.mc.emergency.user.UserImplementation;
 
 import java.util.Calendar;
 
@@ -28,6 +30,8 @@ public class DatePickerFrag extends DialogFragment
 
         dobButton = (Button) getActivity().findViewById(R.id.calenderButton);
 
+
+
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
@@ -36,6 +40,15 @@ public class DatePickerFrag extends DialogFragment
         // Do something with the date chosen by the user
 
         dobButton.setText(view.getDayOfMonth()+"."+view.getMonth()+"."+view.getYear());
+
+        dobButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus == false) {
+                    //UserImplementation.getUserObject().setDateOfBirth(view.getDayOfMonth() + view);
+                }
+            }
+        });
 
     }
 

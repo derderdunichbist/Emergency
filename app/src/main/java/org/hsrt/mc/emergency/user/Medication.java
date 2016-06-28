@@ -41,7 +41,7 @@ public class Medication {
      */
     public String getMedicationText(){
         String medicationText = "";
-        medicationText += "Ich benoetige das Medikament" + this.name + ", davon " + this.dosis + " und das " + this.amountPerDay + " taeglich";
+        medicationText += " " + this.name + ", davon " + this.dosis + " ,dass " + this.amountPerDay + "mal taeglich.";
         return medicationText;
     }
 

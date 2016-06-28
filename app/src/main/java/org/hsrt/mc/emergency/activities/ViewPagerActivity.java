@@ -17,8 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.persistence.UserDAO;
@@ -26,6 +29,7 @@ import org.hsrt.mc.emergency.user.Contact;
 import org.hsrt.mc.emergency.user.User;
 import org.hsrt.mc.emergency.user.UserImplementation;
 import org.hsrt.mc.emergency.utils.DatePickerFrag;
+import org.hsrt.mc.emergency.utils.Verifier;
 
 public class ViewPagerActivity extends AppCompatActivity{
 
@@ -97,7 +101,13 @@ public class ViewPagerActivity extends AppCompatActivity{
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private EditText phoneNumber1, phoneNumber2, phoneNumber3;
+        private EditText phoneNumber1, phoneNumber2, phoneNumber3, firstName, lastName, medicationName, dosis,
+        diseases,specialNeeds;
+        private Contact contact1, contact2, contact3;
+        private Spinner bloodTypeSp;
+        private RadioGroup gender;
+
+
 /*        private Boolean isFirstTime;
 
         SharedPreferences app_preferences = PreferenceManager
@@ -122,32 +132,85 @@ public class ViewPagerActivity extends AppCompatActivity{
         }
 
 
-
-
             @Override
             public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState) {
 
+                final User user = UserImplementation.getUserObject();
                 if(container == null){
                     return null;
                 }
                 View rootView = null;
                 switch (getArguments().getInt(ARG_SECTION_NUMBER)){
-                    case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false); break;
+                    case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false);
+                        firstName = (EditText) rootView.findViewById(R.id.firstNameTf);
+                        lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
+                        gender = (RadioGroup) rootView.findViewById(R.id.genderRadio);
 
-                    case 2: rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false); break;
+                        firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                if(hasFocus == false) {
+                                    if(!Verifier.isStringEmptyOrNull(firstName.getText().toString())) {
+                                        user.setFirstName(firstName.getText().toString());
+                                    }
+                                }
+                            }
+                        });
+
+                        lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                if(hasFocus == false) {
+                                    if(!Verifier.isStringEmptyOrNull(lastName.getText().toString())) {
+                                        user.setLastName(lastName.getText().toString());
+                                    }
+                                }
+                            }
+                        });
+
+
+
+                        break;
+
+                    case 2: rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false);
+
+                        bloodTypeSp = (Spinner) rootView.findViewById(R.id.bloodTypeList);
+                        medicationName = (EditText) rootView.findViewById(R.id.medicationName);
+                        dosis = (EditText) rootView.findViewById(R.id.dosis);
+                        diseases = (EditText) rootView.findViewById(R.id.diseases);
+                        specialNeeds = (EditText) rootView.findViewById(R.id.specialNeeds);
+
+                        bloodTypeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String bloodType = bloodTypeSp.getItemAtPosition(position).toString();
+                                if (!Verifier.isStringEmptyOrNull(bloodType)) {
+                                    user.setBloodType(bloodType);
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
+                        break;
 
                     case 3:
                         rootView = inflater.inflate(R.layout.fragment3_user_contacts, container, false);
 
                         phoneNumber1 = (EditText) rootView.findViewById(R.id.phoneNumber1);
-                       // phoneNumber2 = (EditText) rootView.findViewById(R.id.phoneNumber2);
-                        // phoneNumber3 = (EditText) rootView.findViewById(R.id.phoneNumber3);
+                        phoneNumber2 = (EditText) rootView.findViewById(R.id.phoneNumber2);
+                        phoneNumber3 = (EditText) rootView.findViewById(R.id.phoneNumber3);
 
                         Button saveData = (Button) rootView.findViewById(R.id.confirmUserData);
                         saveData.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 Contact contact1 = new Contact(null,null,phoneNumber1.getText().toString(),true);
+
+
 
                                 //TODO Add contact here!
                                 //user.addContact(contact1);

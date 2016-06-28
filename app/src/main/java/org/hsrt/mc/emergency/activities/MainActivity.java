@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -259,7 +260,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onResume()
     {
         super.onResume();
-        this.userDAO.open();
 
         if (detectFirstRun.getBoolean("firstrun", true))
         {
@@ -320,8 +320,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onPause() {
-        this.userDAO.close();
+        //this.userDAO.close();
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        //this.userDAO.close();
+        super.onStop();
     }
 
 }
