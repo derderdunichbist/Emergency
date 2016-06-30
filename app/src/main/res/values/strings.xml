@@ -67,4 +67,9 @@
     <string name="title_activity_user_data">User Data</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="test_output">Test Output</string>
+    <string name="first_name">First Name</string>
+    <string name="last_Name">Last Name</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="specified_Contacts">Specified Contacts</string>
 </resources>

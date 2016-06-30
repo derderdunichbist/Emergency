@@ -1,5 +1,7 @@
 package org.hsrt.mc.emergency.user;
 
+import android.widget.Toast;
+
 import org.hsrt.mc.emergency.activities.MainActivity;
 import org.hsrt.mc.emergency.persistence.MySQLiteHelper;
 import org.hsrt.mc.emergency.persistence.UserDAO;
@@ -137,14 +139,18 @@ public class UserImplementation implements User{
 
     @Override
     public void addContact(Contact contact) {
-        if(contacts.size() == 0) {
-            if(userDAO.insertContactIntoDatabase(contact)) {
-                this.contacts.add(contact);
+        if(contacts.size() < 3) {
+            if(contacts.size() == 0) {
+                if(userDAO.insertContactIntoDatabase(contact)) {
+                    this.contacts.add(contact);
+                }
+            } else {
+                if(userDAO.insertContactIntoDatabase(contact)) {
+                    this.contacts.add(contact);
+                }
             }
         } else {
-            if(userDAO.insertContactIntoDatabase(contact)) {
-                this.contacts.add(contact);
-            }
+            Toast.makeText(userDAO.getContext(), "Internal Error, no more thant 3 contacts allowed", Toast.LENGTH_LONG);
         }
     }
 

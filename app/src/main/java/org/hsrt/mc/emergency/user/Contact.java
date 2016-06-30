@@ -78,4 +78,11 @@ public class Contact {
         }
         return isEqual;
     }
+
+    @Override
+    public Contact clone() {
+        Contact contact = new Contact(this.name, this.email, this.phoneNumber, this.isFavourite);
+        contact.setId(this.id);
+        return contact;
+    }
 }

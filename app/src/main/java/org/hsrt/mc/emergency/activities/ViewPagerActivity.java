@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -144,7 +145,9 @@ public class ViewPagerActivity extends AppCompatActivity{
                 switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                     case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false);
                         firstName = (EditText) rootView.findViewById(R.id.firstNameTf);
+                        //firstName.setText(user.getFirstName());
                         lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
+                        //lastName.setText(user.getLastName());
                         gender = (RadioGroup) rootView.findViewById(R.id.genderRadio);
 
                         firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -168,8 +171,6 @@ public class ViewPagerActivity extends AppCompatActivity{
                                 }
                             }
                         });
-
-
 
                         break;
 
@@ -208,13 +209,16 @@ public class ViewPagerActivity extends AppCompatActivity{
                         Button saveData = (Button) rootView.findViewById(R.id.confirmUserData);
                         saveData.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
+                                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                                        ContactsContract.Contacts.CONTENT_URI);
+                                startActivityForResult(contactPickerIntent, 1001);
+
                                 Contact contact1 = new Contact(null,null,phoneNumber1.getText().toString(),true);
 
 
 
                                 //TODO Add contact here!
                                 //user.addContact(contact1);
-                                Log.d("PhoneNumberTest",phoneNumber1.getText().toString());
 
                                /* isFirstTime = app_preferences.getBoolean("isFirstTime", true);
 
@@ -232,8 +236,8 @@ public class ViewPagerActivity extends AppCompatActivity{
 
                             }
 
-
                         });
+
 
                         break;
                 }

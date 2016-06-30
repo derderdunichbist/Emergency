@@ -3,9 +3,16 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="User">
+        <intent android:action="user_manager"/>
+    </header>
+
+    <header
         android:icon="@drawable/ic_contacts_black_24dp"
         android:title="Contacts">
-        <intent android:action="your.action.string"/>
+        <intent android:action="contact_manager"/>
     </header>
+
 
 </preference-headers>

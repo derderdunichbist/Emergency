@@ -32,9 +32,14 @@ public class UserDAO {
         }
     }
 
+    public Context getContext() {
+        return this.context;
+    }
+
     public void open() throws SQLException {
         database = sqlLiteHelper.getWritableDatabase();
         this.setUpUser();
+
     }
 
     public void close() {

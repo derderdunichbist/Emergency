@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private User user;
     private TextView timerView;
     private Vibrator vib;
+    private static boolean dbIsInit = false;
     CountDownTimer countDown;
 
     SharedPreferences detectFirstRun = null; // Preferences to detect the first run
@@ -64,8 +65,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initDatabase();
-        initUser();
+        if(!dbIsInit) {
+            initDatabase();
+            initUser();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void initDatabase() {
         this.userDAO = new UserDAO(this);
         this.userDAO.open();
+        dbIsInit = true;
     }
     private void initUser() {
         //Init Singleton
@@ -160,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         user.setLastName("Peter");
         user.setDateOfBirth(new Date(1955,5,5));
         user.setBloodType(BloodType.ZERO_NEG);
+
+        /*
         Contact contact = new Contact("Andy", "email@gmail.de", "+491736938474", true);
         user.addContact(contact);
         contact = new Contact("David", "email@gmail.de", "+4915125328054", false);
@@ -172,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         user.addMedication(medication);
         user.addSpecialNeed("Schwangerschaft im 11. Monat");
         user.addDisease("kopfweh");
+        */
     }
 
     private void showCancelDialog() // Function which will view a dialog to cancel the emergency call
@@ -307,8 +314,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            //Intent i = new Intent(this, SettingsActivity.class);
-            Intent i = new Intent (this, ViewPagerActivity.class);
+            Intent i = new Intent(this, SettingsActivity.class);
+            //Intent i = new Intent (this, ViewPagerActivity.class);
             startActivity(i);
             return true;
         }if (id == R.id.test_output) {
