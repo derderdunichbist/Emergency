@@ -133,6 +133,10 @@ public class ViewPagerActivity extends AppCompatActivity{
             return fragment;
         }
 
+        /*
+        * All elements in the settings menu are declared here an focus change listener will be set to recognize if there is any new content.
+        * The switch class is for the given page numbers in the viewpager.
+         */
 
             @Override
             public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Created by Andreas Mueller on 18.06.2016.
- */
+        */
 public class FirstRunActivity extends AppCompatActivity
 {
 
@@ -30,6 +30,14 @@ public class FirstRunActivity extends AppCompatActivity
 
     public static final int PERMISSIONS = 1;
 
+
+
+    /*
+     * This function will recognize if the application runs for the first time. If this is the case a initialization
+     * screen will launch as the first activity and ask for the required permissions. If it's not the first run
+     * tbe main activity will be shown otherwise.
+     * Includes a Actionlistener for the Continue Button to get to main activity when the permissions are granted.
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -54,15 +62,12 @@ public class FirstRunActivity extends AppCompatActivity
         finish();
         }
 
-        /// <summary>
-        /// Actionlistener, launches the main activity after the permissions are granted.
-        /// </summary>
         continueBt.setOnClickListener(new View.OnClickListener()
         {
 
             @Override
             public void onClick(View v)
-            {
+            { // Actionlistener, launches the main activity after the permissions are granted.
 
 
                 if(grantPermissions() && isGPSenabled())
@@ -81,12 +86,10 @@ public class FirstRunActivity extends AppCompatActivity
     }
 
 
-    /// <summary>
-    /// Checks for required permissions and will be so long false until the list ist not empty.
-    /// Asks for the permissions which are also in the Manifest.xml declareted
-    /// </summary>
-
-
+    /*
+     * instantiate the gps class with the context of this class and checks the canGetLocation() which returns falls when the gps service is disabled
+     * and will show the settings dialog so the user can enable gps.
+    */
     private boolean isGPSenabled()
     {
         gps = new GPS(this);
@@ -99,6 +102,11 @@ public class FirstRunActivity extends AppCompatActivity
         }
     }
 
+/*
+ * Checks for required permissions and will be so long false until the list ist not empty.
+ * Asks for the same permissions which are also declareted in the Manifest.xml
+ * The Permissions are: SEND_SMS, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, READ_CONTACTS, VIBRATE and CALL_PHONE
+ */
     private  boolean grantPermissions()
     {
 

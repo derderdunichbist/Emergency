@@ -77,7 +77,7 @@ public class SendingService extends IntentService {
 
 
        try{
-           //startActivity(callIntent);
+           startActivity(callIntent);
        }
        catch(Exception e){
            System.out.print(e.getMessage());

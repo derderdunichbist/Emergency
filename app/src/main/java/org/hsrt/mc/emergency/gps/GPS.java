@@ -48,20 +48,20 @@ public class GPS extends Service implements LocationListener
     final private int PERMISSION = 23;
 
 
-    /// <summary>
-    /// Constructor, saves the context in a var and launches the getLocation class when instantiated
-    /// </summary>
+    /*
+     * Constructor, saves the context in a var and launches the getLocation class when instantiated
+     */
     public GPS(Context context)
     {
         this.context = context;
         getLocation();
     }
 
-    /// <summary>
-    /// Asks for gps and internet accessability, then checks for the required permissions and will finally
-    /// gets the last known location from the location manager.
-    /// The longitude and latitude will be saved for later access.
-    /// </summary>
+    /*
+     * Asks for gps and internet accessability, then checks for the required permissions and will finally
+     * gets the last known location from the location manager.
+     * The longitude and latitude will be saved for later use.
+     */
     public Location getLocation()
     {
         try {
@@ -123,7 +123,7 @@ public class GPS extends Service implements LocationListener
                     {
                         locationManager.requestLocationUpdates
                                 (
-
+                                // Time and Distance is 0 so the user can get the next position even when he is just 10 meters away from his last permission
                                 LocationManager.GPS_PROVIDER,
                                 TIME,
                                 DISTANCE, this);
@@ -171,12 +171,12 @@ public class GPS extends Service implements LocationListener
         return longitude;
     }
 
-    /// <summary>
-    /// This function provides a Geocoder which will convert the latitudes in a
-    /// Address. The format is as follows: STREET NUMBER ZIP CODE CITY
-    /// The Address will be saved in a list and concardinated to a string.
-    /// Finally the method returns the string with the address.
-    /// </summary>
+    /*
+     * This function provides a Geocoder which will convert the latitudes in a
+     * Address. The format is as follows: STREET NUMBER ZIP CODE CITY
+     * The Address will be saved in a list and concardinated to a string.
+     * Finally the method returns the string with the address.
+     */
     public String getGeoLocation(double latitude, double longitude)
     {
         String address = "";
@@ -210,9 +210,9 @@ public class GPS extends Service implements LocationListener
 
 
 
-    /// <summary>
-    /// If the GPS Service is not enabled a dialog will pop up and asks the user to accept the access
-    /// </summary>
+   /*
+    * If the GPS Service is not enabled a dialog will pop up and asks the user to accept the access
+    */
     public void showSettings()
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
