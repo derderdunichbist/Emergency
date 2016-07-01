@@ -97,9 +97,15 @@ public class UserDAO {
         database.update(MySQLiteHelper.TABLE_USER, values, null, null);
     }
 
-    public void updateUserDob(Date dateOfBirth) {
+    public void updateUserDob(String dateOfBirth) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_DATE_OF_BIRTH, String.valueOf(dateOfBirth));
+        values.put(MySQLiteHelper.COLUMN_DATE_OF_BIRTH, dateOfBirth);
+        database.update(MySQLiteHelper.TABLE_USER, values, null, null);
+    }
+
+    public void updateGender(String gender) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_GENDER, gender);
         database.update(MySQLiteHelper.TABLE_USER, values, null, null);
     }
 
@@ -399,4 +405,5 @@ public class UserDAO {
 
         return  contact;
     }
+
 }

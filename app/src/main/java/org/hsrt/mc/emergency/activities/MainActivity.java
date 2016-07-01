@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //TEST DATA; WILL BE REMOVED WITH NEXT COMMIT
         user.setFirstName("Hans");
         user.setLastName("Peter");
-        user.setDateOfBirth(new Date(1955,5,5));
+        user.setDateOfBirth("07.11.1931");
         user.setBloodType(BloodType.ZERO_NEG);
 
         /*

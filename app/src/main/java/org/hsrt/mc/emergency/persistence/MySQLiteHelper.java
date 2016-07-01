@@ -28,6 +28,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_CONTACT = "contact";
     public static final String COLUMN_MEDICATION = "medication";
     public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
+    public static final String COLUMN_GENDER = "gender";
 
     //Columns for MEDIACTION-Table
     public static final String COLUMN_DOSIS = "dosis";
@@ -102,7 +103,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_FIRST_NAME + TEXT + ", "
             + COLUMN_LAST_NAME + TEXT +  ", "
             + COLUMN_DATE_OF_BIRTH + TEXT +  ", "
-            + COLUMN_BLOOD_TYPE + TEXT  + ");";
+            + COLUMN_BLOOD_TYPE + TEXT  + ","
+            + COLUMN_GENDER + TEXT  + ");";
 
 
     public MySQLiteHelper(Context context) {

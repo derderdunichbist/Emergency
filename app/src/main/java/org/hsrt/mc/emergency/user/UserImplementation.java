@@ -18,12 +18,14 @@ public class UserImplementation implements User{
     private String firstName;
     private String lastName;
     private String bloodType;
-    private Date dateOfBirth;
+    private String dateOfBirth;
+    private String gender;
     private List<Medication> medication = new ArrayList<>();
     private List<String> diseases = new ArrayList<>();
     private List<String> specialNeeds = new ArrayList<>();
     private UserDAO userDAO;
     private List<Contact> contacts = new ArrayList<>();
+
 
     /**
      * Singleton constant
@@ -55,7 +57,7 @@ public class UserImplementation implements User{
         this.firstName = "Andy";
         this.lastName = "Müller";
         this.bloodType = BloodType.A_NEG;
-        this.dateOfBirth = new Date(1980,5,10);
+        this.dateOfBirth = new String("10.5.1980");
 
         this.medication = new ArrayList<Medication>();
 
@@ -127,12 +129,12 @@ public class UserImplementation implements User{
     }
 
     @Override
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
     @Override
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         userDAO.updateUserDob(dateOfBirth);
     }
@@ -224,6 +226,17 @@ public class UserImplementation implements User{
                 return;
             }
         }
+    }
+
+    @Override
+    public void setGender(String gender) {
+        this.gender = gender;
+        userDAO.updateGender(gender);
+    }
+
+    @Override
+    public String getGender() {
+        return this.gender;
     }
 
     @Override

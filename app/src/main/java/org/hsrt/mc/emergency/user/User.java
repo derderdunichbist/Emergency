@@ -13,7 +13,7 @@ public interface User {
 
     public void setLastName (String name);
 
-    public void setDateOfBirth(Date dateOfBirth);
+    public void setDateOfBirth(String dateOfBirth);
 
     public void setBloodType (String bloodType);
 
@@ -33,11 +33,15 @@ public interface User {
 
     public void removeSpecialNeed(String specialNeed);
 
+    public void setGender(String gender);
+
+    public String getGender();
+
     public String getFirstName();
 
     public String getLastName();
 
-    public Date getDateOfBirth();
+    public String getDateOfBirth();
 
     public String getBloodType();
 

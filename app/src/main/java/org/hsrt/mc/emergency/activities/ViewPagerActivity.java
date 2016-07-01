@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -169,6 +170,18 @@ public class ViewPagerActivity extends AppCompatActivity{
                                         user.setLastName(lastName.getText().toString());
                                     }
                                 }
+                            }
+                        });
+
+                        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                int checkedButtonId = group.getCheckedRadioButtonId();
+                                View radioButton = group.findViewById(checkedButtonId);
+                                int idx = group.indexOfChild(radioButton);
+                                RadioButton r = (RadioButton) group.getChildAt(idx);
+                                String selectedtext = r.getText().toString();
+                                user.setGender(selectedtext);
                             }
                         });
 
