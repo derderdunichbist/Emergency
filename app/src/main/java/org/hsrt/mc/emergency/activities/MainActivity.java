@@ -43,8 +43,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
 
-    ImageButton sosBtn; // SOS-Button
-    GPS gps; // GPS Modul
+    ImageButton sosBtn;
+    GPS gps;
     UserMessage msg;
     private GoogleMap mMap;
     private static boolean sosButtonPressed;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static boolean dbIsInit = false;
     CountDownTimer countDown;
 
-    SharedPreferences detectFirstRun = null; // Preferences to detect the first run
+    SharedPreferences detectFirstRun = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
