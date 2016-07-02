@@ -216,29 +216,6 @@ public class ViewPagerActivity extends AppCompatActivity{
                         });
 
                         break;
-
-                    case 3:
-                        rootView = inflater.inflate(R.layout.fragment3_user_contacts, container, false);
-
-                        phoneNumber1 = (EditText) rootView.findViewById(R.id.phoneNumber1);
-                        phoneNumber2 = (EditText) rootView.findViewById(R.id.phoneNumber2);
-                        phoneNumber3 = (EditText) rootView.findViewById(R.id.phoneNumber3);
-
-                        Button saveData = (Button) rootView.findViewById(R.id.confirmUserData);
-                        saveData.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
-                                        ContactsContract.Contacts.CONTENT_URI);
-                                startActivityForResult(contactPickerIntent, 1001);
-
-                                Contact contact1 = new Contact(null,null,phoneNumber1.getText().toString(),true);
-
-                            }
-
-                        });
-
-
-                        break;
                 }
 
                 return rootView;
@@ -271,7 +248,7 @@ public class ViewPagerActivity extends AppCompatActivity{
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
