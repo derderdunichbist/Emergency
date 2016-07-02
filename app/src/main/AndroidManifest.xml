@@ -94,13 +94,17 @@
 
         <activity
             android:name=".activities.ViewPagerActivity"
-            android:label="@string/title_activity_user_data"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activities.SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.hsrt.mc.emergency.activities.SettingsActivity" />
             <intent-filter>
                 <action android:name="user_manager" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

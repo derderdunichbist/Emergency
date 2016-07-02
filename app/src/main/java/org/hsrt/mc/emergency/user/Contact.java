@@ -17,9 +17,6 @@ public class Contact {
 
     }
 
-
-
-
     public Contact (String name, String email, String phoneNumber, boolean isFavourite){
         this.setName(name);
         this.setEmail(email);

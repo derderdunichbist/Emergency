@@ -126,6 +126,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+    /**
+     * Create the database tables in the correct order
+     * @param db The applications's database
+     */
     private void createDatabaseTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SPECIAL_NEEDS);
         db.execSQL(CREATE_TABLE_DISEASES);

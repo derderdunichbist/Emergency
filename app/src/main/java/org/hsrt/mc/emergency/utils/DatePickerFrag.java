@@ -42,7 +42,7 @@ public class DatePickerFrag extends DialogFragment
         // Do something with the date chosen by the user
 
         dobButton.setText(view.getDayOfMonth()+"."+view.getMonth()+"."+view.getYear());
-        UserImplementation.getUserObject().setDateOfBirth(view.getDayOfMonth()+"."+view.getMonth()+"."+view.getYear());
+        UserImplementation.getUserObject().setDateOfBirth(view.getDayOfMonth()+"."+view.getMonth()+1+"."+view.getYear());
 
 
     }

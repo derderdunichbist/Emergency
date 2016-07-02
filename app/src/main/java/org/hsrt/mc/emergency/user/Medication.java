@@ -6,22 +6,10 @@ package org.hsrt.mc.emergency.user;
 public class Medication {
 
     private int id;
-
     private String name;
-
-    /**
-     * The dosis per taking, e.g. mg, ml, 3 pills
-     */
     private String dosis;
-
     private String manufacturer;
-
-    /**
-     * Descibes if medication needs to be taken once, twice or trice a day
-     * TODO Irregularity must be covered (such as Insulin: only when high on blood sugar)
-     */
     private int amountPerDay;
-
 
     public Medication(){
 
@@ -33,7 +21,6 @@ public class Medication {
         this.manufacturer = manufacturer;
         this.amountPerDay = amountPerDay;
     }
-
 
     /**
      * join the Medication Text with the name, dosis and the amountPerDay

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -56,8 +57,13 @@ public class ViewPagerActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -68,12 +74,7 @@ public class ViewPagerActivity extends AppCompatActivity{
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_data, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -231,25 +232,6 @@ public class ViewPagerActivity extends AppCompatActivity{
                                 startActivityForResult(contactPickerIntent, 1001);
 
                                 Contact contact1 = new Contact(null,null,phoneNumber1.getText().toString(),true);
-
-
-
-                                //TODO Add contact here!
-                                //user.addContact(contact1);
-
-                               /* isFirstTime = app_preferences.getBoolean("isFirstTime", true);
-
-                                if (!isFirstTime) {
-
-                                    Intent main = new Intent(getActivity(), MainActivity.class);
-                                    startActivity(main);
-                                    getActivity().finish();
-
-                                }else{
-                                    editor.putBoolean("isFirstTime", false);
-                                    editor.commit();
-                                    Log.d("PhoneNumberTest",phoneNumber1.getText().toString());
-                                }*/
 
                             }
 

@@ -52,39 +52,6 @@ public class UserImplementation implements User{
     return specialNeeds;
 }
 
-
-    public void initTestData() {
-        this.firstName = "Andy";
-        this.lastName = "Müller";
-        this.bloodType = BloodType.A_NEG;
-        this.dateOfBirth = new String("10.5.1980");
-
-        this.medication = new ArrayList<Medication>();
-
-
-        Medication medication1 = new Medication();
-        medication1.setName("Vagisil");
-        medication1.setManufacturer("Vagisil Inc.");
-        medication1.setAmountPerDay(3);
-        medication1.setDosis("20g/Use");
-        this.medication.add(medication1);
-
-        Medication medication2 = new Medication();
-        medication2.setName("Asperin");
-        medication2.setManufacturer("DIEFIRMA Inc.");
-        medication2.setAmountPerDay(5);
-        medication2.setDosis("20g/Use");
-        this.medication.add(medication2);
-
-        this.diseases = new ArrayList<String>();
-        this.diseases.add("Mamaschnuckler");
-        this.diseases.add("Krankheit2");
-
-        this.specialNeeds = new ArrayList<String>();
-        this.specialNeeds.add("Schokoladenesser");
-        this.specialNeeds.add("Viel Schokoladenesser");
-    }
-
     @Override
     public String getFirstName() {
         return firstName;
@@ -250,6 +217,11 @@ public class UserImplementation implements User{
         }
     }
 
+    /**
+     * Initializes the user Object with the values from the database. Called only once per run at
+     * the start of the application
+     * @return the User with correctly assigned values from the database
+     */
     public static User initUserObjectFromDatabase() {
         UserDAO.getUserDAO().buildUserObjectFromDatabase(userObject);
 
