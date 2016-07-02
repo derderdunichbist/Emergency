@@ -119,7 +119,7 @@ public class UserImplementation implements User{
                 }
             }
         } else {
-            Toast.makeText(userDAO.getContext(), "Internal Error, no more thant 3 contacts allowed", Toast.LENGTH_LONG);
+            //Toast.makeText(userDAO.getContext(), "Internal Error, no more thant 3 contacts allowed", Toast.LENGTH_LONG);
         }
     }
 
