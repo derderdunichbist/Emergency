@@ -68,10 +68,15 @@ public class GPS extends Service implements LocationListener
     public Location getLocation()
     {
         try {
+
+            // Declares the location manager
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
+
+            // is true when the gps service is enabled
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+            // is true when the network service is enabled
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled)
@@ -82,16 +87,17 @@ public class GPS extends Service implements LocationListener
 
                 if (isNetworkEnabled)
                 {
-
+                    // Checks for the required permissions if the sdk > 23
                     if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                     {
+                        // Asks for the access to system functions
 
                         ActivityCompat.requestPermissions((Activity) context,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
                                 PERMISSION);
 
 
-                    }else
+                    }else // Request the current location from the network provider
                     {
 
                         locationManager.requestLocationUpdates(
@@ -100,15 +106,15 @@ public class GPS extends Service implements LocationListener
                                 DISTANCE, this);
                     }
 
+                    if (locationManager != null)  // When the network provider is not available get the last known position
 
-                    if (locationManager != null)
                     {
 
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
 
-                        if (location != null)
+                        if (location != null)  // saves the latitudes
                         {
 
                             latitude = location.getLatitude();
@@ -177,7 +183,7 @@ public class GPS extends Service implements LocationListener
     /*
      * This function provides a Geocoder which will convert the latitudes in a
      * Address. The format is as follows: STREET NUMBER ZIP CODE CITY
-     * The Address will be saved in a list and concardinated to a string.
+     * The Address will be saved in a list and concatenated to a string.
      * Finally the method returns the string with the address.
      */
     public String getGeoLocation(double latitude, double longitude)
