@@ -1,75 +1,43 @@
 <resources>
-    <string name="app_name">Emergency</string>
+    <string name="app_name" translatable="false">Emergency</string>
     <string name="emergeny_call_sent">Emergeny Call sent</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps_own_position">Map</string>
     <string name="title_activity_settings">Settings</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
     <string name="specifiedContacts">Specified Contacts:</string>
     <string name="title_activity_user_data">User Data</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="test_output">Test Output</string>
     <string name="first_name">First Name</string>
-    <string name="last_Name">Last Name</string>
+    <string name="last_name">Last Name</string>
     <string name="date_of_birth">Date Of Birth</string>
     <string name="gender">Gender</string>
     <string name="specified_Contacts">Specified Contacts</string>
+    <string name="no_user_specified">No user specified</string>
+    <string name="must_allow_permissions">You must allow all permissions in order to use this application!</string>
+    <string name="emergency_sms_sent">Emergency-SMS is sent</string>
+    <string name="emergency_call">Emergency call</string>
+    <string name="cancel_call_question">Cancel the emergency call?</string>
+    <string name="yes">Yes</string>
+    <string name="call_canceled">Emergency call canceled</string>
+    <string name="no">No</string>
+    <string name="contacts">Contacts</string>
+    <string name="user">User</string>
+    <string name="gps_required">GPS is required to use this application</string>
+    <string name="please_enable_gps">Please enable GPS in the settings menu</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="cancel">Cancel</string>
+    <string name="unable_detect_location">Unable to detect location</string>
+    <string name="emergency_capital">EMERGENCY</string>
+    <string name="need_help_capital">NEED HELP</string>
+    <string name="position" translatable="false">Pos.:</string>
+    <string name="diseases">Diseases</string>
+    <string name="special_needs">Special needs</string>
+    <string name="medication">Medication:</string>
+    <string name="bloodtype"> Bloodtype: </string>
+    <string name="times_per_day">x per day</string>
+    <string name="first_contact_label">1st Contact (will also be called)</string>
+    <string name="second_contact">2nd Contact</string>
+    <string name="third_contact">3rd Contact</string>
+    <string name="name" translatable="false">Name</string>
+    <string name="dosis" translatable="false">Dosis</string>
 </resources>

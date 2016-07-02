@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (sosButtonPressed) {
                                 Intent serviceIntent = new Intent(getApplicationContext(), SendingService.class);
                                 startService(serviceIntent);
-                                Toast.makeText(getApplicationContext(), "Emergency-SMS is sent", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.emergency_sms_sent, Toast.LENGTH_LONG).show();
                                 timerView.setText("");
                                 sosBtn.setImageResource(R.mipmap.sos_button_red);
                                 sosButtonPressed = false;
@@ -183,6 +183,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Init Singleton
         user = new UserImplementation(userDAO);
         user = UserImplementation.initUserObjectFromDatabase();
+
+        //TEST DATA; WILL BE REMOVED WITH NEXT COMMIT;
+        user.setBloodType(BloodType.ZERO_NEG);
+
+        Contact contact = new Contact("Andy", "email@gmail.de", "+491736938474", true);
+        user.addContact(contact);
+        contact = new Contact("David", "email@gmail.de", "+4915125328054", false);
+        user.addContact(contact);
+        contact = new Contact("kosta", "hallo@ail.de", "+4915735268220", false);
+        user.addContact(contact);
+        Medication medication = new Medication("Vagisil", "20mg", "Pen Inc.", 2);
+        user.addMedication(medication);
+        medication = new Medication("aspiro2", "20mg", "Pen Inc.", 2);
+        user.addMedication(medication);
+        user.addSpecialNeed("Schwangerschaft im 11. Monat");
+        user.addDisease("kopfweh");
+
     }
 
     /**
@@ -191,9 +208,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void showCancelDialog(){
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-        alertDialog.setTitle("Emergency call");
-        alertDialog.setMessage("Cancel the emergency call?");
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        alertDialog.setTitle(R.string.emergency_call);
+        alertDialog.setMessage(R.string.cancel_call_question);
+        alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
         {
 
             @Override
@@ -205,12 +222,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     sosButtonPressed = false;
                     vib.cancel();
                     sosBtn.setImageResource(R.mipmap.sos_button_red);
-                    Toast.makeText( getApplicationContext(), "Emergency call canceled", Toast.LENGTH_LONG).show();
+                    Toast.makeText( getApplicationContext(), R.string.call_canceled, Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener()
+        alertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener()
         {
 
             @Override
@@ -344,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                   List<String> objects) {
             super(context, textViewResourceId, objects);
             if(objects.size() < 1) {
-                mIdMap.put("No User specified", 0);
+                mIdMap.put(getString(R.string.no_user_specified), 0);
             }
             for (int i = 0; i < objects.size(); ++i) {
                 mIdMap.put(objects.get(i), i);

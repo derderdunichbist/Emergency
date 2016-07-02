@@ -45,7 +45,7 @@ public class SendingService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Emergency-Call")
+                        .setContentTitle(getString(R.string.emergency_call))
                         .setContentText(userMessage.getSuccessful().toString());
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

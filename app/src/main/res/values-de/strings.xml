@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Emergency</string>
     <string name="emergeny_call_sent">Notruf abgesetzt</string>
     <string name="specifiedContacts">Festgelegte Kontakte:</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="bloodtype">Blutgruppe: </string>
+    <string name="call_canceled">Notruf abgebrochen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="cancel_call_question">Notruf wirklick abbrechen?</string>
+    <string name="contacts">Kontakte</string>
+    <string name="date_of_birth">Geburtsdatum</string>
+    <string name="diseases">Krankheiten</string>
+    <string name="emergency_call">Notruf</string>
+    <string name="emergency_capital" translatable="false">NOTFALL</string>
+    <string name="emergency_sms_sent">Not-SMS versendet</string>
+    <string name="enable_gps">GPS einschalten</string>
+    <string name="female">Weiblich</string>
+    <string name="first_name">Vorname</string>
+    <string name="gender">Geschlecht</string>
+    <string name="gps_required">GPS wird zum Ausführen der Anwendung benötigt</string>
+    <string name="last_name">Nachname</string>
+    <string name="male">Männlich</string>
+    <string name="medication">Medikamente:</string>
+    <string name="must_allow_permissions">Sie müssen der App alle geforderteten Berechtigungen erlauben um sie ausführen zu können!</string>
+    <string name="need_help_capital">BRAUCHE HILFE</string>
+    <string name="no">Nein</string>
+    <string name="no_user_specified">Kein Kontakt festgelegt</string>
+    <string name="please_enable_gps">Bitte schalten Sie GPS in dem Einstellunsmenü ein</string>
+    <string name="pref_ringtone_silent">Stumm</string>
+    <string name="special_needs">Bes. Bedüfrnisse</string>
+    <string name="specified_Contacts">Festgelegte Kontakte</string>
+    <string name="times_per_day">x am Tag</string>
+    <string name="title_activity_maps_own_position">Karte</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="title_activity_user_data">Nutzerdaten</string>
+    <string name="unable_detect_location">Bestimmung des Standortes nicht möglich</string>
+    <string name="user">Nutzer</string>
+    <string name="yes">Ja</string>
+    <string name="first_contact_label">1. Kontakt (wird auch angerufen)</string>
+    <string name="second_contact">2. Kontankt</string>
+    <string name="third_contact">3. Kontakt</string>
 </resources>

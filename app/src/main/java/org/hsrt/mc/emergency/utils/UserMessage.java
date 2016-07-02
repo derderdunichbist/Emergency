@@ -3,6 +3,7 @@ package org.hsrt.mc.emergency.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.gps.GPS;
 import org.hsrt.mc.emergency.user.Medication;
 import org.hsrt.mc.emergency.user.User;
@@ -21,6 +22,7 @@ public class UserMessage {
     private String allDiseases;
     private String allSpecialNeeds;
     private String allMedicationText;
+    private Context con;
 
 
     /**
@@ -28,6 +30,7 @@ public class UserMessage {
      * @param con
      */
     public UserMessage(Context con){
+        this.con = con;
         u = UserImplementation.getUserObject();
 
         List<String> diseases = u.getDiseases();
@@ -44,7 +47,6 @@ public class UserMessage {
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
             if(latitude == 0.0 && longitude == 0.0){
-                //Toast.makeText(con, "Bitte erlauben Sie die Standort-Berechtigung", Toast.LENGTH_LONG).show();
                 successful = false;
                 //message input
             }else{
@@ -52,7 +54,7 @@ public class UserMessage {
                     location = gps.getGeoLocation(latitude,longitude);
 
                 } catch (Exception e) {
-                    Toast.makeText(con, "Unable to detect location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(con, R.string.unable_detect_location, Toast.LENGTH_SHORT).show();
                     successful = false;
                 }
                 // msg = new UserMessage(?USER?, location);
@@ -62,63 +64,65 @@ public class UserMessage {
         }
 
         emergencyMessage = "";
-        emergencyMessage += "EMERGENCY APP: ";
-        emergencyMessage += "Name: " + u.getFirstName() + " " + u.getLastName() + ". Standort: ";
-        emergencyMessage += location;
+        emergencyMessage += con.getString(R.string.emergency_capital);
+        emergencyMessage += " - " + con.getString(R.string.need_help_capital)+"\n";
+        emergencyMessage += "Name: " + u.getFirstName() + " " + u.getLastName() +", " + con.getString(R.string.position);
+        emergencyMessage += location + "\n";
 
-        if (this.allDiseases.equals("")){
-            emergencyMessage +="";
+        if (!Verifier.isStringEmptyOrNull(u.getBloodType())){
+            emergencyMessage += con.getString(R.string.bloodtype) + " ";
+            emergencyMessage += u.getBloodType() + "\n";
         }
-        else{
-            emergencyMessage += " Krankheiten: " + this.allDiseases + "\n";
+
+        if (!Verifier.isStringEmptyOrNull(this.allDiseases)){
+            emergencyMessage += con.getString(R.string.diseases) + ": " + this.allDiseases + "\n";
         }
-        if (this.allSpecialNeeds.equals("")){
-            emergencyMessage += "";
+
+        if (!Verifier.isStringEmptyOrNull(this.allSpecialNeeds)){
+            emergencyMessage += con.getString(R.string.special_needs) + ": " + this.allSpecialNeeds + "\n";
         }
-        else{
-            emergencyMessage += " Besonderheiten: " + this.allSpecialNeeds + "\n";
+
+        if (!Verifier.isStringEmptyOrNull(this.allMedicationText)){
+            emergencyMessage += con.getString(R.string.medication) + " ";
+            emergencyMessage += this.allMedicationText  + "\n";
         }
-        if (this.allMedicationText.equals("")){
-            emergencyMessage += "";
-        }
-        else{
-            emergencyMessage += " Medikamente:\n";
-            emergencyMessage += this.allMedicationText;
-        }
-        if (u.getBloodType() != null){
-            emergencyMessage += " Meine Blutgruppe: ";
-            emergencyMessage += u.getBloodType();
-        }
-        else{
-            emergencyMessage += "";
-        }
-        System.out.println(emergencyMessage);
     }
 
     private String getMedicationAsString(List<Medication> medication) {
         String allMedicationText = "";
-        for( Medication m: medication )
-        {
-            allMedicationText += m.getMedicationText();
-            allMedicationText += "\n";
+        if(medication.size() == 1) {
+            allMedicationText += medication.get(0).getName() + ", dos.: " + medication.get(0).getDosis() + " , " + medication.get(0).getAmountPerDay() + con.getString(R.string.times_per_day);
+        } else {
+            for( Medication m: medication )
+            {
+                allMedicationText += m.getName() + ", dos.: " + m.getDosis() + " , " + m.getAmountPerDay() + con.getString(R.string.times_per_day) + "; ";
+            }
         }
         return allMedicationText;
     }
 
     private String getSpecialNeedsAsString(List<String> specialNeeds) {
         String allSpecialNeeds = "";
-        for (String s: specialNeeds){
-            allSpecialNeeds += s;
-            allSpecialNeeds += ", ";
+        if(specialNeeds.size() == 1) {
+            allSpecialNeeds += specialNeeds.get(0);
+        } else {
+            for (String s: specialNeeds){
+                allSpecialNeeds += s;
+                allSpecialNeeds += ", ";
+            }
         }
         return allSpecialNeeds;
     }
 
     private String getDiseasesAsString(List<String> diseases) {
         String allDiseases = "";
-        for ( String d: diseases){
-            allDiseases += d;
-            allDiseases += ", ";
+        if(diseases.size() == 1) {
+            allDiseases += diseases.get(0);
+        } else {
+            for (String d: diseases){
+                allDiseases += d;
+                allDiseases += ", ";
+            }
         }
         return allDiseases;
     }

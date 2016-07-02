@@ -79,7 +79,7 @@ public class FirstRunActivity extends AppCompatActivity
 
                 }else if(!(grantPermissions()))
                 {
-                    Toast.makeText( getApplicationContext(), "You must allow all permissions in order to use this application!", Toast.LENGTH_LONG).show();
+                    Toast.makeText( getApplicationContext(), R.string.must_allow_permissions, Toast.LENGTH_LONG).show();
                 }
             }
         });

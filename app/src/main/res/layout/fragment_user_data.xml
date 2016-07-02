@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="First name"
+        android:text="@string/first_name"
         android:id="@+id/textView4"
         android:layout_alignParentStart="true" />
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Last name"
+        android:text="@string/last_name"
         android:id="@+id/textView5"
         android:layout_marginTop="39dp"
         android:layout_below="@+id/textView4"
@@ -44,18 +44,6 @@
         android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true" />
 
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gender"
-        android:id="@+id/genderLabel"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,16 +54,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp" />
 
-
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="DOB"
-        android:id="@+id/dobLabel"
-        android:layout_below="@+id/lastNameTf"
+        android:text="@string/date_of_birth"
+        android:id="@+id/genderLabel"
+        android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
 
     <RadioGroup
@@ -95,15 +80,24 @@
             android:layout_alignParentLeft="true" />
 
         <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        android:id="@+id/maleRb"
-        android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/maleRb"
+            android:checked="false"
             android:layout_above="@+id/genderRadio"
             android:layout_alignParentStart="true" />
 
     </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/gender"
+        android:id="@+id/dobLabel"
+        android:layout_below="@+id/lastNameTf"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -113,5 +107,9 @@
         android:onClick="showDatePickerDialog"
         android:layout_below="@+id/genderLabel"
         android:layout_alignParentStart="true" />
+
+
+
+
 
 </RelativeLayout>

@@ -4,13 +4,13 @@
 
     <header
         android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="User">
+        android:title="@string/user">
         <intent android:action="user_manager"/>
     </header>
 
     <header
         android:icon="@drawable/ic_contacts_black_24dp"
-        android:title="Contacts">
+        android:title="@string/contacts">
         <intent android:action="contact_manager"/>
     </header>
 

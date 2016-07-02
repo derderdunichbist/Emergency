@@ -110,15 +110,15 @@ public class ContactManagerActivity extends AppCompatActivity {
         }
 
         if(!contactIdMap.containsKey(1)) {
-            firstContactButton.setText("No user specified");
+            firstContactButton.setText(R.string.no_user_specified);
         }
 
         if(!contactIdMap.containsKey(2)) {
-            secondContactButton.setText("No user specified");
+            secondContactButton.setText(R.string.no_user_specified);
         }
 
         if(!contactIdMap.containsKey(3)) {
-            thirdContactButton.setText("No user specified");
+            thirdContactButton.setText(R.string.no_user_specified);
         }
 
 
@@ -150,7 +150,6 @@ public class ContactManagerActivity extends AppCompatActivity {
                     Iterator iterate = keys.iterator();
                     while (iterate.hasNext()) {
                         String key = (String) iterate.next();
-                        // Log.v(DEBUG_TAG, key + "[" + extras.get(key) + "]");
                     }
                 }
                 Uri result = intent.getData();

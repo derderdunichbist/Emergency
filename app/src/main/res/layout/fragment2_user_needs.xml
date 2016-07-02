@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Please select your Bloodtype:"
+        android:text="@string/bloodtype"
         android:id="@+id/textView4"
         android:layout_alignParentStart="true" />
 
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
+        android:text="@string/name"
         android:id="@+id/textView11"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/bloodTypeList" />
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dosis"
+        android:text="@string/dosis"
         android:id="@+id/textView12"
         android:layout_below="@+id/medicationName"
         android:layout_alignEnd="@+id/textView11" />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Diseases"
+        android:text="@string/diseases"
         android:id="@+id/textView13"
         android:layout_below="@+id/dosis"
         android:layout_alignParentStart="true" />
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Special needs"
+        android:text="@string/special_needs"
         android:id="@+id/textView14"
         android:layout_below="@+id/diseases"
         android:layout_alignParentStart="true" />

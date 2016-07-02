@@ -22,16 +22,6 @@ public class Medication {
         this.amountPerDay = amountPerDay;
     }
 
-    /**
-     * join the Medication Text with the name, dosis and the amountPerDay
-     * @return the complite Medication Text description
-     */
-    public String getMedicationText(){
-        String medicationText = "";
-        medicationText += " " + this.name + ", davon " + this.dosis + " ,dass " + this.amountPerDay + "mal taeglich.";
-        return medicationText;
-    }
-
     public String getName() {
         return name;
     }

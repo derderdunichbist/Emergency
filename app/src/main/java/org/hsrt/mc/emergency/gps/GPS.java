@@ -17,6 +17,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+
+import org.hsrt.mc.emergency.R;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -217,11 +220,11 @@ public class GPS extends Service implements LocationListener
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        alertDialog.setTitle("GPS is required to use this application");
+        alertDialog.setTitle(R.string.gps_required);
 
-        alertDialog.setMessage("Please enable gps in the settings menu");
+        alertDialog.setMessage(R.string.please_enable_gps);
 
-        alertDialog.setPositiveButton("Enable GPS", new DialogInterface.OnClickListener()
+        alertDialog.setPositiveButton(R.string.enable_gps, new DialogInterface.OnClickListener()
         {
 
             @Override
@@ -232,7 +235,7 @@ public class GPS extends Service implements LocationListener
             }
         });
 
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
         {
 
             @Override
