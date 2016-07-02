@@ -178,7 +178,7 @@ public class UserImplementation implements User{
         userDAO.deleteMedicationFromDatabase(medication);
         for(Medication m : this.medication) {
             if(medication.equals(m)) {
-                this.contacts.remove(m);
+                this.medication.remove(m);
                 return;
             }
         }
@@ -189,7 +189,7 @@ public class UserImplementation implements User{
         userDAO.deleteSpecialNeedFromDatabase(specialNeed);
         for(String s : this.specialNeeds) {
             if(specialNeed.equals(s)) {
-                this.contacts.remove(s);
+                this.specialNeeds.remove(s);
                 return;
             }
         }
@@ -211,7 +211,7 @@ public class UserImplementation implements User{
         userDAO.deleteDiseaseFromDatabase(disease);
         for (String s : this.diseases) {
             if (disease.equals(s)) {
-                this.contacts.remove(s);
+                this.diseases.remove(s);
                 return;
             }
         }

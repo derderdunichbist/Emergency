@@ -157,8 +157,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void updateContactList() {
         ArrayList<String> list = new ArrayList<>();
-        for(Contact c : user.getContacts()) {
-            list.add(c.getName());
+        if(user.getContacts() == null || user.getContacts().size() == 0) {
+            list.add(getString(R.string.no_user_specified));
+        } else {
+            for(Contact c : user.getContacts()) {
+                list.add(c.getName());
+            }
         }
         final ListView listview = (ListView) findViewById(R.id.contactsListView);
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
@@ -183,23 +187,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Init Singleton
         user = new UserImplementation(userDAO);
         user = UserImplementation.initUserObjectFromDatabase();
-
-        //TEST DATA; WILL BE REMOVED WITH NEXT COMMIT;
-        user.setBloodType(BloodType.ZERO_NEG);
-
-        Contact contact = new Contact("Andy", "email@gmail.de", "+491736938474", true);
-        user.addContact(contact);
-        contact = new Contact("David", "email@gmail.de", "+4915125328054", false);
-        user.addContact(contact);
-        contact = new Contact("kosta", "hallo@ail.de", "+4915735268220", false);
-        user.addContact(contact);
-        Medication medication = new Medication("Vagisil", "20mg", "Pen Inc.", 2);
-        user.addMedication(medication);
-        medication = new Medication("aspiro2", "20mg", "Pen Inc.", 2);
-        user.addMedication(medication);
-        user.addSpecialNeed("Schwangerschaft im 11. Monat");
-        user.addDisease("kopfweh");
-
     }
 
     /**
