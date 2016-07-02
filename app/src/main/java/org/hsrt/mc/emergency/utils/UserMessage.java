@@ -62,6 +62,7 @@ public class UserMessage {
         }
 
         emergencyMessage = "";
+        emergencyMessage += "EMERGENCY APP: ";
         emergencyMessage += "Name: " + u.getFirstName() + " " + u.getLastName() + ". Standort: ";
         emergencyMessage += location;
 
@@ -69,23 +70,23 @@ public class UserMessage {
             emergencyMessage +="";
         }
         else{
-            emergencyMessage += "/ Krankheiten: " + this.allDiseases + "\n";
+            emergencyMessage += " Krankheiten: " + this.allDiseases + "\n";
         }
         if (this.allSpecialNeeds.equals("")){
             emergencyMessage += "";
         }
         else{
-            emergencyMessage += "/ Besonderheiten: " + this.allSpecialNeeds + "\n";
+            emergencyMessage += " Besonderheiten: " + this.allSpecialNeeds + "\n";
         }
         if (this.allMedicationText.equals("")){
             emergencyMessage += "";
         }
         else{
-            emergencyMessage += "/ Medikamente:\n";
+            emergencyMessage += " Medikamente:\n";
             emergencyMessage += this.allMedicationText;
         }
         if (u.getBloodType() != null){
-            emergencyMessage += "/ Meine Blutgruppe: ";
+            emergencyMessage += " Meine Blutgruppe: ";
             emergencyMessage += u.getBloodType();
         }
         else{
