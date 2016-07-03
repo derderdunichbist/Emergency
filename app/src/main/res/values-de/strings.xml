@@ -3,7 +3,7 @@
     <string name="emergeny_call_sent">Notruf abgesetzt</string>
     <string name="specifiedContacts">Festgelegte Kontakte:</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="bloodtype">Blutgruppe: </string>
+    <string name="bloodtype">Blutgruppe</string>
     <string name="call_canceled">Notruf abgebrochen</string>
     <string name="cancel">Abbrechen</string>
     <string name="cancel_call_question">Notruf wirklick abbrechen?</string>
@@ -47,4 +47,11 @@
     <string name="no_special_need_specified">Kein bes. Bedürfnis festgelegt</string>
     <string name="user_data">Nutzerdaten</string>
     <string name="emergency_capital">NOTFALL</string>
+    <string name="manufacturer">Hersteller</string>
+    <string name="save">Speichern</string>
+    <string name="amount">Menge</string>
+    <string name="amount_per_day">Menge pro Tag</string>
+    <string name="disease">Krankheit</string>
+    <string name="add_disease">Krankheit hinzufügen</string>
+    <string name="add_special_need">Bes. Bedürfnis hinzufügen</string>
 </resources>

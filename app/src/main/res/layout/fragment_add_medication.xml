@@ -1,7 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:clipToPadding="false"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,72 +16,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
+        android:text="@string/name"
         android:id="@+id/textView11"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dosis"
-        android:id="@+id/textView12"
-        android:layout_below="@+id/medicationName"
-        android:layout_alignEnd="@+id/textView11" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/medicationName"
-        android:layout_below="@+id/textView11"
+        android:ems="10"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/textView13" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/dosis"
+        android:id="@+id/textView12"
+        android:layout_alignEnd="@+id/textView11" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/dosis"
-        android:layout_below="@+id/textView12"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/medicationName" />
 
-
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/saveMedicationButton"
-        android:layout_below="@+id/dosis"
-        android:layout_alignParentStart="true" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/manufacturer"
+        android:id="@+id/textView9"
+        android:layout_alignStart="@+id/manufacEdit" />
 
     <EditText
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"
         android:id="@+id/manufacEdit"
-        android:layout_below="@+id/textView9"
         android:layout_alignParentRight="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Manufacturer"
-        android:id="@+id/textView9"
-        android:layout_above="@+id/medicationName"
-        android:layout_alignStart="@+id/manufacEdit" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Amount"
+        android:text="@string/amount_per_day"
         android:id="@+id/textView10"
-        android:layout_below="@+id/manufacEdit"
         android:layout_alignStart="@+id/manufacEdit" />
 
     <EditText
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -85,5 +76,11 @@
         android:layout_alignTop="@+id/dosis"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/saveMedicationButton"
+        android:layout_alignParentStart="true" />
 
-</RelativeLayout>
+</LinearLayout>

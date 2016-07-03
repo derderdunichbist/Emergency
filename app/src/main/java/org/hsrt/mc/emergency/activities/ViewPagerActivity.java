@@ -65,7 +65,6 @@ public class ViewPagerActivity extends AppCompatActivity{
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -91,9 +90,6 @@ public class ViewPagerActivity extends AppCompatActivity{
     }
 
 
-
-
-
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -104,22 +100,13 @@ public class ViewPagerActivity extends AppCompatActivity{
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         private EditText firstName, lastName;
-        private static ListView medications, diseaseses,specialNeedlist;
+        private static ListView medications;
         private Spinner bloodTypeSp;
         private Button addMedication, addSpecialNeed, addDisease;
         private RadioGroup gender;
-        private RadioButton male,female;
-
-
-/*        private Boolean isFirstTime;
-
-        SharedPreferences app_preferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
-
-        SharedPreferences.Editor editor = app_preferences.edit();*/
-
 
         public UserDataFragment1() {
+
         }
 
         /**
@@ -137,8 +124,7 @@ public class ViewPagerActivity extends AppCompatActivity{
         /*
         * All elements in the settings menu are declared here an focus change listener will be set to recognize if there is any new content.
         * The switch class is for the given page numbers in the viewpager.
-         */
-
+        */
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -148,8 +134,9 @@ public class ViewPagerActivity extends AppCompatActivity{
                 return null;
             }
             View rootView = null;
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
-                case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false);
+                case 1: rootView  = inflater.inflate(R.layout.fragment_user_data, container, false);
                     firstName = (EditText) rootView.findViewById(R.id.firstNameTf);
                     lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
                     bloodTypeSp = (Spinner) rootView.findViewById(R.id.bloodTypeList);
@@ -207,6 +194,7 @@ public class ViewPagerActivity extends AppCompatActivity{
                         break;
 
                     case 2: rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false);
+                    //initListViews();
                     medications = (ListView) rootView.findViewById(R.id.medicationView);
                     addMedication = (Button) rootView.findViewById(R.id.addMedicationButton);
                     addMedication.setOnClickListener(new View.OnClickListener() {
@@ -235,6 +223,52 @@ public class ViewPagerActivity extends AppCompatActivity{
             }
 
             return rootView;
+        }
+
+        private void initListViews() {
+            User user = UserImplementation.getUserObject();
+
+            final  ListView diseasesView = (ListView) getActivity().findViewById(R.id.DiseasesView);
+            final  ListView medicationView = (ListView) getActivity().findViewById(R.id.medicationView);
+            final  ListView specialNeedsView = (ListView)getActivity().findViewById(R.id.specialNeedsView);
+
+            ArrayList<String> diseasesList = new ArrayList<>();
+            if(user.getDiseases() == null || user.getDiseases().size() == 0) {
+                diseasesList.add(getString(R.string.no_disease_specified));
+            } else {
+                for(String s : user.getDiseases()) {
+                    diseasesList.add(s);
+                }
+            }
+            final StableArrayAdapter diseasesAdapter = new StableArrayAdapter(getContext(),
+                    android.R.layout.simple_list_item_1, diseasesList);
+            diseasesView.setAdapter(diseasesAdapter);
+
+            ArrayList<String> medicationList = new ArrayList<>();
+            if(user.getMedication() == null || user.getMedication().size() == 0) {
+                medicationList.add(getString(R.string.no_medication_specified));
+            } else {
+                for(Medication m : user.getMedication()) {
+                    medicationList.add(m.getName() + ", " + m.getDosis());
+                }
+            }
+            final StableArrayAdapter medicationAdapter = new StableArrayAdapter(getContext(),
+                    android.R.layout.simple_list_item_1, medicationList);
+            medicationView.setAdapter(medicationAdapter);
+
+            ArrayList<String> specialNeedsList = new ArrayList<>();
+            if(user.getSpecialNeeds() == null || user.getSpecialNeeds().size() == 0) {
+                specialNeedsList.add(getString(R.string.no_special_need_specified));
+            } else {
+                for(String s : user.getSpecialNeeds()) {
+                    specialNeedsList.add(s);
+                }
+            }
+            final StableArrayAdapter specialNeedsAdapter = new StableArrayAdapter(getContext(),
+                    android.R.layout.simple_list_item_1, specialNeedsList);
+            specialNeedsView.setAdapter(specialNeedsAdapter);
+
+
         }
 
         void showMedicationDialog() {
@@ -272,8 +306,8 @@ public class ViewPagerActivity extends AppCompatActivity{
                     String disease = diseases.getText().toString();
                     if(!Verifier.isStringEmptyOrNull(disease)) {
                         user.addDisease(disease);
-                        final  ListView diseasesView = (ListView) getActivity().findViewById(R.id.DiseasesView);
 
+                        final  ListView diseasesView = (ListView) getActivity().findViewById(R.id.DiseasesView);
                         ArrayList<String> list = new ArrayList<>();
                         if(user.getDiseases() == null || user.getDiseases().size() == 0) {
                             list.add(getString(R.string.no_disease_specified));
@@ -313,8 +347,8 @@ public class ViewPagerActivity extends AppCompatActivity{
                     String specialNeed = specialNeeds.getText().toString();
                     if(!Verifier.isStringEmptyOrNull(specialNeed)) {
                         user.addSpecialNeed(specialNeed);
-                        final  ListView specialNeedsView = (ListView) getActivity().findViewById(R.id.specialNeedsView);
 
+                        final  ListView specialNeedsView = (ListView)getActivity().findViewById(R.id.specialNeedsView);
                         ArrayList<String> list = new ArrayList<>();
                         if(user.getSpecialNeeds() == null || user.getSpecialNeeds().size() == 0) {
                             list.add(getString(R.string.no_special_need_specified));
@@ -371,9 +405,6 @@ public class ViewPagerActivity extends AppCompatActivity{
                     user.addMedication(medication);
 
                     final  ListView medicationView = (ListView) getActivity().findViewById(R.id.medicationView);
-                    //final  ListView diseasesView = (ListView) getActivity().findViewById(R.id.DiseasesView);
-                    //final  ListView specialNeedsView= (ListView) getActivity().findViewById(R.id.specialNeedsView);
-
                     ArrayList<String> list = new ArrayList<>();
                     if(user.getMedication() == null || user.getMedication().size() == 0) {
                         list.add(getString(R.string.no_medication_specified));
@@ -448,6 +479,5 @@ public class ViewPagerActivity extends AppCompatActivity{
             }
         }
     }
-
 
 }

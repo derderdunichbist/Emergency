@@ -1,17 +1,27 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:clipToPadding="false"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.ViewPagerActivity$UserDataFragment1"
-    android:weightSum="1">
+    tools:context=".activities.ViewPagerActivity$UserDataFragment1">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/medication"
+        android:id="@+id/textView6" />
 
     <ListView
-        android:layout_width="150dp"
-        android:layout_height="125dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:id="@+id/medicationView"
         android:choiceMode="singleChoice"
         android:layout_gravity="center_vertical"
@@ -22,18 +32,19 @@
         android:fastScrollEnabled="false"
         android:fastScrollAlwaysVisible="false" />
 
-    <TextView
-        android:layout_width="fill_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Medication"
-        android:id="@+id/textView6" />
+        android:text="@string/add_a_medication"
+        android:id="@+id/addMedicationButton"
+        android:layout_below="@+id/medicationView"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Diseases"
+        android:text="@string/diseases"
         android:id="@+id/textView7"
         android:layout_below="@+id/addMedicationButton"
         android:layout_alignParentStart="true" />
@@ -49,18 +60,26 @@
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_disease"
+        android:id="@+id/addDiseaseButton"
+        android:layout_below="@+id/DiseasesView"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Special needs"
+        android:text="@string/special_needs"
         android:id="@+id/textView8"
         android:layout_below="@+id/addDiseaseButton"
         android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="fill_parent"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:id="@+id/specialNeedsView"
         android:choiceMode="singleChoice"
         android:layout_gravity="center_vertical"
@@ -68,29 +87,14 @@
         android:layout_below="@+id/textView8"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/addMedicationButton"
-        android:layout_below="@+id/medicationView"
-        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/addDiseaseButton"
-        android:layout_below="@+id/DiseasesView"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="@string/add_special_need"
         android:id="@+id/addSpecialNeedButton"
         android:layout_alignBottom="@+id/specialNeedsView"
         android:layout_alignParentStart="true" />
 
 
-</RelativeLayout>
+</LinearLayout>

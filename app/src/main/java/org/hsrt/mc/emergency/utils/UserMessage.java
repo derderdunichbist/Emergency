@@ -70,7 +70,7 @@ public class UserMessage {
         emergencyMessage += location + "\n";
 
         if (!Verifier.isStringEmptyOrNull(u.getBloodType())){
-            emergencyMessage += con.getString(R.string.bloodtype) + " ";
+            emergencyMessage += con.getString(R.string.bloodtype) + ": ";
             emergencyMessage += u.getBloodType() + "\n";
         }
 

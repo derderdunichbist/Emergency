@@ -33,14 +33,14 @@
     <string name="diseases">Diseases</string>
     <string name="special_needs">Special needs</string>
     <string name="medication">Medication:</string>
-    <string name="bloodtype"> Bloodtype: </string>
+    <string name="bloodtype">Bloodtype</string>
     <string name="times_per_day">x per day</string>
     <string name="first_contact_label">1st Contact (will also be called)</string>
     <string name="second_contact">2nd Contact</string>
     <string name="third_contact">3rd Contact</string>
     <string name="name" translatable="false">Name</string>
     <string name="dosis" translatable="false">Dosis</string>
-    <string name="add_a_medication">Add a medication</string>
+    <string name="add_a_medication">Add medication</string>
     <string name="add">Add</string>
     <string name="clear_all">Clear all</string>
     <string name="no_item_specified">No item specified</string>
@@ -48,4 +48,11 @@
     <string name="no_medication_specified">No medication specified</string>
     <string name="no_disease_specified">No disease specified</string>
     <string name="user_data">User Data</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="amount">Amount</string>
+    <string name="save">Save</string>
+    <string name="amount_per_day">Amount per day</string>
+    <string name="disease">Disease</string>
+    <string name="add_disease">Add disease</string>
+    <string name="add_special_need">Add special need</string>
 </resources>
