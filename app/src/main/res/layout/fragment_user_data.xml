@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/first_name"
+        android:text="First name"
         android:id="@+id/textView4"
         android:layout_alignParentStart="true" />
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/last_name"
+        android:text="Last name"
         android:id="@+id/textView5"
         android:layout_marginTop="39dp"
         android:layout_below="@+id/textView4"
@@ -44,6 +44,18 @@
         android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true" />
 
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gender"
+        android:id="@+id/genderLabel"
+        android:layout_below="@+id/lastNameTf"
+        android:layout_alignParentStart="true" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,12 +66,15 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp" />
 
+
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/date_of_birth"
-        android:id="@+id/genderLabel"
+        android:text="DOB"
+        android:id="@+id/dobLabel"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
 
@@ -70,34 +85,7 @@
         android:layout_below="@+id/dobLabel"
         android:layout_alignParentStart="true">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"
-            android:id="@+id/femaleRb"
-            android:checked="false"
-            android:layout_below="@+id/maleRb"
-            android:layout_alignParentLeft="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Male"
-            android:id="@+id/maleRb"
-            android:checked="false"
-            android:layout_above="@+id/genderRadio"
-            android:layout_alignParentStart="true" />
-
     </RadioGroup>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/gender"
-        android:id="@+id/dobLabel"
-        android:layout_below="@+id/lastNameTf"
-        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -105,11 +93,44 @@
         android:text="Select Date"
         android:id="@+id/calenderButton"
         android:onClick="showDatePickerDialog"
+        android:layout_alignTop="@+id/genderRadio"
+        android:layout_alignParentStart="true" />
+
+    <RadioButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Male"
+    android:id="@+id/maleRb"
+    android:checked="false"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/femaleRb"
+        android:layout_alignParentLeft="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:id="@+id/femaleRb"
+        android:checked="false"
         android:layout_below="@+id/genderLabel"
         android:layout_alignParentStart="true" />
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bloodTypeList"
+        android:entries="@array/bloodType"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentEnd="true" />
 
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Bloodtype:"
+        android:id="@+id/textView"
+        android:layout_below="@+id/calenderButton"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

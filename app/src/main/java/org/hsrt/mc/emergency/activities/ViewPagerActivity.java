@@ -1,5 +1,6 @@
 package org.hsrt.mc.emergency.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,19 +20,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.hsrt.mc.emergency.R;
 import org.hsrt.mc.emergency.persistence.UserDAO;
 import org.hsrt.mc.emergency.user.Contact;
+import org.hsrt.mc.emergency.user.Medication;
 import org.hsrt.mc.emergency.user.User;
 import org.hsrt.mc.emergency.user.UserImplementation;
 import org.hsrt.mc.emergency.utils.DatePickerFrag;
 import org.hsrt.mc.emergency.utils.Verifier;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ViewPagerActivity extends AppCompatActivity{
 
@@ -57,13 +66,8 @@ public class ViewPagerActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
 
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mActionBarToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -74,7 +78,12 @@ public class ViewPagerActivity extends AppCompatActivity{
     }
 
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_user_data, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,11 +113,12 @@ public class ViewPagerActivity extends AppCompatActivity{
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private EditText phoneNumber1, phoneNumber2, phoneNumber3, firstName, lastName, medicationName, dosis,
-        diseases,specialNeeds;
-        private Contact contact1, contact2, contact3;
+        private EditText firstName, lastName;
+        private static ListView medications, diseaseses,specialNeedlist;
         private Spinner bloodTypeSp;
+        private Button addMedication;
         private RadioGroup gender;
+        private RadioButton male,female;
 
 
 /*        private Boolean isFirstTime;
@@ -139,90 +149,203 @@ public class ViewPagerActivity extends AppCompatActivity{
         * The switch class is for the given page numbers in the viewpager.
          */
 
-            @Override
-            public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                     Bundle savedInstanceState) {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
 
-                final User user = UserImplementation.getUserObject();
-                if(container == null){
-                    return null;
-                }
-                View rootView = null;
-                switch (getArguments().getInt(ARG_SECTION_NUMBER)){
-                    case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false);
-                        firstName = (EditText) rootView.findViewById(R.id.firstNameTf);
-                        //firstName.setText(user.getFirstName());
-                        lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
-                        //lastName.setText(user.getLastName());
-                        gender = (RadioGroup) rootView.findViewById(R.id.genderRadio);
-
-                        firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                            @Override
-                            public void onFocusChange(View v, boolean hasFocus) {
-                                if(hasFocus == false) {
-                                    if(!Verifier.isStringEmptyOrNull(firstName.getText().toString())) {
-                                        user.setFirstName(firstName.getText().toString());
-                                    }
-                                }
-                            }
-                        });
-
-                        lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                            @Override
-                            public void onFocusChange(View v, boolean hasFocus) {
-                                if(hasFocus == false) {
-                                    if(!Verifier.isStringEmptyOrNull(lastName.getText().toString())) {
-                                        user.setLastName(lastName.getText().toString());
-                                    }
-                                }
-                            }
-                        });
-
-                        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                int checkedButtonId = group.getCheckedRadioButtonId();
-                                View radioButton = group.findViewById(checkedButtonId);
-                                int idx = group.indexOfChild(radioButton);
-                                RadioButton r = (RadioButton) group.getChildAt(idx);
-                                String selectedtext = r.getText().toString();
-                                user.setGender(selectedtext);
-                            }
-                        });
-
-                        break;
-
-                    case 2: rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false);
-
-                        bloodTypeSp = (Spinner) rootView.findViewById(R.id.bloodTypeList);
-                        medicationName = (EditText) rootView.findViewById(R.id.medicationName);
-                        dosis = (EditText) rootView.findViewById(R.id.dosis);
-                        diseases = (EditText) rootView.findViewById(R.id.diseases);
-                        specialNeeds = (EditText) rootView.findViewById(R.id.specialNeeds);
-
-                        bloodTypeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                String bloodType = bloodTypeSp.getItemAtPosition(position).toString();
-                                if (!Verifier.isStringEmptyOrNull(bloodType)) {
-                                    user.setBloodType(bloodType);
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
-
-                        break;
-                }
-
-                return rootView;
+            final User user = UserImplementation.getUserObject();
+            if(container == null){
+                return null;
             }
+            View rootView = null;
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)){
+                case 1: rootView  =inflater.inflate(R.layout.fragment_user_data, container, false);
+                    firstName = (EditText) rootView.findViewById(R.id.firstNameTf);
+                    lastName = (EditText) rootView.findViewById(R.id.lastNameTf);
+                    bloodTypeSp = (Spinner) rootView.findViewById(R.id.bloodTypeList);
+                    gender = (RadioGroup) rootView.findViewById(R.id.genderRadio);
+                    male = (RadioButton) rootView.findViewById(R.id.maleRb);
+                    female = (RadioButton) rootView.findViewById(R.id.femaleRb);
+
+                    firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus == false) {
+                                if(!Verifier.isStringEmptyOrNull(firstName.getText().toString())) {
+                                    user.setFirstName(firstName.getText().toString());
+                                }
+                            }
+                        }
+                    });
+
+                    lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus == false) {
+                                if(!Verifier.isStringEmptyOrNull(lastName.getText().toString())) {
+                                    user.setLastName(lastName.getText().toString());
+                                }
+                            }
+                        }
+                    });
+
+                    bloodTypeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            String bloodType = bloodTypeSp.getItemAtPosition(position).toString();
+                            if (!Verifier.isStringEmptyOrNull(bloodType)) {
+                                user.setBloodType(bloodType);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            if(male.isSelected()){
+
+                            }else if(female.isSelected()){
+
+                            }
+                        }
+                    });
+
+                    break;
+
+                case 2: rootView = inflater.inflate(R.layout.fragment2_user_needs, container, false);
+
+                    medications = (ListView) rootView.findViewById(R.id.medicationView);
+
+                    addMedication = (Button) rootView.findViewById(R.id.addButton);
+
+                    addMedication.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showDialog();
+                        }
+                    });
+
+
+
+                    break;
+            }
+
+            return rootView;
+        }
+
+        void showDialog() {
+            DialogFragment newFragment = new MedicationFrag();
+            newFragment.show(getFragmentManager(), "dialog");
+        }
 
     }
 
+    public static class MedicationFrag extends DialogFragment {
+        private EditText medicationName, manufac, amount,dosis, diseases,specialNeeds;
+        private Button saveButton;
+        final User user = UserImplementation.getUserObject();
+
+
+        public MedicationFrag(){
+
+        }
+
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment3_medication, container, false);
+            getDialog().setTitle("Simple Dialog");
+            medicationName = (EditText) rootView.findViewById(R.id.medicationName);
+            dosis = (EditText) rootView.findViewById(R.id.dosis);
+
+            manufac= (EditText) rootView.findViewById(R.id.manufacEdit);
+            amount= (EditText) rootView.findViewById(R.id.amountEdit);
+
+            diseases = (EditText) rootView.findViewById(R.id.diseases);
+            specialNeeds = (EditText) rootView.findViewById(R.id.specialNeeds);
+            saveButton = (Button) rootView.findViewById(R.id.saveButton);
+
+
+
+
+
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   /* user.addMedication(new Medication(medicationName.getText().toString(),null,null,0));*/
+                    ArrayList<String> medication = new ArrayList<>();
+                    medication.add("Name: "+medicationName.getText().toString());
+                    medication.add("Dosis: "+dosis.getText().toString());
+                    medication.add("Manufacturer: "+manufac.getText().toString());
+                    medication.add("Amount: "+amount.getText().toString());
+
+                    ArrayList<String> diseasesList = new ArrayList<>();
+                    diseasesList.add(diseases.getText().toString());
+
+                    ArrayList<String> specialNeedsList = new ArrayList<>();
+                    specialNeedsList.add(specialNeeds.getText().toString());
+
+                    final  ListView medicationView = (ListView) getActivity().findViewById(R.id.medicationView);
+                    final  ListView diseasesView = (ListView) getActivity().findViewById(R.id.DiseasesView);
+                    final  ListView specialNeedsView= (ListView) getActivity().findViewById(R.id.specialNeedsView);
+
+                    final StableArrayAdapter madapter = new StableArrayAdapter(getContext(),
+                            android.R.layout.simple_list_item_1, medication);
+                    medicationView.setAdapter(madapter);
+
+                    final StableArrayAdapter dadapter = new StableArrayAdapter(getContext(),
+                            android.R.layout.simple_list_item_1, diseasesList);
+                    diseasesView.setAdapter(dadapter);
+
+                    final StableArrayAdapter sadapter = new StableArrayAdapter(getContext(),
+                            android.R.layout.simple_list_item_1, specialNeedsList);
+                    specialNeedsView.setAdapter(sadapter);
+              /*      user.addDisease(diseases.getText().toString());
+                    user.addSpecialNeed(specialNeeds.getText().toString());*/
+                    dismiss();
+                }
+            });
+            return rootView;
+        }
+
+       /* public static MedicationFrag newInstance(int title) {
+            MedicationFrag frag = new MedicationFrag();
+            Bundle args = new Bundle();
+            args.putInt("title", title);
+            frag.setArguments(args);
+            return frag;
+        }*/
+
+
+/*    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int title = getArguments().getInt("title");
+
+        return new AlertDialog.Builder(getActivity())
+                .setIcon(R.drawable.alert_dialog_dart_icon)
+                .setTitle(title)
+                .setPositiveButton(R.string.alert_dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                ((FragmentDialogAlarmActivity) getActivity())
+                                        .doPositiveClick();
+                            }
+                        })
+                .setNegativeButton(R.string.alert_dialog_cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                ((FragmentDialogAlarmActivity) getActivity())
+                                        .doNegativeClick();
+                            }
+                        }).create();
+    }*/
+    }
 
 
 
@@ -268,6 +391,19 @@ public class ViewPagerActivity extends AppCompatActivity{
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFrag();
         newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    private static class StableArrayAdapter extends ArrayAdapter<String> {
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
     }
 
 
