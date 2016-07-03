@@ -35,20 +35,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Diseases"
         android:id="@+id/textView7"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/medicationView"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/addMedicationButton"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="fill_parent"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:id="@+id/DiseasesView"
         android:choiceMode="singleChoice"
         android:layout_gravity="center_vertical"
         android:layout_alignParentStart="true"
+        android:scrollIndicators="right"
         android:layout_below="@+id/textView7"
-        android:layout_alignParentRight="true"
-        android:scrollIndicators="right" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -56,9 +55,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Special needs"
         android:id="@+id/textView8"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/DiseasesView"
-        android:layout_alignParentRight="true" />
+        android:layout_below="@+id/addDiseaseButton"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="fill_parent"
@@ -66,19 +64,33 @@
         android:id="@+id/specialNeedsView"
         android:choiceMode="singleChoice"
         android:layout_gravity="center_vertical"
-        android:layout_alignParentStart="true"
+        android:scrollIndicators="right"
         android:layout_below="@+id/textView8"
-        android:layout_alignParentRight="true"
-        android:scrollIndicators="right" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
-        android:id="@+id/addButton"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/specialNeedsView"
-        android:layout_alignParentLeft="true" />
+        android:id="@+id/addMedicationButton"
+        android:layout_below="@+id/medicationView"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:id="@+id/addDiseaseButton"
+        android:layout_below="@+id/DiseasesView"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:id="@+id/addSpecialNeedButton"
+        android:layout_alignBottom="@+id/specialNeedsView"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

@@ -40,4 +40,12 @@
     <string name="third_contact">3rd Contact</string>
     <string name="name" translatable="false">Name</string>
     <string name="dosis" translatable="false">Dosis</string>
+    <string name="add_a_medication">Add a medication</string>
+    <string name="add">Add</string>
+    <string name="clear_all">Clear all</string>
+    <string name="no_item_specified">No item specified</string>
+    <string name="no_special_need_specified">No special need specified</string>
+    <string name="no_medication_specified">No medication specified</string>
+    <string name="no_disease_specified">No disease specified</string>
+    <string name="user_data">User Data</string>
 </resources>

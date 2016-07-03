@@ -72,4 +72,9 @@ public class Medication {
         }
         return isEqual;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Manufacturer: " + manufacturer + " , Dosis: " + dosis + ", apd: " + amountPerDay;
+    }
 }
