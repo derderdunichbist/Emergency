@@ -398,25 +398,38 @@ public class ViewPagerActivity extends AppCompatActivity{
                 public void onClick(View v) {
 
                     Medication medication = new Medication();
-                    medication.setName(medicationName.getText().toString());
-                    medication.setDosis(dosis.getText().toString());
-                    medication.setManufacturer(manufac.getText().toString());
-                    medication.setAmountPerDay(Integer.parseInt(amount.getText().toString()));
-                    user.addMedication(medication);
+                    int medicationAsInt = 0;
+                    String medicationValue = medicationName.getText().toString();
+                    String dosisValue = dosis.getText().toString();
+                    String manufacturerValue = manufac.getText().toString();
+                    String amountPerDayValue = amount.getText().toString();
 
-                    final  ListView medicationView = (ListView) getActivity().findViewById(R.id.medicationView);
-                    ArrayList<String> list = new ArrayList<>();
-                    if(user.getMedication() == null || user.getMedication().size() == 0) {
-                        list.add(getString(R.string.no_medication_specified));
-                    } else {
-                        for(Medication m : user.getMedication()) {
-                            list.add(m.getName() + ", " + m.getDosis());
+                    if(!Verifier.isStringEmptyOrNull(medicationValue) && !Verifier.isStringEmptyOrNull(dosisValue)
+                            &&!Verifier.isStringEmptyOrNull(manufacturerValue) && !Verifier.isStringEmptyOrNull(amountPerDayValue)) {
+                        medication.setName(medicationName.getText().toString());
+                        medication.setDosis(dosis.getText().toString());
+                        medication.setManufacturer(manufac.getText().toString());
+                        try {
+                            medicationAsInt = Integer.parseInt(amount.getText().toString());
+                        } catch (Exception e) {
+                            medicationAsInt = 0;
                         }
-                    }
-                    final StableArrayAdapter madapter = new StableArrayAdapter(getContext(),
-                            android.R.layout.simple_list_item_1, list);
-                    medicationView.setAdapter(madapter);
+                        medication.setAmountPerDay(medicationAsInt);
+                        user.addMedication(medication);
 
+                        final  ListView medicationView = (ListView) getActivity().findViewById(R.id.medicationView);
+                        ArrayList<String> list = new ArrayList<>();
+                        if(user.getMedication() == null || user.getMedication().size() == 0) {
+                            list.add(getString(R.string.no_medication_specified));
+                        } else {
+                            for(Medication m : user.getMedication()) {
+                                list.add(m.getName() + ", " + m.getDosis());
+                            }
+                        }
+                        final StableArrayAdapter madapter = new StableArrayAdapter(getContext(),
+                                android.R.layout.simple_list_item_1, list);
+                        medicationView.setAdapter(madapter);
+                    }
                     dismiss();
                 }
             });

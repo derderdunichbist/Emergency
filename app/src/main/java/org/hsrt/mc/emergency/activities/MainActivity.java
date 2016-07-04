@@ -157,17 +157,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void updateContactList() {
         ArrayList<String> list = new ArrayList<>();
-        if(user.getContacts() == null || user.getContacts().size() == 0) {
-            list.add(getString(R.string.no_user_specified));
-        } else {
-            for(Contact c : user.getContacts()) {
-                list.add(c.getName());
+        if(user != null) {
+            if(user.getContacts() == null || user.getContacts().size() == 0) {
+                list.add(getString(R.string.no_user_specified));
+            } else {
+                for(Contact c : user.getContacts()) {
+                    list.add(c.getName());
+                }
             }
+            final ListView listview = (ListView) findViewById(R.id.contactsListView);
+            final StableArrayAdapter adapter = new StableArrayAdapter(this,
+                    android.R.layout.simple_list_item_1, list);
+            listview.setAdapter(adapter);
+        } else {
+            user = user;
         }
-        final ListView listview = (ListView) findViewById(R.id.contactsListView);
-        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listview.setAdapter(adapter);
     }
 
     /**

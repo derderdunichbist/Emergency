@@ -67,7 +67,7 @@ public class UserMessage {
         emergencyMessage += con.getString(R.string.emergency_capital);
         emergencyMessage += " - " + con.getString(R.string.need_help_capital)+"\n";
         emergencyMessage += "Name: " + u.getFirstName() + " " + u.getLastName() +", " + con.getString(R.string.position);
-        emergencyMessage += location + "\n";
+        emergencyMessage += location;
 
         if (!Verifier.isStringEmptyOrNull(u.getBloodType())){
             emergencyMessage += con.getString(R.string.bloodtype) + ": ";
