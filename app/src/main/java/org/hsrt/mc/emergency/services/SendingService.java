@@ -37,51 +37,58 @@ public class SendingService extends IntentService {
         UserMessage userMessage = new UserMessage(this.getApplicationContext());
         List<Contact> contacts = UserImplementation.getUserObject().getContacts();
         String favoriteNumber = "";
+        String exceptionMsg = "";
 
 
+        try {
+            // part the SMS in multiple SMS-Messages
+            String text = userMessage.getEmergencyMessage();
+            List<String> textMessages = splitString(text);
 
+            // send SMS-Messages
+            for (int i = 0; i < contacts.size(); i++) {
 
-        // build notification (icon,title,text)
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(getString(R.string.emergency_call))
-                        .setContentText(userMessage.getSuccessful().toString());
-
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        //show notification
-        mNotificationManager.notify(123, mBuilder.build()); // Show an build notification with id=123
-
-        // part the SMS in multiple SMS-Messages
-        String text = userMessage.getEmergencyMessage();
-        List<String> textMessages =splitString(text);
-
-         // send SMS-Messages
-        for (int i = 0; i < contacts.size(); i++) {
-
-            for(int j = 0; j < textMessages.size(); j++) {
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(contacts.get(i).getPhoneNumber(), null, textMessages.get(j), null, null);
+                for (int j = 0; j < textMessages.size(); j++) {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(contacts.get(i).getPhoneNumber(), null, textMessages.get(j), null, null);
+                }
+                if (contacts.get(i).isFavourite()) {
+                    favoriteNumber = contacts.get(i).getPhoneNumber();
+                }
             }
-            if(contacts.get(i).isFavourite()){
-                favoriteNumber = contacts.get(i).getPhoneNumber();
-            }
+        }
+        catch (Exception e){
+            exceptionMsg +="SMS-Sending Fail,";
         }
 
 
-        // // Make Phone-Call Intent
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+favoriteNumber));
-        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // // Make Phone-Call Intent
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + favoriteNumber));
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
        try{
            startActivity(callIntent);
        }
        catch(Exception e){
-           System.out.print(e.getMessage());
+           //System.out.print(e.getMessage());
+           exceptionMsg +="Phone-Call Failed";
        }
+
+        if(exceptionMsg == "") exceptionMsg = "Emergency-Functions successful";
+
+        // build notification (icon,title,text)
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(getString(R.string.emergency_call))
+                        .setContentText(exceptionMsg);
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //show notification
+        mNotificationManager.notify(123, mBuilder.build()); // Show an build notification with id=123
 
     }
 

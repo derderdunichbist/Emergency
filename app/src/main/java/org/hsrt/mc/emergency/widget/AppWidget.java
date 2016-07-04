@@ -28,7 +28,7 @@ public class AppWidget extends AppWidgetProvider {
 
             int appWidgetId = appWidgetIds[i];
 
-            // Create an Intent to launch ExampleActivity
+            // Create an Intent to launch Service
             Intent intent = new Intent(context, SendingService.class);
             PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0); // Pending Intent for the sendingService
 
